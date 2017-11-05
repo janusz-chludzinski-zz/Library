@@ -1,0 +1,126 @@
+$transition-common: all 0.3s ease-in-out;
+$button-green: rgba(190, 207, 166, 0.8);
+$button-green-hover: rgba(190, 207, 166, 1);
+
+$input-border: 1px solid rgba(203, 178, 174, 0.706);
+$input-border-focus: 1px solid rgba(203, 178, 174, 1);
+
+$font-header: 'Slabo 27px', serif;
+$font-regular: 'Roboto', sans-serif;
+$font-color-header: rgba(0, 0, 0, 0.5);
+$font-color-regular: rgb(43, 43, 43);
+
+$color-light-blue: rgba(133, 180, 208, 0.5);
+$color-light-grey: rgb(181, 168, 185);
+
+/**********************************************************************************/
+
+body {
+  font-size: 16px;
+  background-color: rgb(237, 241, 245);
+  font-family: $font-regular;
+  color: $color-light-grey;
+
+  h1 {
+    color: $font-color-header;
+    font-family: $font-header;
+    font-size: 2rem;
+    padding-bottom: 15px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid $color-light-blue;
+  }
+
+  a {
+    text-decoration: none;
+    color: rgb(133, 180, 208);
+    transition: $transition-common;
+    padding-bottom: 5px;
+    border-bottom: 1px solid transparent;
+  }
+
+  a:hover {
+    border-bottom: 1px solid $color-light-blue;
+  }
+
+  button {
+    padding: 10px 35px;
+    font-size: 1rem;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    transition: $transition-common;
+    background: rgba(255, 250, 250, 0.5);
+  }
+
+  form.user-form {
+    margin: 20vh auto;
+    width: 600px;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 5px;
+
+    fieldset {
+      margin: 0 0 30px 0;
+
+      label {
+        display: block;
+        float: left;
+        width: 20%;
+        line-height: 2.5rem;
+        font-size: 1rem;
+        color: $font-color-regular;
+      }
+
+      input {
+        font-size: 1rem;
+        padding: 0 10px;
+        width: 80%;
+        height: 2.5rem;
+        border: $input-border;
+        transition: $transition-common;
+      }
+
+      input:focus {
+        outline: none;
+        border: $input-border-focus;
+        border-left: 3px solid rgba(203, 178, 174, 1);
+      }
+
+      button {
+        margin-left: 20px;
+        background-color: $button-green;
+      }
+
+      button:hover {
+        background-color: $button-green-hover;
+      }
+    }
+
+    fieldset:last-child {
+      text-align: right;
+      margin-top: 40px;
+    }
+    
+    p {
+      margin-bottom: 40px;
+
+      i {
+        display: inline-block;
+        padding-right: 10px;
+      }
+    }
+  }
+}
+
+.login-bg {
+  background-image: url("../img/login-bg.jpg");
+  background-size: cover;
+}
+
+.error-message {
+  color: rgba(255, 0, 0, 0.8);
+}
+
+.success-message {
+  //color: rgba();
+}

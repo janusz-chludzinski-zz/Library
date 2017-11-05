@@ -2,32 +2,40 @@ package com.ohgianni.tin.Entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Data
 public class Person {
 
-    private String name;
-    private String surname;
-    private int age;
+    @Id
+    @GeneratedValue
+    private Long personId;
 
-    public Person(String name, String surname, int age) {
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "surname")
+    private String surname;
+
+    @Column(name = "dateOfBirth")
+    private LocalDate dateOfBirth;
+
+    @OneToMany(mappedBy = "person")
+    private Collection<Book> books;
+
+    public Person(String name, String surname, LocalDate dateOfBirth) {
         this.name = name;
         this.surname = surname;
-        this.age = age;
+        this.dateOfBirth = dateOfBirth;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public int getAge() {
-        return age;
+    public void addBook(Book book) {
+        if(books == null) books = new ArrayList<>();
+        books.add(book);
     }
 }
 
