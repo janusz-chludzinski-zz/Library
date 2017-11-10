@@ -1,41 +1,42 @@
 package com.ohgianni.tin.Entity;
 
+import com.ohgianni.tin.Enum.Gender;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Data
-public class Person {
+public abstract class Person {
 
     @Id
     @GeneratedValue
-    private Long personId;
+    protected Long id;
 
     @Column(name = "name")
-    private String name;
+    @NotNull
+    protected String name;
 
     @Column(name = "surname")
-    private String surname;
+    @NotNull
+    protected String surname;
 
     @Column(name = "dateOfBirth")
-    private LocalDate dateOfBirth;
+    @NotNull
+    protected String dateOfBirth;
 
-    @OneToMany(mappedBy = "person")
-    private Collection<Book> books;
+    @Column
+    @NotNull
+    protected Gender gender;
 
-    public Person(String name, String surname, LocalDate dateOfBirth) {
-        this.name = name;
-        this.surname = surname;
-        this.dateOfBirth = dateOfBirth;
-    }
+    public Person() {}
 
-    public void addBook(Book book) {
-        if(books == null) books = new ArrayList<>();
-        books.add(book);
-    }
 }
 

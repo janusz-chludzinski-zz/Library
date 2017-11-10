@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head"></head>
+<head th:replace="basic-template :: head"></head>
     <body class="login-bg">
         <form action="" method="POST" class="user-form">
             <h1>Logowanie</h1>
+
             <fieldset>
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email">
@@ -20,10 +21,12 @@
                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                 Zostałeś pomyślnie wylogowany.
             </p>
-            <fieldset>
+            <fieldset id="submit-form">
                 <a th:href="@{/login/reset-password}">Przypomnij hasło</a>
-                <button th:type="submit" th:formaction="@{/login/signIn}">Zaloguj</button>
+                <button th:type="submit" th:formaction="@{/user/signIn}">Zaloguj</button>
             </fieldset>
+
+            <div>Nie masz jeszcze konta? <a th:href="@{/user/register}">Zarejestruj się</a></div>
         </form>
     </body>
 </html>

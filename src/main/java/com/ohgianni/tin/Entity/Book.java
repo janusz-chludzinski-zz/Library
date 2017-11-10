@@ -1,5 +1,6 @@
 package com.ohgianni.tin.Entity;
 
+import com.ohgianni.tin.Enum.CoverType;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,12 +17,18 @@ public class Book {
     private String title;
 
     @ManyToOne
-    @JoinColumn(name = "personId")
-    Person person;
+    @JoinColumn(name = "authorId")
+    private Author author;
 
-    public Book(String title, Person person) {
+    @Column(name = "pages")
+    private int pages;
+
+    @Column(name = "coverType")
+    CoverType coverType;
+
+    public Book(String title, Author author) {
         this.title = title;
-        this.person = person;
+        this.author = author;
     }
 
 }

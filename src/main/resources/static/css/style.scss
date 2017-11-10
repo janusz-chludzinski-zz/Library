@@ -12,6 +12,8 @@ $font-color-regular: rgb(43, 43, 43);
 
 $color-light-blue: rgba(133, 180, 208, 0.5);
 $color-light-grey: rgb(181, 168, 185);
+$color-light-red: rgba(255, 49, 0, 0.2);
+$color-solid-red: rgba(255, 49, 0, 1);
 
 /**********************************************************************************/
 
@@ -53,11 +55,12 @@ body {
   }
 
   form.user-form {
-    margin: 20vh auto;
+    margin: 10vh auto;
     width: 600px;
     padding: 40px;
     background-color: #fff;
     border-radius: 5px;
+    box-shadow: 10px 10px 26px -4px rgba(41,39,41,1);
 
     fieldset {
       margin: 0 0 30px 0;
@@ -65,7 +68,7 @@ body {
       label {
         display: block;
         float: left;
-        width: 20%;
+        width: 30%;
         line-height: 2.5rem;
         font-size: 1rem;
         color: $font-color-regular;
@@ -74,16 +77,27 @@ body {
       input {
         font-size: 1rem;
         padding: 0 10px;
-        width: 80%;
+        width: 70%;
         height: 2.5rem;
         border: $input-border;
         transition: $transition-common;
+      }
+
+      input[type = "radio"] {
+        width: 20px;
       }
 
       input:focus {
         outline: none;
         border: $input-border-focus;
         border-left: 3px solid rgba(203, 178, 174, 1);
+      }
+
+      i {
+        display: block;
+        width: 70%;
+        float: right;
+        margin-top: 10px;
       }
 
       button {
@@ -96,7 +110,7 @@ body {
       }
     }
 
-    fieldset:last-child {
+    fieldset#submit-form {
       text-align: right;
       margin-top: 40px;
     }
@@ -109,6 +123,26 @@ body {
         padding-right: 10px;
       }
     }
+
+    div {
+      background-color: $color-light-blue;
+      width: 600px;
+      position: relative;
+      left: -40px;
+      top: 40px;
+      text-align: right;
+      padding: 20px 40px;
+
+      a {
+        color: #fff;
+        display: inline-block;
+        margin-left: 10px;
+      }
+
+      a:hover {
+        border-bottom: 1px solid #fff;
+      }
+    }
   }
 }
 
@@ -117,10 +151,19 @@ body {
   background-size: cover;
 }
 
+.radio {
+  width: 70%;
+  float: right;
+}
+
 .error-message {
-  color: rgba(255, 0, 0, 0.8);
+  color: $color-solid-red;
+  background-color: $color-light-red;
+  border: 1px solid $color-solid-red;
+  padding: 5px;
+  font-family: $font-regular;
 }
 
 .success-message {
-  //color: rgba();
+  color: rgba(190, 207, 166, 1);
 }
