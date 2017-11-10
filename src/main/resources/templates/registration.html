@@ -21,7 +21,7 @@
         </fieldset>
         <fieldset>
             <label th:for="birthday">Data urodzenia</label>
-            <input th:field="*{dateOfBirth}">
+            <input th:field="*{dateOfBirth}" th:type="date">
             <i th:if="${#fields.hasErrors('dateOfBirth')}" th:text="${#fields.errors('dateOfBirth')}" class="error-message"></i>
         </fieldset>
         <fieldset>
@@ -51,7 +51,8 @@
             <input th:field="*{passwordRepeat}" th:type="password">
             <i th:if="${#fields.hasErrors('passwordRepeat')}" th:text="${#fields.errors('password')}" class="error-message"></i>
         </fieldset>
-        <fieldset>
+        <fieldset id="submit-form">
+            <a th:href="@{/login}">Przejdź do logowania</a>
             <button th:type="submit" th:formaction="@{/user/register}">Zarejestruj</button>
         </fieldset>
     </form>

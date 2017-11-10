@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static java.time.LocalDateTime.*;
@@ -24,7 +25,7 @@ public class Client extends User {
     public Client (ClientDTO clientDTO, PasswordEncoder passwordEncoder) {
         name = clientDTO.getName();
         surname= clientDTO.getSurname();
-        dateOfBirth = clientDTO.getDateOfBirth();
+        dateOfBirth = LocalDate.parse(clientDTO.getDateOfBirth());
         gender = clientDTO.getGender();
         email = clientDTO.getEmail();
         password = passwordEncoder.encode(clientDTO.getPassword());

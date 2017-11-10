@@ -5,6 +5,8 @@
         <form action="" method="POST" class="user-form">
             <h1>Logowanie</h1>
 
+            <i th:if="${message != null}" th:text="${message}" class="success-message"></i>
+
             <fieldset>
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email">
@@ -22,7 +24,7 @@
                 Zostałeś pomyślnie wylogowany.
             </p>
             <fieldset id="submit-form">
-                <a th:href="@{/login/reset-password}">Przypomnij hasło</a>
+                <a th:href="@{/user/reset-password}">Przypomnij hasło</a>
                 <button th:type="submit" th:formaction="@{/user/signIn}">Zaloguj</button>
             </fieldset>
 

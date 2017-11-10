@@ -1,6 +1,7 @@
 package com.ohgianni.tin.DTO;
 
 import com.ohgianni.tin.Enum.Gender;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.FieldError;
 
@@ -11,99 +12,35 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Set;
 
+@Data
 public class ClientDTO {
 
     @NotNull
-    @NotEmpty
+    @NotEmpty (message = "Pole nie może być puste")
     private String name;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty (message = "Pole nie może być puste")
     private String surname;
 
     @NotNull
-    @NotEmpty
-    @DateTimeFormat
+    @NotEmpty (message = "Pole nie może być puste")
     private String dateOfBirth;
 
-    @NotNull
-//    @NotEmpty
+    @NotNull (message = "Proszę wybrać płeć")
     private Gender gender;
 
     @NotNull
-    @NotEmpty
-    @Email
+    @NotEmpty (message = "Pole nie może być puste")
+    @Email (message = "Zły format adresu e-mail")
     private String email;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty (message = "Pole nie może być puste")
     private String password;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty (message = "Pole nie może być puste")
     private String passwordRepeat;
 
-    private Set<FieldError> errors;
-
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public Set<FieldError> getErrors() { return errors; };
-
-    public String getPasswordRepeat() {
-        return passwordRepeat;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setPasswordRepeat(String passwordRepeat) {
-        this.passwordRepeat = passwordRepeat;
-    }
-
-    public void addError(FieldError error) {
-        errors.add(error);
-    }
 }

@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,7 +39,6 @@ public class ClientController {
     public ModelAndView register(ModelAndView modelAndView) {
 
         return new ModelAndView("registration", "client", new ClientDTO());
-
     }
 
     @RequestMapping(value = "/register", method = POST)
@@ -53,7 +51,7 @@ public class ClientController {
         }
 
         Client client = clientService.saveClient(clientDTO);
-        return new ModelAndView("login", "client", client);
+        return new ModelAndView("login", "message", "Dziękujemy za rejestrację. Możesz się teraz zalogować");
     }
 
     @RequestMapping("/reset-password")

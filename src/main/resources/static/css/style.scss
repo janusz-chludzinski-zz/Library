@@ -1,6 +1,4 @@
 $transition-common: all 0.3s ease-in-out;
-$button-green: rgba(190, 207, 166, 0.8);
-$button-green-hover: rgba(190, 207, 166, 1);
 
 $input-border: 1px solid rgba(203, 178, 174, 0.706);
 $input-border-focus: 1px solid rgba(203, 178, 174, 1);
@@ -14,6 +12,10 @@ $color-light-blue: rgba(133, 180, 208, 0.5);
 $color-light-grey: rgb(181, 168, 185);
 $color-light-red: rgba(255, 49, 0, 0.2);
 $color-solid-red: rgba(255, 49, 0, 1);
+$color-solid-green: rgba(190, 207, 166, 1);
+$color-light-green: rgba(190, 207, 166, 0.8);
+$color-very-light-green: rgba(190, 207, 166, 0.2);
+
 
 /**********************************************************************************/
 
@@ -62,6 +64,12 @@ body {
     border-radius: 5px;
     box-shadow: 10px 10px 26px -4px rgba(41,39,41,1);
 
+    i {
+      display: block;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
     fieldset {
       margin: 0 0 30px 0;
 
@@ -81,6 +89,7 @@ body {
         height: 2.5rem;
         border: $input-border;
         transition: $transition-common;
+        color: $color-light-grey
       }
 
       input[type = "radio"] {
@@ -102,11 +111,11 @@ body {
 
       button {
         margin-left: 20px;
-        background-color: $button-green;
+        background-color: $color-light-green;
       }
 
       button:hover {
-        background-color: $button-green-hover;
+        background-color: $color-solid-green;
       }
     }
 
@@ -165,5 +174,9 @@ body {
 }
 
 .success-message {
-  color: rgba(190, 207, 166, 1);
+  color: $color-solid-green;
+  background-color: $color-very-light-green;
+  border: 1px solid $color-solid-green;
+  padding: 5px;
+  font-family: $font-regular;
 }

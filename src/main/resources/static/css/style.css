@@ -34,6 +34,10 @@ body {
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 10px 10px 26px -4px #292729; }
+    body form.user-form i {
+      display: block;
+      width: 100%;
+      margin-bottom: 20px; }
     body form.user-form fieldset {
       margin: 0 0 30px 0; }
       body form.user-form fieldset label {
@@ -49,7 +53,8 @@ body {
         width: 70%;
         height: 2.5rem;
         border: 1px solid rgba(203, 178, 174, 0.706);
-        transition: all 0.3s ease-in-out; }
+        transition: all 0.3s ease-in-out;
+        color: #b5a8b9; }
       body form.user-form fieldset input[type="radio"] {
         width: 20px; }
       body form.user-form fieldset input:focus {
@@ -105,6 +110,10 @@ body {
   font-family: "Roboto", sans-serif; }
 
 .success-message {
-  color: #becfa6; }
+  color: #becfa6;
+  background-color: rgba(190, 207, 166, 0.2);
+  border: 1px solid #becfa6;
+  padding: 5px;
+  font-family: "Roboto", sans-serif; }
 
 /*# sourceMappingURL=style.css.map */

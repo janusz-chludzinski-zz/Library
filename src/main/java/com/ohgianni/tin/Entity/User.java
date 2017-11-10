@@ -13,12 +13,9 @@ import java.util.Collection;
 public abstract class User extends Person {
 
     @Column
-    @NotNull
-    @Email
     protected String email;
 
     @Column
-    @NotNull
     protected String password;
 
 //    private Collection<Role> roles;

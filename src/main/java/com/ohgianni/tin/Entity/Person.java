@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -21,19 +22,15 @@ public abstract class Person {
     protected Long id;
 
     @Column(name = "name")
-    @NotNull
     protected String name;
 
     @Column(name = "surname")
-    @NotNull
     protected String surname;
 
     @Column(name = "dateOfBirth")
-    @NotNull
-    protected String dateOfBirth;
+    protected LocalDate dateOfBirth;
 
     @Column
-    @NotNull
     protected Gender gender;
 
     public Person() {}
