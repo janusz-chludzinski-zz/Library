@@ -1,7 +1,8 @@
 package com.ohgianni.tin.Controller;
 
 import com.ohgianni.tin.DTO.ClientDTO;
-import com.ohgianni.tin.Entity.Client;
+import com.ohgianni.tin.Entity.Role;
+import com.ohgianni.tin.Repository.RoleRepository;
 import com.ohgianni.tin.Service.ClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -23,14 +25,17 @@ public class ClientController {
 
     private ClientService clientService;
 
+    private RoleRepository roleRepository;
+
     private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
 
     @Autowired
-    public ClientController(ClientService clientService) {
+    public ClientController(ClientService clientService, RoleRepository roleRepository) {
         this.clientService = clientService;
+        this.roleRepository = roleRepository;
     }
 
-    @RequestMapping(value = "/login", method = GET)
+    @RequestMapping(value = "/login", method = {GET, POST})
     public String login() {
         return "login";
     }
@@ -42,16 +47,23 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/register", method = POST)
-    public ModelAndView register(@ModelAttribute("client") @Valid ClientDTO clientDTO, BindingResult result) {
+    public ModelAndView register(@ModelAttribute("client") @Valid ClientDTO clientDTO, BindingResult result, ModelAndView mav, RedirectAttributes redirectAttributes) {
+
+        roleRepository.save(new Role("CLIENT"));
+        roleRepository.save(new Role("ADMIN"));
 
         result = clientService.validateData(clientDTO, result);
 
         if(result.hasErrors()){
-            return new ModelAndView("registration", "errors", result);
+            mav.addObject("errors", result);
+            mav.setViewName("registration");
+            return mav;
         }
 
-        Client client = clientService.saveClient(clientDTO);
-        return new ModelAndView("login", "message", "Dziękujemy za rejestrację. Możesz się teraz zalogować");
+        clientService.saveClient(clientDTO);
+        redirectAttributes.addFlashAttribute("message", "Dziękujemy za rejestrację. Możesz się teraz zalogować");
+        mav.setViewName("redirect:/user/login");
+        return mav;
     }
 
     @RequestMapping("/reset-password")

@@ -96,6 +96,10 @@ body {
         width: 20px;
       }
 
+      input[type = "file"] {
+        display: none;
+      }
+
       input:focus {
         outline: none;
         border: $input-border-focus;

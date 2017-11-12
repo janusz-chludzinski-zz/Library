@@ -3,14 +3,20 @@ package com.ohgianni.tin.Service;
 import com.ohgianni.tin.DTO.ClientDTO;
 import com.ohgianni.tin.Entity.Client;
 import com.ohgianni.tin.Repository.ClientRepository;
+import com.ohgianni.tin.Repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
+
+import java.io.IOException;
+import java.util.Collections;
+
+import static java.util.Arrays.asList;
 
 
 @Service
@@ -20,15 +26,20 @@ public class ClientService {
 
     private PasswordEncoder passwordEncoder;
 
+    private RoleRepository roleRepository;
+
     @Autowired
-    public ClientService(ClientRepository clientRepository, PasswordEncoder passwordEncoder) {
+    public ClientService(ClientRepository clientRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
         this.clientRepository = clientRepository;
         this.passwordEncoder = passwordEncoder;
+        this.roleRepository = roleRepository;
     }
 
     @Transactional
     public Client saveClient(ClientDTO clientDTO) {
         Client client = new Client(clientDTO, passwordEncoder);
+        assignRole(client);
+        convertAvatar(clientDTO.getAvatar(), client);
         return clientRepository.save(client);
     }
 
@@ -49,6 +60,18 @@ public class ClientService {
             result.addError(new FieldError("password", "password", "Podane hasła nie są identyczne"));
         }
 
+    }
+
+    private void assignRole(Client client) {
+        client.setRoles(roleRepository.findAllById(asList(1L)));
+    }
+
+    private void convertAvatar(MultipartFile file, Client client) {
+        try {
+            client.setAvatar(file.getBytes());
+        } catch (IOException e) {
+            client.setAvatar(new byte[0]);
+        }
     }
 
 }

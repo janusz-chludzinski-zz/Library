@@ -6,7 +6,7 @@
     <title>Title</title>
 </head>
 <body class="login-bg">
-    <form action="/user/register" th:object="${client}" method="post" class="user-form">
+    <form action="/user/register" th:object="${client}" method="post" class="user-form" enctype="multipart/form-data">
         <h1>Rejestracja</h1>
 
         <fieldset>
@@ -50,6 +50,10 @@
             <label th:for="password-repeat">Powtórz hasło</label>
             <input th:field="*{passwordRepeat}" th:type="password">
             <i th:if="${#fields.hasErrors('passwordRepeat')}" th:text="${#fields.errors('password')}" class="error-message"></i>
+        </fieldset>
+        <fieldset>
+            <label th:for="avatar">Awatar</label>
+            <input th:field="*{avatar}" th:type="file" th:id="avatar" th:name="avatar">
         </fieldset>
         <fieldset id="submit-form">
             <a th:href="@{/login}">Przejdź do logowania</a>

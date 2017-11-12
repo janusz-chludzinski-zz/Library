@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClientRepository extends CrudRepository<Client, Long>{
      boolean existsByEmail(String email);
+
+    Client findByEmail(String username);
 }

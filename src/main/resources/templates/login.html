@@ -11,21 +11,25 @@
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email">
             </fieldset>
+
             <fieldset>
                 <label for="password">Hasło</label>
                 <input type="password" name="password" id="password">
             </fieldset>
+
             <p th:if="${param.error}" class="error-message">
                 <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                Podany e-mail lub hasło są nieprawidłowe. Spróbuj ponownie
+                Podany e-mail lub hasło są nieprawidłowe.
             </p>
+
             <p th:if="${param.logout}" class="success-message">
                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                 Zostałeś pomyślnie wylogowany.
             </p>
+
             <fieldset id="submit-form">
                 <a th:href="@{/user/reset-password}">Przypomnij hasło</a>
-                <button th:type="submit" th:formaction="@{/user/signIn}">Zaloguj</button>
+                <button th:type="submit" th:formaction="@{/user/login}">Zaloguj</button>
             </fieldset>
 
             <div>Nie masz jeszcze konta? <a th:href="@{/user/register}">Zarejestruj się</a></div>
