@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head">
     <meta charset="UTF-8">
     <title>Fragment header</title>
@@ -10,6 +10,33 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Slabo+27px&amp;subset=latin-ext" >
 </head>
 <body>
+
+    <header th:fragment="header">
+        <a th:href="@{/home}" id="logo">
+            <img th:src="@{/img/logo.jpg}" alt="Logotyp">
+        </a>
+
+        <div id="header-profile">
+            <ul>
+                <li>
+                    <a href="">
+                        Rejestracja
+                    </a>
+                </li>
+                <li sec:authentication="!isAnonymous()">
+                    <a href="">
+                        Logowanie
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/logout}">
+                        Wyloguj
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </header>
 
 </body>
 </html>

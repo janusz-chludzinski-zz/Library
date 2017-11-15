@@ -8,8 +8,8 @@
             <i th:if="${message != null}" th:text="${message}" class="success-message"></i>
 
             <fieldset>
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email">
+                <label for="email" >Email</label>
+                <input type="email" name="email" id="email" autofocus>
             </fieldset>
 
             <fieldset>
@@ -29,7 +29,7 @@
 
             <fieldset id="submit-form">
                 <a th:href="@{/user/reset-password}">Przypomnij hasło</a>
-                <button th:type="submit" th:formaction="@{/user/login}">Zaloguj</button>
+                <button th:type="submit" th:formaction="@{/user/login }" th:method="POST">Zaloguj</button>
             </fieldset>
 
             <div>Nie masz jeszcze konta? <a th:href="@{/user/register}">Zarejestruj się</a></div>

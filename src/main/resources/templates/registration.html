@@ -11,7 +11,7 @@
 
         <fieldset>
             <label  th:for="name">Imię</label>
-            <input  th:field="*{name}">
+            <input  th:field="*{name}" autofocus>
             <i th:if="${#fields.hasErrors('name')}" th:text="${#fields.errors('name')}" class="error-message"></i>
         </fieldset>
         <fieldset>

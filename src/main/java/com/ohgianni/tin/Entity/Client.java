@@ -3,7 +3,6 @@ package com.ohgianni.tin.Entity;
 import com.ohgianni.tin.DTO.ClientDTO;
 import lombok.Data;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -25,7 +24,7 @@ public class Client extends User {
 
 
     @Column
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "Client_Role",
             joinColumns = @JoinColumn(name = "ClientId", referencedColumnName = "id"),

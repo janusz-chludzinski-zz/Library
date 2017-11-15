@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="basic-template :: head">
+    <meta charset="UTF-8">
+    <title th:text="${title}">Test</title>
+</head>
+<body>
+    <header th:replace="basic-template :: header"></header>
+    <aside>
+        <figure>
+            <img th:src="@{${avatar}}">
+            <figcaption th:text="${client.name}"></figcaption>
+        </figure>
+
+        <nav>
+            <ul>
+                <li>
+                    <a href="">
+                        Moje dane
+                    </a></li>
+                <li>
+                    <a href="">
+                        Wypożyczenia
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        Zarekomenduj
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+
+
+</body>
+</html>

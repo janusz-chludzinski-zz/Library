@@ -2,6 +2,7 @@ package com.ohgianni.tin.Service;
 
 import com.ohgianni.tin.DTO.ClientDTO;
 import com.ohgianni.tin.Entity.Client;
+import com.ohgianni.tin.Enum.Gender;
 import com.ohgianni.tin.Repository.ClientRepository;
 import com.ohgianni.tin.Repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +15,20 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.transaction.Transactional;
 
 import java.io.IOException;
-import java.util.Collections;
 
+import static com.ohgianni.tin.Enum.Gender.*;
 import static java.util.Arrays.asList;
+import static org.apache.tomcat.util.codec.binary.Base64.*;
 
 
 @Service
 public class ClientService {
+
+    private static final String FEMALE_AVATAR_URL = "/img/female.png";
+
+    private static final String MALE_AVATAR_URL = "/img/male.png";
+
+    private static final String BASE64_PREFIX = "data:image/jpeg;base64,";
 
     private ClientRepository clientRepository;
 
@@ -74,4 +82,26 @@ public class ClientService {
         }
     }
 
+    public Client findClientByEmail(String email) {
+        return clientRepository.findByEmail(email);
+    }
+
+    public String getAvatarFor(String email) {
+        String result = null;
+        Client client = clientRepository.findByEmail(email);
+
+        byte[] avatar = client.getAvatar();
+
+        if(avatar.length == 0) {
+
+            result = client.getGender() == MALE ? MALE_AVATAR_URL : FEMALE_AVATAR_URL;
+
+        } else {
+
+            result = BASE64_PREFIX + encodeBase64String(clientRepository.findByEmail(email).getAvatar());
+
+        }
+
+        return result;
+    }
 }
