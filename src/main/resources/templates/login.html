@@ -17,22 +17,26 @@
                 <input type="password" name="password" id="password">
             </fieldset>
 
-            <p th:if="${param.error}" class="error-message">
+            <div th:if="${param.error}" class="error-message">
                 <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                Podany e-mail lub hasło są nieprawidłowe.
-            </p>
+                <p>
+                    Podany e-mail lub hasło są nieprawidłowe.
+                </p>
+            </div>
 
-            <p th:if="${param.logout}" class="success-message">
+            <div th:if="${param.logout}" class="success-message">
                 <i class="fa fa-info-circle" aria-hidden="true"></i>
-                Zostałeś pomyślnie wylogowany.
-            </p>
+                <p>
+                    Zostałeś pomyślnie wylogowany.
+                </p>
+            </div>
 
             <fieldset id="submit-form">
                 <a th:href="@{/user/reset-password}">Przypomnij hasło</a>
                 <button th:type="submit" th:formaction="@{/user/login }" th:method="POST">Zaloguj</button>
             </fieldset>
 
-            <div>Nie masz jeszcze konta? <a th:href="@{/user/register}">Zarejestruj się</a></div>
+            <div class="modal-footer">Nie masz jeszcze konta? <a th:href="@{/user/register}">Zarejestruj się</a></div>
         </form>
     </body>
 </html>

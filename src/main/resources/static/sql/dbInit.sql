@@ -1,0 +1,40 @@
+INSERT INTO publisher VALUES (1, 'Helion');
+
+INSERT INTO author VALUES (1, '1986-02-19', 0, 'Cay', 'Horstmann');
+INSERT INTO author VALUES (2, '1986-02-19', 0, 'Herbert', 'Schildt');
+INSERT INTO author VALUES (3, '1986-02-19', 0, 'Craig', 'Walls');
+INSERT INTO author VALUES (4, '1986-02-19', 0, 'Mark', 'Lutz');
+INSERT INTO author VALUES (5, '1986-02-19', 0, 'Alberto', 'Boschetti');
+INSERT INTO author VALUES (6, '1986-02-19', 0, 'Luca', 'Massaron');
+INSERT INTO author VALUES (7, '1986-02-19', 0, 'Justin', 'Seitz');
+INSERT INTO author VALUES (8, '1986-02-19', 0, 'Michał', 'Wiszniewski');
+INSERT INTO author VALUES (9, '1986-02-19', 0, 'Jerzy', 'Grębosz');
+INSERT INTO author VALUES (10, '1986-02-19', 0, 'Alex', 'Allain');
+INSERT INTO author VALUES (11, '1986-02-19', 0, 'Bjarne', 'Stroustrup');
+
+INSERT INTO book VALUES (1, pg_read_binary_file('img/java-techniki-zaawansowane.jpg') , 0, 10, 944, 'Java - techniki zaawansowane', 1);
+INSERT INTO book VALUES (2, pg_read_binary_file('img/java-podstawy.jpg'), 0, 10, 872, 'Java - podstawy', 1);
+INSERT INTO book VALUES (3, pg_read_binary_file('img/java-8.jpg'), 0, 1, 424, 'Java 8 - przewodnik doświadczonego programisty', 1);
+INSERT INTO book VALUES (4, pg_read_binary_file('img/java-kompendium-programisty.jpg'), 0, 9, 1136, 'Java 8 - kompendium programisty', 1);
+INSERT INTO book VALUES (5, pg_read_binary_file('img/spring-w-akcji.jpg'), 1, 4, 624, 'Spring w akcji', 1);
+INSERT INTO book VALUES (6, pg_read_binary_file('img/python-wprowadzenie.jpg'), 0, 1, 1184, 'Python - wprowadzenie', 1);
+INSERT INTO book VALUES (7, pg_read_binary_file('img/python-podstawy-nauki-o-danych.jpg'), 1, 2, 320, 'Python - podstawy nauki o danych', 1);
+INSERT INTO book VALUES (8, pg_read_binary_file('img/python-black-hat.jpg'), 1, 2, 184, 'Python - Black Hat', 1);
+INSERT INTO book VALUES (9, pg_read_binary_file('img/python-na-start.jpg'), 1, 1, 104, 'Python - programowanie dla nastolatków', 1);
+INSERT INTO book VALUES (10, pg_read_binary_file('img/cpp-opus-magnum.jpg'), 0, 5, 1696, 'C++ - opus magnum', 1);
+INSERT INTO book VALUES (11, pg_read_binary_file('img/cpp-przewodnik-poczatkujacego-programisty.jpg'), 0, 3, 400, 'C++ - przewodnik dla początkujących', 1);
+INSERT INTO book VALUES (12, pg_read_binary_file('img/cpp-kompendium-wiedzy.jpg'), 1, 2, 1296, 'C++ - kompendium wiedzy', 1);
+
+INSERT INTO book_author VALUES (1, 1);
+INSERT INTO book_author VALUES (2, 1);
+INSERT INTO book_author VALUES (3, 1);
+INSERT INTO book_author VALUES (4, 2);
+INSERT INTO book_author VALUES (5, 3);
+INSERT INTO book_author VALUES (6, 4);
+INSERT INTO book_author VALUES (7, 5);
+INSERT INTO book_author VALUES (7, 6);
+INSERT INTO book_author VALUES (8, 7);
+INSERT INTO book_author VALUES (9, 8);
+INSERT INTO book_author VALUES (10, 9);
+INSERT INTO book_author VALUES (11, 10);
+INSERT INTO book_author VALUES (12, 11);

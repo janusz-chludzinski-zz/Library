@@ -2,7 +2,6 @@ package com.ohgianni.tin.Service;
 
 import com.ohgianni.tin.DTO.ClientDTO;
 import com.ohgianni.tin.Entity.Client;
-import com.ohgianni.tin.Enum.Gender;
 import com.ohgianni.tin.Repository.ClientRepository;
 import com.ohgianni.tin.Repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +12,11 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
-
 import java.io.IOException;
 
-import static com.ohgianni.tin.Enum.Gender.*;
+import static com.ohgianni.tin.Enum.Gender.MALE;
 import static java.util.Arrays.asList;
-import static org.apache.tomcat.util.codec.binary.Base64.*;
+import static org.apache.tomcat.util.codec.binary.Base64.encodeBase64String;
 
 
 @Service
@@ -64,7 +62,7 @@ public class ClientService {
     }
 
     private void checkIfPasswordsMatch(ClientDTO clientDTO, BindingResult result) {
-        if(!clientDTO.getPassword().equals(clientDTO.getPasswordRepeat())){
+        if (!clientDTO.getPassword().equals(clientDTO.getPasswordRepeat())) {
             result.addError(new FieldError("password", "password", "Podane hasła nie są identyczne"));
         }
 
@@ -92,7 +90,7 @@ public class ClientService {
 
         byte[] avatar = client.getAvatar();
 
-        if(avatar.length == 0) {
+        if (avatar.length == 0) {
 
             result = client.getGender() == MALE ? MALE_AVATAR_URL : FEMALE_AVATAR_URL;
 

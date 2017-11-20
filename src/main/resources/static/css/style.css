@@ -34,6 +34,62 @@ body {
       height: 70px; }
     body header #header-profile {
       float: right; }
+  body aside {
+    width: 250px;
+    background-color: rgba(133, 180, 208, 0.5);
+    float: left;
+    height: 100vh;
+    z-index: -1;
+    top: 0;
+    position: fixed;
+    padding-top: 70px; }
+  body main.books {
+    margin-left: 250px;
+    padding: 40px; }
+    body main.books ul li {
+      display: inline-block;
+      background-color: #fff;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      width: 22%; }
+      body main.books ul li a {
+        display: block;
+        height: 100%;
+        padding: 40px 40px 20px 40px;
+        transition: all 0.3s ease-in-out; }
+        body main.books ul li a img {
+          width: 100%; }
+        body main.books ul li a h2 {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-size: 1.3rem;
+          font-family: "Slabo 27px", serif;
+          line-height: 1.5rem;
+          margin-top: 20px;
+          margin-bottom: 10px;
+          color: #b2090d; }
+        body main.books ul li a div.authors {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          margin-bottom: 10px; }
+          body main.books ul li a div.authors p {
+            float: left;
+            margin-right: 10px;
+            color: #2b2b2b; }
+        body main.books ul li a p.availability {
+          color: #b5a8b9;
+          margin-bottom: 20px; }
+        body main.books ul li a p.see-more {
+          padding-top: 20px;
+          border-top: 1px solid rgba(133, 180, 208, 0.5);
+          text-align: center; }
+          body main.books ul li a p.see-more i {
+            padding-left: 10px; }
+      body main.books ul li a:hover {
+        border-bottom: transparent;
+        box-shadow: 0px 0px 70px -5px rgba(0, 0, 0, 0.58); }
   body form.user-form {
     margin: 10vh auto;
     width: 600px;
@@ -83,12 +139,21 @@ body {
     body form.user-form fieldset#submit-form {
       text-align: right;
       margin-top: 40px; }
-    body form.user-form p {
-      margin-bottom: 40px; }
-      body form.user-form p i {
-        display: inline-block;
-        padding-right: 10px; }
-    body form.user-form div {
+    body form.user-form div.error-message p {
+      display: inline-block; }
+    body form.user-form div.error-message i {
+      display: inline-block;
+      padding-right: 10px;
+      width: auto;
+      margin-bottom: 0; }
+    body form.user-form div.success-message p {
+      display: inline-block; }
+    body form.user-form div.success-message i {
+      display: inline-block;
+      padding-right: 10px;
+      width: auto;
+      margin-bottom: 0; }
+    body form.user-form div.modal-footer {
       background-color: rgba(133, 180, 208, 0.5);
       width: 600px;
       position: relative;
@@ -96,11 +161,11 @@ body {
       top: 40px;
       text-align: right;
       padding: 20px 40px; }
-      body form.user-form div a {
+      body form.user-form div.modal-footer a {
         color: #fff;
         display: inline-block;
         margin-left: 10px; }
-      body form.user-form div a:hover {
+      body form.user-form div.modal-footer a:hover {
         border-bottom: 1px solid #fff; }
 
 .login-bg {

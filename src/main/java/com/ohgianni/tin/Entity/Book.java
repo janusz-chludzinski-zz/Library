@@ -4,32 +4,48 @@ import com.ohgianni.tin.Enum.CoverType;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
 public class Book {
 
+    @Column
+    CoverType coverType;
+
+    @ManyToOne
+    @JoinColumn(name = "publisherId")
+    private Publisher publisher;
+
     @GeneratedValue
     @Id
     private Long bookId;
 
-    @Column(name = "Title")
+    @Column
     private String title;
 
-    @ManyToOne
-    @JoinColumn(name = "authorId")
-    private Author author;
+    @ManyToMany
+    @JoinTable(
+            name = "BOOK_AUTHOR",
+            joinColumns = @JoinColumn(name = "BOOK_ID", referencedColumnName = "bookId"),
+            inverseJoinColumns = @JoinColumn(name = "AUTHOR_ID", referencedColumnName = "id")
+    )
+    private List<Author> authors;
 
-    @Column(name = "pages")
+    @Column
     private int pages;
 
-    @Column(name = "coverType")
-    CoverType coverType;
+    @Column
+    private int edition;
 
-    public Book(String title, Author author) {
-        this.title = title;
-        this.author = author;
+    @Column
+    private byte[] coverImage;
+
+    @Transient
+    private String imageUrl;
+
+    public Book() {
+
     }
-
 }
 

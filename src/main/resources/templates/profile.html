@@ -8,7 +8,7 @@
     <header th:replace="basic-template :: header"></header>
     <aside>
         <figure>
-            <img th:src="@{${avatar}}">
+            <img th:src="@{'data:image/jpeg;base64,'+ ${avatar}}">
             <figcaption th:text="${client.name}"></figcaption>
         </figure>
 

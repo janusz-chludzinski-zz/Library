@@ -21,11 +21,4 @@ public abstract class User extends Person {
     @Column
     protected String password;
 
-//    public Set<Role> getRoles() {
-//        return Collections.emptySet();
-//    }
-
-//    private Collection<Role> roles;
-
-
 }

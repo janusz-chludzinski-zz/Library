@@ -9,12 +9,7 @@ import java.util.Collection;
 @Data
 public class Author extends Person {
 
-//    @Id
-//    @GeneratedValue
-//    private Long authorId;
-
-
-    @OneToMany(mappedBy = "author")
+    @ManyToMany(mappedBy = "authors")
     private Collection<Book> books;
 
 }

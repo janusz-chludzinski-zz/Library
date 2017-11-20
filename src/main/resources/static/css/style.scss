@@ -11,6 +11,7 @@ $font-color-regular: rgb(43, 43, 43);
 $color-light-blue: rgba(133, 180, 208, 0.5);
 $color-light-grey: rgb(181, 168, 185);
 $color-light-red: rgba(255, 49, 0, 0.2);
+$color-deep-red: rgba(178, 9, 13, 1);
 $color-solid-red: rgba(255, 49, 0, 1);
 $color-solid-green: rgba(190, 207, 166, 1);
 $color-light-green: rgba(190, 207, 166, 0.8);
@@ -69,6 +70,87 @@ body {
 
     #header-profile {
       float: right;
+    }
+  }
+
+  aside {
+    width: 250px;
+    background-color: $color-light-blue;
+    float: left;
+    height: 100vh;
+    z-index: -1;
+    top: 0;
+    position: fixed;
+    padding-top: 70px;
+  }
+
+  main.books {
+    margin-left: 250px;
+    padding: 40px;
+    ul {
+      li {
+        display: inline-block;
+        background-color: #fff;
+        margin-right: 40px;
+        margin-bottom: 40px;
+        width: 22%;
+
+        a {
+          display: block;
+          height: 100%;
+          padding: 40px 40px 20px 40px;
+          transition: $transition-common;
+
+          img {
+            width: 100%;
+          }
+
+          h2 {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 1.3rem;
+            font-family: $font-header;
+            line-height: 1.5rem;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: $color-deep-red;
+          }
+
+          div.authors {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            margin-bottom: 10px;
+
+            p {
+              float: left;
+              margin-right: 10px;
+              color: $font-color-regular;
+            }
+          }
+
+          p.availability {
+            color: $color-light-grey;
+            margin-bottom: 20px;
+          }
+
+          p.see-more {
+            padding-top: 20px;
+            border-top: 1px solid $color-light-blue;
+            text-align: center;
+
+            i {
+              padding-left: 10px;
+            }
+          }
+        }
+
+        a:hover {
+          border-bottom: transparent;
+          box-shadow: 0px 0px 70px -5px rgba(0,0,0,0.58);
+        }
+      }
     }
   }
 
@@ -143,17 +225,34 @@ body {
       text-align: right;
       margin-top: 40px;
     }
-    
-    p {
-      margin-bottom: 40px;
+
+    div.error-message {
+      p {
+        display: inline-block;
+      }
 
       i {
         display: inline-block;
         padding-right: 10px;
+        width: auto;
+        margin-bottom: 0;
       }
     }
 
-    div {
+    div.success-message {
+      p {
+        display: inline-block;
+      }
+
+      i {
+        display: inline-block;
+        padding-right: 10px;
+        width: auto;
+        margin-bottom: 0;
+      }
+    }
+
+    div.modal-footer {
       background-color: $color-light-blue;
       width: 600px;
       position: relative;

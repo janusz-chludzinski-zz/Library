@@ -18,25 +18,23 @@
 
         <div id="header-profile">
             <ul>
-                <li>
+                <li sec:authorize="isAnonymous()">
                     <a href="">
                         Rejestracja
                     </a>
                 </li>
-                <li sec:authentication="!isAnonymous()">
+                <li sec:authorize="isAnonymous()">
                     <a href="">
                         Logowanie
                     </a>
                 </li>
-                <li>
+                <li sec:authorize="!isAnonymous()">
                     <a th:href="@{/logout}">
                         Wyloguj
                     </a>
                 </li>
             </ul>
         </div>
-
     </header>
-
 </body>
 </html>

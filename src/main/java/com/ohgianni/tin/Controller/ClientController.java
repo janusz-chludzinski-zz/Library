@@ -8,7 +8,6 @@ import com.ohgianni.tin.Service.ClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -28,11 +27,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RequestMapping("/user")
 public class ClientController {
 
-    private ClientService clientService;
-
-    private RoleRepository roleRepository;
-
     private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
+    private ClientService clientService;
+    private RoleRepository roleRepository;
 
     @Autowired
     public ClientController(ClientService clientService, RoleRepository roleRepository) {
@@ -47,7 +44,7 @@ public class ClientController {
 
     }
 
-    @RequestMapping(value = "/profile", method =  GET)
+    @RequestMapping(value = "/profile", method = GET)
     public String login(Model model) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -75,7 +72,7 @@ public class ClientController {
 
         result = clientService.validateData(clientDTO, result);
 
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             mav.addObject("errors", result);
             mav.setViewName("registration");
             return mav;
@@ -84,6 +81,7 @@ public class ClientController {
         clientService.saveClient(clientDTO);
         redirectAttributes.addFlashAttribute("message", "Dziękujemy za rejestrację. Możesz się teraz zalogować");
         mav.setViewName("redirect:/user/login");
+
         return mav;
     }
 
