@@ -14,27 +14,57 @@
     <header th:fragment="header">
         <a th:href="@{/home}" id="logo">
             <img th:src="@{/img/logo.jpg}" alt="Logotyp">
+            <p class="logo-type">Net<span>Lib</span></p>
         </a>
 
         <div id="header-profile">
             <ul>
                 <li sec:authorize="isAnonymous()">
-                    <a href="">
+                    <a th:href="@{/user/register}">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i>
                         Rejestracja
                     </a>
                 </li>
                 <li sec:authorize="isAnonymous()">
-                    <a href="">
+                    <a th:href="@{/user/login}" class="heavy">
+                        <i class="fa fa-sign-in" aria-hidden="true"></i>
                         Logowanie
                     </a>
                 </li>
                 <li sec:authorize="!isAnonymous()">
                     <a th:href="@{/logout}">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
                         Wyloguj
                     </a>
                 </li>
             </ul>
         </div>
     </header>
+
+    <aside th:fragment="aside">
+        <figure>
+            <img th:src="@{${session.client}}">
+            <figcaption th:text="${session.client.name}"></figcaption>
+        </figure>
+
+        <nav>
+            <ul>
+                <li>
+                    <a th:href="@{/user/profile}">
+                        Moje dane
+                    </a></li>
+                <li>
+                    <a th:href="@{/user/profile/rentals}">
+                        Wypożyczenia
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        Zarekomenduj
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
 </body>
 </html>

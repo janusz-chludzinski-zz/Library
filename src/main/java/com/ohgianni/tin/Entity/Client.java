@@ -1,19 +1,23 @@
 package com.ohgianni.tin.Entity;
 
 import com.ohgianni.tin.DTO.ClientDTO;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.List;
 
-import static java.time.LocalDateTime.*;
+import static java.time.LocalDateTime.now;
 
 
 @Entity
-@Data
+@Getter @Setter
 public class Client extends User {
 
     @Column
@@ -29,11 +33,12 @@ public class Client extends User {
             name = "Client_Role",
             joinColumns = @JoinColumn(name = "ClientId", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "RoleId", referencedColumnName = "roleId"))
-    protected Collection<Role> roles;
+    protected List<Role> roles;
 
 
-//    @Column
-//    private Reservation reservation;
+    @Column
+    @OneToMany(mappedBy = "client")
+    private List<Reservation> reservations;
 
     public Client(){}
 

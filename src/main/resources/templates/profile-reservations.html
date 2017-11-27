@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="basic-template :: head">
+    <meta charset="UTF-8">
+    <title th:text="${title}">Test</title>
+</head>
+<body>
+    <header th:replace="basic-template :: header"></header>
+    <aside th:replace="basic-template :: aside">
+
+    </aside>
+
+    <main class="reservations">
+        <ul>
+            <li th:each="reservation : ${reservations}" class="reservation-element">
+                <img th:src="@{${reservation.book.imageUrl}}" />
+
+                <div class="book-info">
+                    <h2 th:text="${reservation.book.title}"></h2>
+                    <p>
+                        <span th:each="author : ${reservation.book.authors}" th:text="${author.name} + ' ' + ${author.surname}"></span>
+                    </p>
+                </div>
+
+                <div class="reservation-status" th:text="${reservation.status}"></div>
+
+                <div class="days">
+                    <p class="days-left" th:text="${reservation.daysLeft}"></p>
+                    <p class="return-time" th:text="${reservation.returnTime}"></p>
+                </div>
+            </li>
+        </ul>
+    </main>
+
+</body>
+</html>

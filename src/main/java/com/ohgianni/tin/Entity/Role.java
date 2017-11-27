@@ -1,12 +1,13 @@
 package com.ohgianni.tin.Entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@Data
+@Getter @Setter
 public class Role {
 
     @Id
@@ -19,9 +20,13 @@ public class Role {
     @ManyToMany(mappedBy = "roles")
     private Collection<Client> clients;
 
-    public Role() {};
+    public Role() {}
 
     public Role(String name) {
         this.name = name;
+    }
+
+    public Long getRoleId() {
+        return roleId;
     }
 }

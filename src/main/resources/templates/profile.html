@@ -6,30 +6,8 @@
 </head>
 <body>
     <header th:replace="basic-template :: header"></header>
-    <aside>
-        <figure>
-            <img th:src="@{'data:image/jpeg;base64,'+ ${avatar}}">
-            <figcaption th:text="${client.name}"></figcaption>
-        </figure>
+    <aside th:replace="basic-template :: aside">
 
-        <nav>
-            <ul>
-                <li>
-                    <a href="">
-                        Moje dane
-                    </a></li>
-                <li>
-                    <a href="">
-                        Wypożyczenia
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        Zarekomenduj
-                    </a>
-                </li>
-            </ul>
-        </nav>
     </aside>
 
 

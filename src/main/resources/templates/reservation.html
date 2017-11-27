@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <head th:replace="basic-template :: head"></head>
+    <body>
+        <header th:replace="basic-template :: header"></header>
+        <main class="reservation">
+            <img th:src="@{${book.imageUrl}}" alt="">
+            <h1 th:text="${book.title}"></h1>
+
+            <p>Hej, <span th:text="${session.client.name}"></span></p>
+            <p>Zamierzasz zaerezerwować książkę: <span th:text="${book.title}"></span></p>
+            <p>Po dokonaniu rezerwacji możesz odebrać książkę w naszej bibliotece bibliotece.</p>
+            <p>Czas na przeczytanie książki liczy się od momentu rezerwacji (nie odbioru!), także nie zwlekaj za długo :)</p>
+
+            <a th:href="@{|/book/reserve/${book.isbn}|}">Zarezerwuj</a>
+
+            <p th:if="${error != null}" th:text="${error}"></p>
+        </main>
+    </body>
+</html>

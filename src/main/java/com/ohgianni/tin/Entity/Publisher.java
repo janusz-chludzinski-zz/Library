@@ -1,12 +1,13 @@
 package com.ohgianni.tin.Entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-//@Data
+@Getter @Setter
 public class Publisher {
 
     @Id
@@ -36,11 +37,4 @@ public class Publisher {
         this.name = name;
     }
 
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
 }

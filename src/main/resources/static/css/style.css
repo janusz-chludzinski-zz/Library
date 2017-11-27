@@ -11,6 +11,13 @@ body {
     padding-bottom: 15px;
     margin-bottom: 40px;
     border-bottom: 1px solid rgba(133, 180, 208, 0.5); }
+  body h2 {
+    font-size: 1.3rem;
+    font-family: "Slabo 27px", serif;
+    line-height: 1.5rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #b2090d; }
   body a {
     text-decoration: none;
     color: #85b4d0;
@@ -28,28 +35,103 @@ body {
     transition: all 0.3s ease-in-out;
     background: rgba(255, 250, 250, 0.5); }
   body header {
+    overflow: hidden;
     height: 70px;
     background-color: #fff; }
-    body header a img {
-      height: 70px; }
+    body header a {
+      display: block;
+      float: left;
+      width: 250px;
+      overflow: hidden; }
+      body header a img {
+        height: 70px;
+        float: left; }
+      body header a p {
+        float: left;
+        line-height: 70px;
+        margin-left: 10px;
+        font-size: 1.5rem;
+        font-family: "Slabo 27px", serif; }
+    body header a.heavy {
+      background-color: rgba(133, 180, 208, 0.5);
+      color: #ffffff;
+      transition: all 0.3s ease-in-out; }
+    body header a.heavy:hover {
+      background-color: rgba(133, 180, 208, 0.9); }
+    body header a:hover {
+      border: transparent; }
     body header #header-profile {
-      float: right; }
+      float: right;
+      height: 100%; }
+      body header #header-profile ul li {
+        float: left; }
+        body header #header-profile ul li a {
+          display: block;
+          height: 100%;
+          line-height: 70px;
+          width: 150px;
+          text-align: center; }
+          body header #header-profile ul li a i {
+            display: inline-block;
+            margin-right: 10px; }
   body aside {
     width: 250px;
     background-color: rgba(133, 180, 208, 0.5);
     float: left;
     height: 100vh;
-    z-index: -1;
     top: 0;
     position: fixed;
-    padding-top: 70px; }
+    margin-top: 70px; }
+    body aside nav ul li a {
+      display: block;
+      color: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      font-size: 1.3rem;
+      font-family: "Slabo 27px", serif;
+      transition: all 0.3s ease-in-out; }
+    body aside nav ul li a:hover {
+      border-bottom: transparent;
+      background-color: #edf1f5; }
   body main.books {
     margin-left: 250px;
     padding: 40px; }
+    body main.books form {
+      overflow: hidden;
+      margin-bottom: 40px; }
+      body main.books form input {
+        width: 95%;
+        height: 40px;
+        font-family: "Slabo 27px", serif;
+        font-size: 1.5rem;
+        float: left;
+        background-color: transparent;
+        border-bottom: 1px solid rgba(133, 180, 208, 0.5);
+        outline: none;
+        transition: all 0.3s ease-in-out; }
+      body main.books form input::placeholder {
+        font-size: 1.5rem;
+        color: #b5a8b9; }
+      body main.books form input:hover {
+        border-bottom: 2px solid rgba(133, 180, 208, 0.9); }
+      body main.books form input:focus {
+        border-bottom: 2px solid rgba(133, 180, 208, 0.9); }
+      body main.books form a {
+        width: 5%;
+        text-align: center;
+        display: inline-block;
+        height: 40px;
+        float: left;
+        line-height: 40px;
+        font-size: 1.3rem;
+        transition: all 0.3s ease-in-out; }
+      body main.books form a:hover {
+        border-bottom: 1px solid transparent;
+        background-color: rgba(133, 180, 208, 0.9);
+        color: #fff; }
     body main.books ul li {
       display: inline-block;
       background-color: #fff;
-      margin-right: 40px;
+      margin-right: 59px;
       margin-bottom: 40px;
       width: 22%; }
       body main.books ul li a {
@@ -62,13 +144,7 @@ body {
         body main.books ul li a h2 {
           white-space: nowrap;
           overflow: hidden;
-          text-overflow: ellipsis;
-          font-size: 1.3rem;
-          font-family: "Slabo 27px", serif;
-          line-height: 1.5rem;
-          margin-top: 20px;
-          margin-bottom: 10px;
-          color: #b2090d; }
+          text-overflow: ellipsis; }
         body main.books ul li a div.authors {
           overflow: hidden;
           white-space: nowrap;
@@ -84,12 +160,40 @@ body {
         body main.books ul li a p.see-more {
           padding-top: 20px;
           border-top: 1px solid rgba(133, 180, 208, 0.5);
-          text-align: center; }
+          text-align: center;
+          font-size: 1.2rem; }
           body main.books ul li a p.see-more i {
             padding-left: 10px; }
       body main.books ul li a:hover {
         border-bottom: transparent;
         box-shadow: 0px 0px 70px -5px rgba(0, 0, 0, 0.58); }
+    body main.books ul li:nth-child(4) {
+      margin-right: 0; }
+  body main.reservations {
+    margin-left: 250px;
+    padding: 40px; }
+    body main.reservations ul li.reservation-element {
+      background-color: #fff;
+      padding: 40px;
+      overflow: hidden; }
+      body main.reservations ul li.reservation-element img {
+        width: 150px;
+        float: left;
+        margin-right: 40px; }
+      body main.reservations ul li.reservation-element div.book-info {
+        float: left;
+        width: 30%; }
+      body main.reservations ul li.reservation-element div.reservation-status {
+        float: left; }
+      body main.reservations ul li.reservation-element div.days {
+        padding: 20px;
+        float: right;
+        text-align: center;
+        border: 1px solid #becfa6; }
+        body main.reservations ul li.reservation-element div.days p.days-left {
+          color: #becfa6;
+          font-size: 5rem;
+          margin-bottom: 20px; }
   body form.user-form {
     margin: 10vh auto;
     width: 600px;

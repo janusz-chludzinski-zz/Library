@@ -20,7 +20,7 @@ public class HomeController {
     @RequestMapping
     public String viewAllBooks(Model model) {
 
-        model.addAttribute("books", bookService.getAllBooks());
+        model.addAttribute("books", bookService.getAllBooksDistinct());
 
         return "home";
     }

@@ -2,9 +2,11 @@ package com.ohgianni.tin.Controller;
 
 import com.ohgianni.tin.DTO.ClientDTO;
 import com.ohgianni.tin.Entity.Client;
+import com.ohgianni.tin.Entity.Reservation;
 import com.ohgianni.tin.Entity.Role;
 import com.ohgianni.tin.Repository.RoleRepository;
 import com.ohgianni.tin.Service.ClientService;
+import com.ohgianni.tin.Service.ReservationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
+import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -29,12 +34,12 @@ public class ClientController {
 
     private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
     private ClientService clientService;
-    private RoleRepository roleRepository;
+    private ReservationService reservationService;
 
     @Autowired
-    public ClientController(ClientService clientService, RoleRepository roleRepository) {
+    public ClientController(ClientService clientService, ReservationService reservationService) {
         this.clientService = clientService;
-        this.roleRepository = roleRepository;
+        this.reservationService = reservationService;
     }
 
     @RequestMapping(value = "/login", method = {GET, POST})
@@ -45,16 +50,17 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/profile", method = GET)
-    public String login(Model model) {
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
-        Client client = clientService.findClientByEmail(email);
-        model.addAttribute("client", client);
-        model.addAttribute("avatar", clientService.getAvatarFor(email));
+    public String login() {
 
         return "profile";
 
+    }
+
+    @RequestMapping("/profile/rentals")
+    public String showRentals(Authentication authentication, Model model) {
+        List<Reservation> reservations =  reservationService.getAllReservationsForClient(clientService.findClientByEmail(authentication.getName()));
+        model.addAttribute("reservations", reservations);
+        return "profile-reservations";
     }
 
 
@@ -65,10 +71,11 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/register", method = POST)
-    public ModelAndView register(@ModelAttribute("client") @Valid ClientDTO clientDTO, BindingResult result, ModelAndView mav, RedirectAttributes redirectAttributes) {
-
-        roleRepository.save(new Role("CLIENT"));
-        roleRepository.save(new Role("ADMIN"));
+    public ModelAndView register(@ModelAttribute("client") @Valid ClientDTO clientDTO,
+                                 BindingResult result,
+                                 ModelAndView mav,
+                                 RedirectAttributes redirectAttributes,
+                                 HttpSession session) {
 
         result = clientService.validateData(clientDTO, result);
 
@@ -78,7 +85,9 @@ public class ClientController {
             return mav;
         }
 
-        clientService.saveClient(clientDTO);
+        Client client = clientService.saveClient(clientDTO);
+        session.setAttribute("client", client);
+
         redirectAttributes.addFlashAttribute("message", "Dziękujemy za rejestrację. Możesz się teraz zalogować");
         mav.setViewName("redirect:/user/login");
 

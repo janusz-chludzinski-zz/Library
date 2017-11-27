@@ -80,6 +80,7 @@ public class ClientService {
         }
     }
 
+    @Transactional
     public Client findClientByEmail(String email) {
         return clientRepository.findByEmail(email);
     }

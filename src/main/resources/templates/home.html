@@ -6,23 +6,32 @@
     <aside>
         <nav>
             <ul>
-                <li>a</li>
-                <li>b</li>
-                <li>c</li>
-                <li>d</li>
-                <li>e</li>
+                <li>
+                    <a href="">Test</a>
+                </li>
+                <li>
+                    <a href="">Teeeeest</a>
+                </li>
+                <li>
+                    <a href=""></a>
+                </li>
+                <li>
+                    <a href=""></a>
+                </li>
             </ul>
         </nav>
     </aside>
 
     <main class="books">
         <form action="">
-            <label th:for="search">Wyszukaj książkę:</label>
-            <input th:type="text" th:id="search" th:name="search">
+            <input th:type="text" th:id="search" th:name="search" placeholder="Wpisz tytuł szukanej książki...">
+            <a href="" th:action="@{/user/login}">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </a>
         </form>
         <ul>
             <li th:each="book : ${books}" th:title="${book.title}">
-                <a th:href="@{|/book/${book.bookId}|}">
+                <a th:href="@{|/book/${book.isbn}|}">
 
                     <img th:src="@{${book.imageUrl}}" />
 
@@ -33,7 +42,7 @@
                         </p>
                     </div>
 
-                    <p class="availability">Dostępnych</p>
+                    <p class="availability">Dostępnych: <span th:text="${book.availableSpecimen}"></span> / <span th:text="${book.totalSpecimen}"></span></p>
                     <p class="see-more">
                         Zobacz <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
                     </p>
