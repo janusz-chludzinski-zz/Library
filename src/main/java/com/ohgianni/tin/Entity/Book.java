@@ -41,7 +41,7 @@ public class Book {
     private int edition;
 
     @Column
-    private byte[] coverImage;
+    private String coverImage;
 
     @Column
     private Long isbn;

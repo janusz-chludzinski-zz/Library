@@ -82,6 +82,20 @@ body {
     top: 0;
     position: fixed;
     margin-top: 70px; }
+    body aside figure {
+      margin-top: 20px; }
+      body aside figure img {
+        width: 150px;
+        background: #fff;
+        border-radius: 90px;
+        border: 5px solid rgba(133, 180, 208, 0.9);
+        display: block;
+        margin: 0 auto; }
+      body aside figure figcaption {
+        font-size: 1.3rem;
+        margin: 20px 0;
+        text-align: center;
+        color: rgba(133, 180, 208, 0.9); }
     body aside nav ul li a {
       display: block;
       color: rgba(0, 0, 0, 0.6);
@@ -90,7 +104,7 @@ body {
       font-family: "Slabo 27px", serif;
       transition: all 0.3s ease-in-out; }
     body aside nav ul li a:hover {
-      border-bottom: transparent;
+      border-bottom: 1px solid transparent;
       background-color: #edf1f5; }
   body main.books {
     margin-left: 250px;
@@ -194,6 +208,24 @@ body {
           color: #becfa6;
           font-size: 5rem;
           margin-bottom: 20px; }
+      body main.reservations ul li.reservation-element .actions {
+        clear: both;
+        padding-top: 20px; }
+        body main.reservations ul li.reservation-element .actions button.cancel {
+          border: 1px solid rgba(133, 180, 208, 0.9);
+          color: rgba(133, 180, 208, 0.9);
+          transition: all 0.3s ease-in-out; }
+        body main.reservations ul li.reservation-element .actions button.confirm {
+          background-color: rgba(133, 180, 208, 0.5);
+          border: 1px solid rgba(133, 180, 208, 0.9);
+          color: #b5a8b9;
+          transition: all 0.3s ease-in-out; }
+        body main.reservations ul li.reservation-element .actions button.confirm:hover {
+          background-color: rgba(133, 180, 208, 0.9);
+          color: #fff; }
+        body main.reservations ul li.reservation-element .actions button.cancel:hover {
+          background-color: rgba(133, 180, 208, 0.9);
+          color: #fff; }
   body form.user-form {
     margin: 10vh auto;
     width: 600px;

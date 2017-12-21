@@ -1,11 +1,9 @@
 package com.ohgianni.tin.Entity;
 
 import com.ohgianni.tin.DTO.ClientDTO;
+import com.ohgianni.tin.Service.ImageService;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.springframework.context.annotation.Scope;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -24,8 +22,7 @@ public class Client extends User {
     private LocalDateTime creationDate;
 
     @Column
-    private byte[] avatar;
-
+    private String avatarUrl;
 
     @Column
     @ManyToMany(fetch = FetchType.EAGER)
@@ -42,13 +39,14 @@ public class Client extends User {
 
     public Client(){}
 
-    public Client (ClientDTO clientDTO, PasswordEncoder passwordEncoder) {
+    public Client (ClientDTO clientDTO, PasswordEncoder passwordEncoder, ImageService imageService) {
         name = clientDTO.getName();
         surname= clientDTO.getSurname();
         dateOfBirth = LocalDate.parse(clientDTO.getDateOfBirth());
         gender = clientDTO.getGender();
         email = clientDTO.getEmail();
         password = passwordEncoder.encode(clientDTO.getPassword());
+        avatarUrl = imageService.getAvatarUrl(clientDTO);
         creationDate = now();
     }
 

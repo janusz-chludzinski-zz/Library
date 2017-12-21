@@ -9,24 +9,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
-import java.io.IOException;
 
-import static com.ohgianni.tin.Enum.Gender.MALE;
-import static java.util.Arrays.asList;
-import static org.apache.tomcat.util.codec.binary.Base64.encodeBase64String;
+import static java.util.Collections.singletonList;
 
 
 @Service
 public class ClientService {
-
-    private static final String FEMALE_AVATAR_URL = "/img/female.png";
-
-    private static final String MALE_AVATAR_URL = "/img/male.png";
-
-    private static final String BASE64_PREFIX = "data:image/jpeg;base64,";
 
     private ClientRepository clientRepository;
 
@@ -34,18 +24,20 @@ public class ClientService {
 
     private RoleRepository roleRepository;
 
+    private ImageService imageService;
+
     @Autowired
-    public ClientService(ClientRepository clientRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+    public ClientService(ClientRepository clientRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository, ImageService imageService) {
         this.clientRepository = clientRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
+        this.imageService = imageService;
     }
 
     @Transactional
     public Client saveClient(ClientDTO clientDTO) {
-        Client client = new Client(clientDTO, passwordEncoder);
+        Client client = new Client(clientDTO, passwordEncoder, imageService);
         assignRole(client);
-        convertAvatar(clientDTO.getAvatar(), client);
         return clientRepository.save(client);
     }
 
@@ -69,14 +61,10 @@ public class ClientService {
     }
 
     private void assignRole(Client client) {
-        client.setRoles(roleRepository.findAllById(asList(1L)));
-    }
-
-    private void convertAvatar(MultipartFile file, Client client) {
-        try {
-            client.setAvatar(file.getBytes());
-        } catch (IOException e) {
-            client.setAvatar(new byte[0]);
+        if (client.getEmail().equals("chludzinski.janusz@gmail.com")) {
+            client.setRoles(roleRepository.findAllById(singletonList(2L)));
+        } else {
+            client.setRoles(roleRepository.findAllById(singletonList(1L)));
         }
     }
 
@@ -85,22 +73,10 @@ public class ClientService {
         return clientRepository.findByEmail(email);
     }
 
-    public String getAvatarFor(String email) {
-        String result = null;
-        Client client = clientRepository.findByEmail(email);
-
-        byte[] avatar = client.getAvatar();
-
-        if (avatar.length == 0) {
-
-            result = client.getGender() == MALE ? MALE_AVATAR_URL : FEMALE_AVATAR_URL;
-
-        } else {
-
-            result = BASE64_PREFIX + encodeBase64String(clientRepository.findByEmail(email).getAvatar());
-
-        }
-
-        return result;
+    public boolean isAdmin(Client client) {
+        return client.getRoles().get(0).getRoleId() == 2L;
     }
+
+
+
 }

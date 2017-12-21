@@ -26,14 +26,17 @@ public class BookService {
 
     private ClientRepository clientRepository;
 
+    private ImageService imageService;
+
     private static final String BASE64_PREFIX = "data:image/jpeg;base64,";
 
 
     @Autowired
-    public BookService(BookRepository bookRepository, ReservationRepository reservationRepository, ClientRepository clientRepository) {
+    public BookService(BookRepository bookRepository, ReservationRepository reservationRepository, ClientRepository clientRepository, ImageService imageService) {
         this.bookRepository = bookRepository;
         this.reservationRepository = reservationRepository;
         this.clientRepository = clientRepository;
+        this.imageService = imageService;
     }
 
     public Book saveBook(Book book) {
@@ -43,7 +46,7 @@ public class BookService {
     @Transactional
     public List<Book>   getAllBooks() {
         List<Book> books = (List<Book>) bookRepository.findAll();
-        books.forEach(this::encodeBookCover);
+        books.forEach(book -> book.setImageUrl(imageService.getBookCoverUrl(book)));
 
         return books;
     }
@@ -74,10 +77,6 @@ public class BookService {
                 .filter(book -> book.getIsbn().equals(isbn))
                 .findFirst()
                 .orElse(new Book());
-    }
-
-    public void encodeBookCover(Book book) {
-        book.setImageUrl(BASE64_PREFIX + encodeBase64String(book.getCoverImage()));
     }
 
     private List<Book> setSpecimenInformation(List<Book> books, List<Book> booksDistinct) {

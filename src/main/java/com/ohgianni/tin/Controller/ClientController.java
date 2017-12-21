@@ -3,15 +3,12 @@ package com.ohgianni.tin.Controller;
 import com.ohgianni.tin.DTO.ClientDTO;
 import com.ohgianni.tin.Entity.Client;
 import com.ohgianni.tin.Entity.Reservation;
-import com.ohgianni.tin.Entity.Role;
-import com.ohgianni.tin.Repository.RoleRepository;
 import com.ohgianni.tin.Service.ClientService;
 import com.ohgianni.tin.Service.ReservationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,9 +29,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RequestMapping("/user")
 public class ClientController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
-    private ClientService clientService;
     private ReservationService reservationService;
+
+    private ClientService clientService;
 
     @Autowired
     public ClientController(ClientService clientService, ReservationService reservationService) {
@@ -50,9 +47,11 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/profile", method = GET)
-    public String login() {
+    public String login(HttpSession session, Authentication authentication) {
+        Client client = clientService.findClientByEmail(authentication.getName());
+        session.setAttribute("client", client);
 
-        return "profile";
+        return clientService.isAdmin(client) ? "redirect:/admin/reservations" : "profile";
 
     }
 

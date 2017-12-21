@@ -143,6 +143,27 @@ body {
     top: 0;
     position: fixed;
     margin-top: 70px;
+
+    figure {
+      margin-top: 20px;
+
+      img {
+        width: 150px;
+        background: #fff;
+        border-radius: 90px;
+        border: 5px solid $color-deep-blue;
+        display: block;
+        margin: 0 auto;
+      }
+
+      figcaption {
+        font-size: 1.3rem;
+        margin: 20px 0;
+        text-align: center;
+        color: $color-deep-blue;
+      }
+
+    }
     nav {
       ul {
          li {
@@ -156,7 +177,7 @@ body {
            }
 
            a:hover {
-             border-bottom: transparent;
+             border-bottom: 1px solid transparent;
              background-color: #edf1f5;
            }
          }
@@ -322,6 +343,34 @@ body {
             color: $color-solid-green;
             font-size: 5rem;
             margin-bottom: 20px;
+          }
+        }
+
+        .actions {
+          clear: both;
+          padding-top: 20px;
+
+          button.cancel {
+            border: 1px solid $color-deep-blue;
+            color: $color-deep-blue;
+            transition: $transition-common;
+          }
+
+          button.confirm {
+            background-color: $color-light-blue;
+            border: 1px solid $color-deep-blue;
+            color: $color-light-grey;
+            transition: $transition-common;
+          }
+
+          button.confirm:hover {
+            background-color: $color-deep-blue;
+            color: #fff;
+          }
+
+          button.cancel:hover {
+            background-color: $color-deep-blue;
+            color: #fff;
           }
         }
       }

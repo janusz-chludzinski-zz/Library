@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
     <head th:replace="basic-template :: head"></head>
     <body>
         <header th:replace="basic-template :: header"></header>
         <img th:src="@{${book.imageUrl}}" alt="">
         <h1 th:text="${book.title}"></h1>
-        <a
-            th:if="${book.availableSpecimen > 0}"
-            th:href="@{|/book/reservation/${book.isbn}|}"
-            >
+        <a sec:authorize="hasAuthority('CLIENT')" th:if="${book.availableSpecimen > 0}"  th:href="@{|/book/reservation/${book.isbn}|}">
                 Rezerwuj
         </a>
     </body>

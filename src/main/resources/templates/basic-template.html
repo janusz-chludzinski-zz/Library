@@ -43,24 +43,44 @@
 
     <aside th:fragment="aside">
         <figure>
-            <img th:src="@{${session.client}}">
+            <img th:src="@{${session.client.avatarUrl}}">
             <figcaption th:text="${session.client.name}"></figcaption>
         </figure>
 
         <nav>
             <ul>
-                <li>
+                <li sec:authorize="hasAuthority('CLIENT')">
                     <a th:href="@{/user/profile}">
                         Moje dane
                     </a></li>
-                <li>
+                <li sec:authorize="hasAuthority('CLIENT')">
                     <a th:href="@{/user/profile/rentals}">
                         Wypożyczenia
                     </a>
                 </li>
-                <li>
-                    <a href="">
+                <li sec:authorize="hasAuthority('CLIENT')">
+                    <a th:href="@{/user/profile/recommendation}">
                         Zarekomenduj
+                    </a>
+                </li>
+                <li sec:authorize="hasAuthority('ADMIN')">
+                    <a th:href="@{/admin/reservations}">
+                        Rezerwacje
+                    </a>
+                </li>
+                <li sec:authorize="hasAuthority('ADMIN')">
+                    <a th:href="@{/admin/rentals}">
+                        Wypożyczenia
+                    </a>
+                </li>
+                <li sec:authorize="hasAuthority('ADMIN')">
+                    <a th:href="@{/admin/recommendations}">
+                        Rekomendacje
+                    </a>
+                </li>
+                <li sec:authorize="hasAuthority('ADMIN')">
+                    <a th:href="@{/admin/clients}">
+                        Użytkownicy
                     </a>
                 </li>
             </ul>
