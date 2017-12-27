@@ -350,13 +350,17 @@ body {
           clear: both;
           padding-top: 20px;
 
-          button.cancel {
+          a.cancel {
+            display: inline-block;
+            padding: 20px;
             border: 1px solid $color-deep-blue;
             color: $color-deep-blue;
             transition: $transition-common;
           }
 
-          button.confirm {
+          a.confirm {
+            display: inline-block;
+            padding: 20px;
             background-color: $color-light-blue;
             border: 1px solid $color-deep-blue;
             color: $color-light-grey;

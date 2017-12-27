@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="basic-template :: head">
+    <meta charset="UTF-8">
+    <title th:text="${title}">Test</title>
+</head>
+<body>
+    <header th:replace="basic-template :: header"></header>
+    <aside th:replace="basic-template :: aside">
+
+    </aside>
+    <main class="reservations">
+        <ul>
+            <li th:each="rental : ${rentals}">
+                <div class="book-info">
+                    <h2 th:text="${rental.book.title}"></h2>
+                    <p>
+                        <span th:each="author : ${rental.book.authors}" th:text="${author.name} + ' ' + ${author.surname}"></span>
+                    </p>
+                </div>
+                <div>
+                    <a th:href="@{|/admin/return/${rental.reservationId}|}">Przyjmij zwrot</a>
+                    <a th:href="@{/admin/extend}">Przedłuż wypożyczenie</a>
+                    <a th:href="@{/admin/remind}">Wyślij przypomnienie</a>
+                </div>
+            </li>
+        </ul>
+    </main>
+</body>
+</html>

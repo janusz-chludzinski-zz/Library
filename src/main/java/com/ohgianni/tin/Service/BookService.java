@@ -3,6 +3,7 @@ package com.ohgianni.tin.Service;
 import com.ohgianni.tin.Entity.Book;
 import com.ohgianni.tin.Entity.Client;
 import com.ohgianni.tin.Entity.Reservation;
+import com.ohgianni.tin.Enum.BookStatus;
 import com.ohgianni.tin.Exception.BookNotFoundException;
 import com.ohgianni.tin.Repository.BookRepository;
 import com.ohgianni.tin.Repository.ClientRepository;
@@ -10,11 +11,14 @@ import com.ohgianni.tin.Repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.ohgianni.tin.Enum.BookStatus.*;
-import static org.apache.tomcat.util.codec.binary.Base64.encodeBase64String;
-
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static com.ohgianni.tin.Enum.BookStatus.AVAILABLE;
+import static com.ohgianni.tin.Enum.BookStatus.RESERVED;
 
 
 @Service
@@ -99,14 +103,14 @@ public class BookService {
 
         Book book = books.stream().findFirst().orElseThrow(BookNotFoundException::new);
 
-        setStatusAndSave(book);
+        setStatusAndSave(book, RESERVED);
 
         return reservationRepository.save(new Reservation(books.get(0), client));
 
     }
 
-    private Book setStatusAndSave(Book book) {
-        book.setStatus(RESERVED);
+    public Book setStatusAndSave(Book book, BookStatus status) {
+        book.setStatus(status);
         return bookRepository.save(book);
     }
 

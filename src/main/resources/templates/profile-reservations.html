@@ -24,7 +24,7 @@
 
                 <div class="reservation-status" th:text="${reservation.status}"></div>
 
-                <div class="days">
+                <div class="days" th:if="${not #strings.equals(reservation.status, 'RETURNED')}">
                     <p class="days-left" th:text="${reservation.daysLeft}"></p>
                     <p class="return-time" th:text="${reservation.returnTime}"></p>
                 </div>

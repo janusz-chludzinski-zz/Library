@@ -29,8 +29,8 @@
                     <p class="return-time" th:text="${reservation.returnTime}"></p>
                 </div>
                 <div class="actions">
-                    <button th:value="Anuluj" th:action="@{/admin/cancel}" class="cancel">Anuluj</button>
-                    <button th:value="Wypożycz" th:action="@{/admin/rent}" class="confirm">Wypożycz</button>
+                    <a th:value="Anuluj" th:href="@{/admin/cancel}" class="cancel">Anuluj</a>
+                    <a th:value="Wypożycz" th:href="@{|/admin/rent/${reservation.reservationId}|}" class="confirm">Wypożycz</a>
                 </div>
             </li>
         </ul>

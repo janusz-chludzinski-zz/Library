@@ -3,19 +3,26 @@ package com.ohgianni.tin.Service;
 import com.ohgianni.tin.Entity.Client;
 import com.ohgianni.tin.Repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpSession;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 
     private ClientRepository clientRepository;
 
+    private HttpSession session;
+
     @Autowired
-    public UserDetailsServiceImpl(ClientRepository clientRepository) {
+    public UserDetailsServiceImpl(ClientRepository clientRepository, HttpSession session) {
         this.clientRepository = clientRepository;
+        this.session = session;
     }
 
     @Override
@@ -26,6 +33,8 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         if(client == null) {
             throw new UsernameNotFoundException("Nie znaleźliśmy użytkownika o takim adresie email");
         }
+
+        session.setAttribute("client", client);
 
         return new ClientDetailsService(client);
 

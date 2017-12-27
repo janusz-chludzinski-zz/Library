@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.StringTokenizer;
 
 import static com.ohgianni.tin.Enum.Gender.MALE;
-import static java.nio.file.Files.*;
+import static java.nio.file.Files.exists;
+import static java.nio.file.Files.write;
 import static java.nio.file.Paths.get;
 
 @Service

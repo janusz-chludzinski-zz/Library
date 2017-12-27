@@ -211,11 +211,15 @@ body {
       body main.reservations ul li.reservation-element .actions {
         clear: both;
         padding-top: 20px; }
-        body main.reservations ul li.reservation-element .actions button.cancel {
+        body main.reservations ul li.reservation-element .actions a.cancel {
+          display: inline-block;
+          padding: 20px;
           border: 1px solid rgba(133, 180, 208, 0.9);
           color: rgba(133, 180, 208, 0.9);
           transition: all 0.3s ease-in-out; }
-        body main.reservations ul li.reservation-element .actions button.confirm {
+        body main.reservations ul li.reservation-element .actions a.confirm {
+          display: inline-block;
+          padding: 20px;
           background-color: rgba(133, 180, 208, 0.5);
           border: 1px solid rgba(133, 180, 208, 0.9);
           color: #b5a8b9;

@@ -19,6 +19,12 @@
 
         <div id="header-profile">
             <ul>
+                <li sec:authorize="!isAnonymous()">
+                    <a th:href="@{/user/profile}" th:text="${session.client.name}">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+
+                    </a>
+                </li>
                 <li sec:authorize="isAnonymous()">
                     <a th:href="@{/user/register}">
                         <i class="fa fa-user-plus" aria-hidden="true"></i>
