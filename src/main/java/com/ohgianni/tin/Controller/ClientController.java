@@ -27,6 +27,7 @@ import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 @Controller
 @RequestMapping("/user")
@@ -49,20 +50,44 @@ public class ClientController {
 
     }
 
+    @RequestMapping(value = "/login", method = POST)
+    public String doLogin(Authentication authentication) {
+        Client client = clientService.findClientByEmail(authentication.getName());
+
+        return clientService.isAdmin(client) ? "redirect:/admin/reservations" : "profile";
+    }
+
     @RequestMapping(value = "/profile", method = GET)
-    public String login(HttpSession session, Authentication authentication) {
+    public String login(HttpSession session, Authentication authentication, Model model) {
         Client client = clientService.findClientByEmail(authentication.getName());
         session.setAttribute("client", client);
+
+        model.addAttribute("client", new ClientDTO(client));
 
         return clientService.isAdmin(client) ? "redirect:/admin/reservations" : "profile";
 
     }
 
-    @RequestMapping(value = "/login", method = POST)
-    public String doLogin(HttpSession session, Authentication authentication) {
-        Client client = clientService.findClientByEmail(authentication.getName());
+    @RequestMapping(value = "/profile", method = POST, produces = "image/jpg")
+    public ModelAndView updateProfile(@ModelAttribute("client") @Valid ClientDTO clientDTO,
+                                      BindingResult errors,
+                                      ModelAndView modelAndView,
+                                      HttpSession session) {
 
-        return clientService.isAdmin(client) ? "redirect:/admin/reservations" : "profile";
+        errors = clientService.validateData(clientDTO, session, errors);
+        modelAndView.setViewName("profile");
+
+        if(errors.hasErrors()) {
+            modelAndView.addObject("errors", errors);
+
+
+            return modelAndView;
+        }
+
+        modelAndView.addObject("client", new ClientDTO(clientService.updateClient(clientDTO, session)));
+        modelAndView.addObject("message", "Dane zostały pomyślnie zmienione");
+
+        return modelAndView;
     }
 
     @RequestMapping("/profile/rentals")
@@ -82,26 +107,26 @@ public class ClientController {
 
     @RequestMapping(value = "/register", method = POST)
     public ModelAndView register(@ModelAttribute("client") @Valid ClientDTO clientDTO,
-                                 BindingResult result,
-                                 ModelAndView mav,
+                                 BindingResult errors,
+                                 ModelAndView modelAndView,
                                  RedirectAttributes redirectAttributes,
                                  HttpSession session) {
 
-        result = clientService.validateData(clientDTO, result);
+        errors = clientService.validateData(clientDTO, session, errors);
 
-        if (result.hasErrors()) {
-            mav.addObject("errors", result);
-            mav.setViewName("registration");
+        if (errors.hasErrors()) {
+            modelAndView.addObject("errors", errors);
+            modelAndView.setViewName("registration");
 
-            return mav;
+            return modelAndView;
         }
 
         clientService.saveClient(clientDTO);
 
         redirectAttributes.addFlashAttribute("message", "Dziękujemy za rejestrację. Możesz się teraz zalogować");
-        mav.setViewName("redirect:/user/login");
+        modelAndView.setViewName("redirect:/user/login");
 
-        return mav;
+        return modelAndView;
     }
 
     @RequestMapping("/reset-password")

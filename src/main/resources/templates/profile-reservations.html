@@ -11,6 +11,7 @@
     </aside>
 
     <main class="reservations">
+        <h1>Wypożyczenia</h1>
         <ul>
             <li th:each="reservation : ${reservations}" class="reservation-element">
                 <img th:src="@{${reservation.book.imageUrl}}" />

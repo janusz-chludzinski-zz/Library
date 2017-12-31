@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import static java.util.Collections.singletonList;
@@ -41,16 +42,40 @@ public class ClientService {
         return clientRepository.save(client);
     }
 
-    public BindingResult validateData(ClientDTO clientDTO, BindingResult errors) {
-        checkIfEmailExists(clientDTO, errors);
+    @Transactional
+    public Client updateClient(ClientDTO clientDTO, HttpSession session) {
+        Client client = new Client(clientDTO, passwordEncoder, imageService);
+        client.setId(clientRepository.findByEmail(clientDTO.getEmail()).getId());
+
+        assignRole(client);
+        client =  clientRepository.save(client);
+        updateSession(client, session);
+
+        return client;
+    }
+
+    private void updateSession(Client client, HttpSession session) {
+        session.setAttribute("client", client);
+    }
+
+    public BindingResult validateData(ClientDTO clientDTO, HttpSession session, BindingResult errors) {
+        checkIfEmailExists(clientDTO, session, errors);
         checkIfPasswordsMatch(clientDTO, errors);
         return errors;
     }
 
-    private void checkIfEmailExists(ClientDTO clientDTO, BindingResult result) {
-        if (clientRepository.existsByEmail(clientDTO.getEmail())) {
+    private void checkIfEmailExists(ClientDTO clientDTO, HttpSession session, BindingResult result) {
+
+        Client client = clientRepository.findByEmail(clientDTO.getEmail());
+        Client loggedInClient = (Client)session.getAttribute("client");
+
+        if (client != null && isNotSameClient(client, loggedInClient)) {
             result.addError(new FieldError("email", "email", "Ten email istnieje już w naszej bazie"));
         }
+    }
+
+    private boolean isNotSameClient(Client client, Client loggedInClient) {
+        return !client.getId().equals(loggedInClient.getId());
     }
 
     private void checkIfPasswordsMatch(ClientDTO clientDTO, BindingResult result) {

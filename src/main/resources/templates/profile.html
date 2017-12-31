@@ -10,7 +10,66 @@
 
     </aside>
 
+    <main class="profile">
+        <h1>Profil</h1>
 
+        <form action="" th:object="${client}" th:method="post" enctype="multipart/form-data">
 
+            <i th:if="${message != null}" th:text="${message}" class="success-message" th:id="successMessage"></i>
+
+            <fieldset>
+                <label  th:for="name">Imię</label>
+                <input  th:field="*{name}" autofocus>
+                <i th:if="${#fields.hasErrors('name')}" th:text="${#fields.errors('name')}" class="error-message"></i>
+            </fieldset>
+            <fieldset>
+                <label th:for="surname">Nazwisko</label>
+                <input th:field="*{surname}">
+                <i th:if="${#fields.hasErrors('surname')}" th:text="${#fields.errors('surname')}" class="error-message"></i>
+            </fieldset>
+            <fieldset>
+                <label th:for="birthday">Data urodzenia</label>
+                <input th:field="*{dateOfBirth}" >
+            </fieldset>
+            <fieldset>
+                <label th:for="gender">Płeć</label>
+                <input th:field="*{gender}" >
+            </fieldset>
+            <fieldset>
+                <label th:for="email">Email</label>
+                <input th:field="*{email}">
+                <i th:if="${#fields.hasErrors('email')}" th:text="${#fields.errors('email')}" class="error-message"></i>
+            </fieldset>
+            <fieldset>
+                <label th:for="password">Hasło</label>
+                <input th:field="*{password}" th:type="password">
+                <i th:if="${#fields.hasErrors('password')}" th:text="${#fields.errors('password')}" class="error-message"></i>
+            </fieldset>
+            <fieldset>
+                <label th:for="password-repeat">Powtórz hasło</label>
+                <input th:field="*{passwordRepeat}" th:type="password">
+                <i th:if="${#fields.hasErrors('passwordRepeat')}" th:text="${#fields.errors('password')}" class="error-message"></i>
+            </fieldset>
+            <fieldset>
+                <label th:for="avatar" th:id="avatarLabel">
+                    <span>Awatar</span>
+                    <p class="awatarButton">Zmien awatar</p>
+                    <p class="path" th:id="newAvatar"></p>
+                </label>
+                <input th:field="*{avatar}" th:type="file" th:id="avatar" th:name="avatar">
+            </fieldset>
+            <fieldset id="submit-form">
+                <button th:type="submit" th:formaction="@{/user/profile}">Aktualizuj dane</button>
+            </fieldset>
+        </form>
+    </main>
+
+    <script>
+        document.getElementById('avatar').onchange = function () {
+            var div = document.getElementById('newAvatar');
+            var path = this.value;
+            div.innerHTML =  "Nowy awatar: " + path.replace(/.*[\/\\]/, '');;
+        };
+    </script>
 </body>
 </html>

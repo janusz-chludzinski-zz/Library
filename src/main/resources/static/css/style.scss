@@ -142,7 +142,33 @@ body {
     height: 100vh;
     top: 0;
     position: fixed;
-    margin-top: 70px;
+
+    a.logoA {
+      display: block;
+      float: left;
+      width: 250px;
+      overflow: hidden;
+      background-color: #fff;
+      padding-bottom: 0;
+      margin-bottom: 20px;
+
+      img {
+        height: 70px;
+        float: left;
+      }
+
+      p {
+        float: left;
+        line-height: 70px;
+        margin-left: 10px;
+        font-size: 1.5rem;
+        font-family: $font-header;
+
+        span {
+
+        }
+      }
+    }
 
     figure {
       margin-top: 20px;
@@ -317,6 +343,7 @@ body {
         background-color: #fff;
         padding: 40px;
         overflow: hidden;
+        margin-bottom: 20px;
 
         img {
           width: 150px;
@@ -378,6 +405,115 @@ body {
           }
         }
       }
+    }
+  }
+
+  main.profile {
+    margin-left: 250px;
+    padding: 40px;
+
+    form {
+      padding: 40px;
+      background: #fff;
+
+      i#successMessage {
+        width: 100%;
+        margin-bottom: 15px;
+        display: block;
+        text-align: center;
+      }
+
+      fieldset {
+        margin: 0 0 30px 0;
+
+        label {
+          display: block;
+          float: left;
+          width: 30%;
+          line-height: 2.5rem;
+          font-size: 1rem;
+          color: $font-color-regular;
+
+
+        }
+
+        label#avatarLabel {
+          width: 100%;
+          display: inline-block;
+
+          span {
+            display: inline-block;
+            width: 30%;
+          }
+
+          p {
+            display: inline-block;
+          }
+
+          p.awatarButton {
+            background-color: #fff;
+            border: 1px solid $color-light-green;
+            color: $color-light-green;
+            padding: 0px 35px;
+            margin-right: 20px;
+            transition: $transition-common;
+            cursor: pointer;
+          }
+
+          p.awatarButton:hover {
+            background-color: $color-solid-green;
+            color: #fff;
+          }
+
+          p.path {
+            color: $color-deep-blue;
+          }
+
+        }
+
+        input {
+          font-size: 1rem;
+          padding: 0 10px;
+          width: 70%;
+          height: 2.5rem;
+          border: $input-border;
+          transition: $transition-common;
+          color: $color-light-grey
+        }
+
+        input[type = "radio"] {
+          width: 20px;
+        }
+
+        input[type = "file"] {
+          display: none;
+        }
+
+        input:focus {
+          outline: none;
+          border: $input-border-focus;
+          border-left: 3px solid rgba(203, 178, 174, 1);
+        }
+
+        i {
+          display: block;
+          width: 70%;
+          float: right;
+          margin-top: 10px;
+        }
+
+        button {
+          background-color: $color-light-green;
+          width: 70%;
+          float: right;
+        }
+
+        button:hover {
+          background-color: $color-solid-green;
+        }
+
+      }
+
     }
   }
 
@@ -525,4 +661,9 @@ body {
   border: 1px solid $color-solid-green;
   padding: 5px;
   font-family: $font-regular;
+}
+
+.active {
+  background-color: #edf1f5;
+  border-left: 5px solid $color-deep-blue;
 }

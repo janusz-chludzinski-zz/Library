@@ -20,9 +20,9 @@
         <div id="header-profile">
             <ul>
                 <li sec:authorize="!isAnonymous()">
-                    <a th:href="@{/user/profile}" th:text="${session.client.name}">
-                        <i class="fa fa-user" aria-hidden="true"></i>
-
+                    <a th:href="@{/user/profile}" th:text="${session.client.name + ' ' + session.client.surname}">
+                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                        User
                     </a>
                 </li>
                 <li sec:authorize="isAnonymous()">
@@ -48,44 +48,49 @@
     </header>
 
     <aside th:fragment="aside">
+        <a th:href="@{/home}" id="logo" class="logoA">
+            <img th:src="@{/img/logo.jpg}" alt="Logotyp">
+            <p class="logo-type">Net<span>Lib</span></p>
+        </a>
+
         <figure>
             <img th:src="@{${session.client.avatarUrl}}">
-            <figcaption th:text="${session.client.name}"></figcaption>
+            <figcaption th:text="${session.client.name + ' ' + session.client.surname}"></figcaption>
         </figure>
 
         <nav>
             <ul>
                 <li sec:authorize="hasAuthority('CLIENT')">
-                    <a th:href="@{/user/profile}">
+                    <a th:href="@{/user/profile}" th:classappend="${#request.getRequestURI() == '/user/profile' ? 'active' : ''}">
                         Moje dane
                     </a></li>
                 <li sec:authorize="hasAuthority('CLIENT')">
-                    <a th:href="@{/user/profile/rentals}">
+                    <a th:href="@{/user/profile/rentals}" th:classappend="${#request.getRequestURI() == '/user/profile/rentals' ? 'active' : ''}">
                         Wypożyczenia
                     </a>
                 </li>
                 <li sec:authorize="hasAuthority('CLIENT')">
-                    <a th:href="@{/user/profile/recommendation}">
+                    <a th:href="@{/user/profile/recommendation}" th:classappend="${#request.getRequestURI() == '/user/profile/recommendation' ? 'active' : ''}">
                         Zarekomenduj
                     </a>
                 </li>
                 <li sec:authorize="hasAuthority('ADMIN')">
-                    <a th:href="@{/admin/reservations}">
+                    <a th:href="@{/admin/reservations}" th:classappend="${#request.getRequestURI() == '/admin/reservations' ? 'active' : ''}">
                         Rezerwacje
                     </a>
                 </li>
                 <li sec:authorize="hasAuthority('ADMIN')">
-                    <a th:href="@{/admin/rentals}">
+                    <a th:href="@{/admin/rentals}" th:classappend="${#request.getRequestURI() == '/admin/rentals' ? 'active' : ''}">
                         Wypożyczenia
                     </a>
                 </li>
                 <li sec:authorize="hasAuthority('ADMIN')">
-                    <a th:href="@{/admin/recommendations}">
+                    <a th:href="@{/admin/recommendations}" th:classappend="${#request.getRequestURI() == '/admin/recommendations' ? 'active' : ''}">
                         Rekomendacje
                     </a>
                 </li>
                 <li sec:authorize="hasAuthority('ADMIN')">
-                    <a th:href="@{/admin/clients}">
+                    <a th:href="@{/admin/clients}" th:classappend="${#request.getRequestURI() == '/admin/clients' ? 'active' : ''}">
                         Użytkownicy
                     </a>
                 </li>

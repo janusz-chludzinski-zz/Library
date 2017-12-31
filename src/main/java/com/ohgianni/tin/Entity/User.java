@@ -15,7 +15,7 @@ import java.util.Set;
 @Data
 public abstract class User extends Person {
 
-    @Column
+    @Column(unique = true)
     protected String email;
 
     @Column
