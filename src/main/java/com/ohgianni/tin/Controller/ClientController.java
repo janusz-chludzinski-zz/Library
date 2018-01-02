@@ -2,15 +2,13 @@ package com.ohgianni.tin.Controller;
 
 import com.ohgianni.tin.DTO.ClientDTO;
 import com.ohgianni.tin.Entity.Client;
+import com.ohgianni.tin.Entity.Recommendation;
 import com.ohgianni.tin.Entity.Reservation;
 import com.ohgianni.tin.Service.ClientService;
+import com.ohgianni.tin.Service.RecommendationService;
 import com.ohgianni.tin.Service.ReservationService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,15 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 @Controller
 @RequestMapping("/user")
@@ -37,10 +32,13 @@ public class ClientController {
 
     private ClientService clientService;
 
+    private RecommendationService recommendationService;
+
     @Autowired
-    public ClientController(ClientService clientService, ReservationService reservationService) {
+    public ClientController(ClientService clientService, ReservationService reservationService, RecommendationService recommendationService) {
         this.clientService = clientService;
         this.reservationService = reservationService;
+        this.recommendationService = recommendationService;
     }
 
     @RequestMapping(value = "/login", method = GET)
@@ -98,10 +96,35 @@ public class ClientController {
         return "profile-reservations";
     }
 
+    @RequestMapping(value = "/profile/recommendation", method = GET)
+    public ModelAndView viewRecommendationForm() {
+        return new ModelAndView("recommendation", "recommendation", new Recommendation());
+    }
+
+    @RequestMapping(value = "/profile/recommendation", method = POST)
+    public ModelAndView postRecommendation(@ModelAttribute("recommendation") @Valid Recommendation recommendation,
+                                           ModelAndView modelAndView,
+                                           BindingResult errors) {
+
+        modelAndView.setViewName("recommendation");
+        errors = recommendationService.validateRecommendation(recommendation, errors);
+
+        if(errors.hasErrors()) {
+            modelAndView.addObject("errors", errors);
+            return modelAndView;
+        }
+
+        Recommendation savedRecommendation = recommendationService.addRecommendation(recommendation);
+
+        modelAndView.addObject("message", "Rekomendacja książki o numerze ISBN " + savedRecommendation.getIsbn() + " została pomyślnie dodana, dziękujemy!");
+        modelAndView.addObject("recommendation", new Recommendation());
+
+        return modelAndView;
+    }
+
 
     @RequestMapping(value = "/register", method = GET)
-    public ModelAndView register(ModelAndView modelAndView) {
-
+    public ModelAndView register() {
         return new ModelAndView("registration", "client", new ClientDTO());
     }
 

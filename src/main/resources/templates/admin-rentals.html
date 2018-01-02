@@ -6,9 +6,7 @@
 </head>
 <body>
     <header th:replace="basic-template :: header"></header>
-    <aside th:replace="basic-template :: aside">
-
-    </aside>
+    <aside th:replace="basic-template :: aside"></aside>
     <main class="reservations">
         <ul>
             <li th:each="rental : ${rentals}">

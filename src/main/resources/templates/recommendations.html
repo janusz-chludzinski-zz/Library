@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="basic-template :: head"></head>
+    <body>
+        <header th:replace="basic-template :: header"></header>
+        <aside th:replace="basic-template :: notAutheticatedAside"></aside>
+
+        <main class="recommendations">
+            <ul>
+                <li th:each="recommendation : ${recommendations}">
+                    <p th:text="${recommendation.isbn}"></p>
+                    <p th:text="${recommendation.authorFirstName}"></p>
+                    <p th:text="${recommendation.authorLastName}"></p>
+                    <p th:text="${recommendation.votes}"></p>
+                </li>
+            </ul>
+        </main>
+    </body>
+</html>

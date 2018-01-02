@@ -32,10 +32,13 @@ public class Client extends User {
             inverseJoinColumns = @JoinColumn(name = "RoleId", referencedColumnName = "roleId"))
     protected List<Role> roles;
 
-
     @Column
     @OneToMany(mappedBy = "client")
     private List<Reservation> reservations;
+
+    @Column
+    @OneToMany(mappedBy = "client")
+    private List<Recommendation> recommendations;
 
     public Client(){}
 
@@ -49,5 +52,4 @@ public class Client extends User {
         avatarUrl = imageService.getAvatarUrl(clientDTO);
         creationDate = now();
     }
-
 }

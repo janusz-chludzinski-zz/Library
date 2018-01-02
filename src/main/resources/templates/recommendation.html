@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="basic-template :: head">
+    <meta charset="UTF-8">
+    <title th:text="${title}">Test</title>
+</head>
+<body>
+    <header th:replace="basic-template :: header"></header>
+    <aside th:replace="basic-template :: aside">
+
+    </aside>
+
+    <main class="profile">
+        <h1>Zarekomenduj książkę</h1>
+
+        <form action="" th:object="${recommendation}" th:method="post">
+            <p class="description">Znasz jakiś tytuł, który Twoim zdaniem powinien znaleźć się w naszym zbiorze? Koniecznie nas o tym powiadom korzystając z poniższego formularza. Postaramy się, aby wskazany tytuł był możliwie najszybciej dostępny.</p>
+
+            <a th:href="@{/}">Zobacz ranking rekomendacji</a>
+
+            <i th:if="${message != null}" th:text="${message}" class="success-message" th:id="successMessage"></i>
+
+            <fieldset>
+                <label th:for="authorFirstName">Imię autora</label>
+                <input th:field="*{authorFirstName}">
+                <i th:if="${#fields.hasErrors('authorFirstName')}" th:text="${#fields.errors('authorFirstName')}" class="error-message"></i>
+            </fieldset>
+
+            <fieldset>
+                <label th:for="authorFirstName">Nazwisko autora</label>
+                <input th:field="*{authorLastName}">
+                <i th:if="${#fields.hasErrors('authorLastName')}" th:text="${#fields.errors('authorLastName')}" class="error-message"></i>
+            </fieldset>
+
+            <fieldset>
+                <label th:for="authorFirstName">ISBN</label>
+                <input th:field="*{isbn}">
+                <i th:if="${#fields.hasErrors('isbn')}" th:text="${#fields.errors('isbn')}" class="error-message"></i>
+            </fieldset>
+
+            <fieldset>
+                <label th:for="authorFirstName">Wydawnictwo</label>
+                <input th:field="*{publisher}">
+                <i th:if="${#fields.hasErrors('publisher')}" th:text="${#fields.errors('publisher')}" class="error-message"></i>
+            </fieldset>
+
+            <fieldset>
+                <label th:for="authorFirstName">Komentarz</label>
+                <input th:field="*{comment}">
+                <i th:if="${#fields.hasErrors('comment')}" th:text="${#fields.errors('comment')}" class="error-message"></i>
+            </fieldset>
+
+            <fieldset id="submit-form">
+                <button th:type="submit" th:formaction="@{/user/profile/recommendation}">Wyślij rekomendację</button>
+            </fieldset>
+        </form>
+    </main>
+</body>
+</html>

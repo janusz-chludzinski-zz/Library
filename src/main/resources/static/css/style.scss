@@ -170,6 +170,10 @@ body {
       }
     }
 
+    .logoA:hover {
+      border-bottom: 1px solid #fff;
+    }
+
     figure {
       margin-top: 20px;
 
@@ -517,6 +521,11 @@ body {
     }
   }
 
+  main.recommendations {
+    margin-left: 250px;
+    padding: 40px;
+  }
+
   form.user-form {
     margin: 10vh auto;
     width: 600px;
@@ -666,4 +675,10 @@ body {
 .active {
   background-color: #edf1f5;
   border-left: 5px solid $color-deep-blue;
+}
+
+.description {
+  line-height: 1.5rem;
+  width: 66%;
+  margin-bottom: 20px;
 }

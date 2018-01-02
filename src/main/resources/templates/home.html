@@ -3,24 +3,7 @@
 <head th:replace="basic-template :: head"></head>
     <body>
         <header th:replace="basic-template :: header"></header>
-    <aside>
-        <nav>
-            <ul>
-                <li>
-                    <a href="">Test</a>
-                </li>
-                <li>
-                    <a href="">Teeeeest</a>
-                </li>
-                <li>
-                    <a href=""></a>
-                </li>
-                <li>
-                    <a href=""></a>
-                </li>
-            </ul>
-        </nav>
-    </aside>
+        <aside th:replace="basic-template :: notAutheticatedAside"></aside>
 
     <main class="books">
         <form action="">
