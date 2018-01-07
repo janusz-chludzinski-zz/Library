@@ -87,7 +87,7 @@
                     </li>
                     <li sec:authorize="hasAuthority('ADMIN')">
                         <a th:href="@{/admin/recommendations}" th:classappend="${#request.getRequestURI() == '/admin/recommendations' ? 'active' : ''}">
-                            Rekomendacje
+                            Zarekomenduj
                         </a>
                     </li>
                     <li sec:authorize="hasAuthority('ADMIN')">
@@ -95,21 +95,6 @@
                             Użytkownicy
                         </a>
                     </li>
-                    <li sec:authorize="isAnonymous()">
-                        <a th:href="@{/recommendations}" th:classappend="${#request.getRequestURI() == '/recommendations' ? 'active' : ''}">
-                            Rekomendacje
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
-        <aside th:fragment="notAutheticatedAside" sec:authorize="isAnonymous()">
-            <a th:href="@{/home}" id="logo" class="logoA">
-                <img th:src="@{/img/logo.jpg}" alt="Logotyp">
-                <p class="logo-type">Net<span>Lib</span></p>
-            </a>
-            <nav>
-                <ul>
                     <li>
                         <a th:href="@{/home}" th:classappend="${#request.getRequestURI() == '/home' ? 'active' : ''}">
                             Książki
@@ -123,5 +108,26 @@
                 </ul>
             </nav>
         </aside>
+
+        <!--<aside th:fragment="notAutheticatedAside" sec:authorize="isAnonymous()">-->
+            <!--<a th:href="@{/home}" id="logo" class="logoA">-->
+                <!--<img th:src="@{/img/logo.jpg}" alt="Logotyp">-->
+                <!--<p class="logo-type">Net<span>Lib</span></p>-->
+            <!--</a>-->
+            <!--<nav>-->
+                <!--<ul>-->
+                    <!--<li>-->
+                        <!--<a th:href="@{/home}" th:classappend="${#request.getRequestURI() == '/home' ? 'active' : ''}">-->
+                            <!--Książki-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a th:href="@{/recommendations}" th:classappend="${#request.getRequestURI() == '/recommendations' ? 'active' : ''}">-->
+                            <!--Rekomendacje-->
+                        <!--</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</nav>-->
+        <!--</aside>-->
     </body>
 </html>

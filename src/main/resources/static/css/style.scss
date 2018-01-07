@@ -171,7 +171,7 @@ body {
     }
 
     .logoA:hover {
-      border-bottom: 1px solid #fff;
+      border-bottom: 0;
     }
 
     figure {
@@ -420,15 +420,37 @@ body {
       padding: 40px;
       background: #fff;
 
+      a.recommendations-btn {
+        float: right;
+        padding: 10px;
+        border: 1px solid $color-light-blue;
+        transition: $transition-common;
+      }
+
+      a.recommendations-btn:hover {
+        color: #fff;
+        background: $color-light-blue;
+      }
+
       i#successMessage {
         width: 100%;
         margin-bottom: 15px;
         display: block;
         text-align: center;
+        clear: both;
+      }
+
+      i#error-message {
+        width: 100%;
+        margin-bottom: 15px;
+        display: block;
+        text-align: center;
+        clear: both;
       }
 
       fieldset {
         margin: 0 0 30px 0;
+        clear: both;
 
         label {
           display: block;
@@ -524,6 +546,17 @@ body {
   main.recommendations {
     margin-left: 250px;
     padding: 40px;
+
+    ul {
+      background: #fff;
+      padding: 40px;
+
+      li {
+        padding: 20px;
+        display: block;
+        border: 1px solid red;
+      }
+    }
   }
 
   form.user-form {
@@ -680,5 +713,6 @@ body {
 .description {
   line-height: 1.5rem;
   width: 66%;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  float: left;
 }

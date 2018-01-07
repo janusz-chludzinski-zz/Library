@@ -5,8 +5,9 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.AUTO;
 
@@ -51,5 +52,17 @@ public class Recommendation {
 
     @Column
     private Long votes;
+
+    @ManyToMany
+    @JoinTable(
+            name="recommendation_client",
+            joinColumns = @JoinColumn(name = "recommendation_id", referencedColumnName = "recommendationId"),
+            inverseJoinColumns = @JoinColumn(name = "client_id", referencedColumnName = "id")
+    )
+    private Set<Client> voters;
+
+    public void addVoter(Client client) {
+        voters.add(client);
+    }
 
 }

@@ -3,15 +3,17 @@
 <head th:replace="basic-template :: head"></head>
     <body>
         <header th:replace="basic-template :: header"></header>
-        <aside th:replace="basic-template :: notAutheticatedAside"></aside>
+        <aside th:replace="basic-template :: aside"></aside>
 
         <main class="recommendations">
+            <div th:if="${error != null}" th:text="${error}" class="error-message"></div>
             <ul>
                 <li th:each="recommendation : ${recommendations}">
                     <p th:text="${recommendation.isbn}"></p>
                     <p th:text="${recommendation.authorFirstName}"></p>
                     <p th:text="${recommendation.authorLastName}"></p>
                     <p th:text="${recommendation.votes}"></p>
+                    <a th:href="@{|/recommendations/vote/${recommendation.recommendationId}|}">Głosuj</a>
                 </li>
             </ul>
         </main>

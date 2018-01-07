@@ -8,16 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import static java.time.LocalDateTime.now;
-import static java.util.Collections.sort;
-import static java.util.Comparator.*;
 
 @Service
 public class RecommendationService {
@@ -55,31 +52,65 @@ public class RecommendationService {
     }
 
     private void bookExists(Recommendation recommendation, BindingResult errors) {
-
-//        List<Book> books = bookRepository.findByIsbn(recommendation.getIsbn());
-
         if(bookRepository.existsByIsbn(recommendation.getIsbn())) {
-            errors.addError(new FieldError("alreadyExists", "isbn", "Książka o numerze ISBN " + recommendation.getIsbn() + " istnieje już w naszym zbiorze"));
+            errors.addError(new FieldError("isbn", "isbn", "Książka o numerze ISBN " + recommendation.getIsbn() + " istnieje już w naszym zbiorze"));
         }
-
     }
 
     private void isReported(Recommendation recommendation, BindingResult errors) {
-
         recommendationRepository.findByIsbn(recommendation.getIsbn())
-                .ifPresent(r -> errors.addError(new FieldError("alreadyReported", "isbn", "Książka o numerze ISBN " + r.getIsbn() + " została już zarekomednowana")));
+                .ifPresent(r -> errors.addError(new FieldError("isbn", "isbn", "Książka o numerze ISBN " + r.getIsbn() + " została już zarekomednowana")));
 
     }
 
-    private void addVote(Recommendation recommendation) {
-        // TODO: 1/1/18
+    @Transactional
+    public void addVote(Long id, HttpSession session, RedirectAttributes redirectAttributes) {
+
+        Client client = (Client) session.getAttribute("client");
+
+            recommendationRepository.findById(id).ifPresent(recommendation -> {
+                validateVote(client, recommendation, redirectAttributes);
+
+                if(redirectAttributes.getFlashAttributes().containsKey("error")) {
+                    return;
+                }
+
+                recommendation.setVotes(recommendation.getVotes() + 1);
+                recommendation.addVoter(client);
+                client.addVotedRecommendation(recommendation);
+
+                recommendationRepository.save(recommendation);
+
+            });
+    }
+
+    private void validateVote(Client client, Recommendation recommendation, RedirectAttributes redirectAttributes) {
+        if(hasRecommendedThis(client, recommendation)) {
+            redirectAttributes.addFlashAttribute("error", "Nie możesz głosować na książkę, którą rekomendowałeś");
+        }
+        else if(hasVotedAlready(client, recommendation)) {
+            redirectAttributes.addFlashAttribute("error", "Nie możesz drugi raz głosować na tę samą książkę");
+        }
+        else if(hasVotedThreeTimes(client)) {
+            redirectAttributes.addFlashAttribute("error","Nie możesz zagłosować na więcej niż 3 tytuły");
+        }
+    }
+
+    private boolean hasVotedThreeTimes(Client client) {
+        return client.getVotedRecommendations().size() >= 3;
+    }
+
+    private boolean hasVotedAlready(Client client, Recommendation recommendation) {
+        return client.getVotedRecommendations().contains(recommendation);
     }
 
     public List<Recommendation> findAll() {
-
-        List<Recommendation> recommendations = recommendationRepository.findAll();
-        recommendations.sort(comparing(Recommendation::getVotes).reversed());
-
-        return recommendations;
+        return recommendationRepository.findAllByOrderByVotesDesc();
     }
+
+    private boolean hasRecommendedThis(Client client, Recommendation recommendation) {
+        return recommendation.getClient().equals(client);
+    }
+
+
 }

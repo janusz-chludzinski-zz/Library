@@ -103,8 +103,8 @@ public class ClientController {
 
     @RequestMapping(value = "/profile/recommendation", method = POST)
     public ModelAndView postRecommendation(@ModelAttribute("recommendation") @Valid Recommendation recommendation,
-                                           ModelAndView modelAndView,
-                                           BindingResult errors) {
+                                           BindingResult errors,
+                                           ModelAndView modelAndView) {
 
         modelAndView.setViewName("recommendation");
         errors = recommendationService.validateRecommendation(recommendation, errors);

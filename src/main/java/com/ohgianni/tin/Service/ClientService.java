@@ -13,7 +13,10 @@ import org.springframework.validation.FieldError;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
+import java.util.Optional;
+
 import static java.util.Collections.singletonList;
+import static java.util.Optional.*;
 
 
 @Service
@@ -65,24 +68,27 @@ public class ClientService {
     }
 
     private void checkIfEmailExists(ClientDTO clientDTO, HttpSession session, BindingResult result) {
+        Optional<Client> client = ofNullable(clientRepository.findByEmail(clientDTO.getEmail()));
+        Optional<Client> loggedInClient = ofNullable((Client)session.getAttribute("client"));
 
-        Client client = clientRepository.findByEmail(clientDTO.getEmail());
-        Client loggedInClient = (Client)session.getAttribute("client");
+        if (client.isPresent() && loggedInClient.isPresent()) {
+            if(isSameClient(client.get(), loggedInClient.get())) {
+               return;
+            }
 
-        if (client != null && isNotSameClient(client, loggedInClient)) {
+        } else if (client.isPresent()) {
             result.addError(new FieldError("email", "email", "Ten email istnieje już w naszej bazie"));
         }
     }
 
-    private boolean isNotSameClient(Client client, Client loggedInClient) {
-        return !client.getId().equals(loggedInClient.getId());
+    private boolean isSameClient(Client client, Client loggedInClient) {
+        return client.getId().equals(loggedInClient.getId());
     }
 
     private void checkIfPasswordsMatch(ClientDTO clientDTO, BindingResult result) {
         if (!clientDTO.getPassword().equals(clientDTO.getPasswordRepeat())) {
             result.addError(new FieldError("password", "password", "Podane hasła nie są identyczne"));
         }
-
     }
 
     private void assignRole(Client client) {
@@ -101,7 +107,5 @@ public class ClientService {
     public boolean isAdmin(Client client) {
         return client.getRoles().get(0).getRoleId() == 2L;
     }
-
-
 
 }

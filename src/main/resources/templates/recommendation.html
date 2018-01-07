@@ -13,12 +13,14 @@
     <main class="profile">
         <h1>Zarekomenduj książkę</h1>
 
-        <form action="" th:object="${recommendation}" th:method="post">
+        <form th:action="@{/user/profile/recommendation}" th:object="${recommendation}" th:method="post">
             <p class="description">Znasz jakiś tytuł, który Twoim zdaniem powinien znaleźć się w naszym zbiorze? Koniecznie nas o tym powiadom korzystając z poniższego formularza. Postaramy się, aby wskazany tytuł był możliwie najszybciej dostępny.</p>
 
-            <a th:href="@{/}">Zobacz ranking rekomendacji</a>
+            <a th:href="@{/recommendations}" class="recommendations-btn">Zobacz ranking rekomendacji</a>
 
             <i th:if="${message != null}" th:text="${message}" class="success-message" th:id="successMessage"></i>
+
+            <!--<i th:if="${errors != null}" th:each="error : ${errors}" th:text="${error}" class="error-message" th:id="errorMessage"></i>-->
 
             <fieldset>
                 <label th:for="authorFirstName">Imię autora</label>
@@ -51,7 +53,7 @@
             </fieldset>
 
             <fieldset id="submit-form">
-                <button th:type="submit" th:formaction="@{/user/profile/recommendation}">Wyślij rekomendację</button>
+                <button th:type="submit" th:formaction="@{/user/profile/recommendation}" th:method="post">Wyślij rekomendację</button>
             </fieldset>
         </form>
     </main>

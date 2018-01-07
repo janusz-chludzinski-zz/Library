@@ -99,7 +99,7 @@ body {
         font-size: 1.5rem;
         font-family: "Slabo 27px", serif; }
     body aside .logoA:hover {
-      border-bottom: 1px solid #fff; }
+      border-bottom: 0; }
     body aside figure {
       margin-top: 20px; }
       body aside figure img {
@@ -255,13 +255,29 @@ body {
     body main.profile form {
       padding: 40px;
       background: #fff; }
+      body main.profile form a.recommendations-btn {
+        float: right;
+        padding: 10px;
+        border: 1px solid rgba(133, 180, 208, 0.5);
+        transition: all 0.3s ease-in-out; }
+      body main.profile form a.recommendations-btn:hover {
+        color: #fff;
+        background: rgba(133, 180, 208, 0.5); }
       body main.profile form i#successMessage {
         width: 100%;
         margin-bottom: 15px;
         display: block;
-        text-align: center; }
+        text-align: center;
+        clear: both; }
+      body main.profile form i#error-message {
+        width: 100%;
+        margin-bottom: 15px;
+        display: block;
+        text-align: center;
+        clear: both; }
       body main.profile form fieldset {
-        margin: 0 0 30px 0; }
+        margin: 0 0 30px 0;
+        clear: both; }
         body main.profile form fieldset label {
           display: block;
           float: left;
@@ -320,6 +336,13 @@ body {
   body main.recommendations {
     margin-left: 250px;
     padding: 40px; }
+    body main.recommendations ul {
+      background: #fff;
+      padding: 40px; }
+      body main.recommendations ul li {
+        padding: 20px;
+        display: block;
+        border: 1px solid red; }
   body form.user-form {
     margin: 10vh auto;
     width: 600px;
@@ -427,6 +450,7 @@ body {
 .description {
   line-height: 1.5rem;
   width: 66%;
-  margin-bottom: 20px; }
+  margin-bottom: 40px;
+  float: left; }
 
 /*# sourceMappingURL=style.css.map */
