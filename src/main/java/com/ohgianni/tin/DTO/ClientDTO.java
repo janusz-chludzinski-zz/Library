@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 public class ClientDTO {
 
     @NotNull
-    @NotEmpty (message = "Pole nie może być puste")
+    @NotEmpty
     private String name;
 
     @NotNull

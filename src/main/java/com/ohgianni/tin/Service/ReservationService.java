@@ -4,10 +4,12 @@ import com.ohgianni.tin.Entity.Book;
 import com.ohgianni.tin.Entity.Client;
 import com.ohgianni.tin.Entity.Reservation;
 import com.ohgianni.tin.Enum.BookStatus;
+import com.ohgianni.tin.Enum.Status;
 import com.ohgianni.tin.Exception.ReservationNotFoundException;
 import com.ohgianni.tin.Repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -58,6 +60,7 @@ public class ReservationService {
     public List<Reservation> findAllReservations() {
         List<Reservation> reservations = reservationRepository.findReservationsByStatus(RESERVED);
         encodeCovers(reservations);
+        setDaysLeft(reservations);
 
         return reservations;
     }
@@ -84,6 +87,19 @@ public class ReservationService {
         bookService.setStatusAndSave(reservation.getBook(), BookStatus.AVAILABLE);
 
         return reservationRepository.save(reservation);
+    }
+
+    @Transactional
+    public void cancelReservation(Long id, RedirectAttributes redirectAttributes) {
+        try {
+            Reservation reservation = reservationRepository.findById(id).orElseThrow(ReservationNotFoundException::new);
+            reservation.setStatus(Status.CANCELED);
+            bookService.setStatusAndSave(reservation.getBook(), BookStatus.AVAILABLE);
+            redirectAttributes.addFlashAttribute("message", "Rezerwacja została pomyślnie odwołana");
+
+        } catch (ReservationNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
     }
 }
 

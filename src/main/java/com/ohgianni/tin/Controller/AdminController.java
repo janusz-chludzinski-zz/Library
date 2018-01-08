@@ -4,14 +4,11 @@ import com.ohgianni.tin.Exception.ReservationNotFoundException;
 import com.ohgianni.tin.Service.ClientService;
 import com.ohgianni.tin.Service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/admin")
@@ -35,7 +32,7 @@ public class AdminController {
 
 
     @RequestMapping("/reservations")
-    public String viewReservations(Model model, HttpSession session, Authentication authentication) {
+    public String viewReservations(Model model) {
         model.addAttribute("reservations", reservationService.findAllReservations());
 
         return "admin-reservations";
@@ -74,5 +71,11 @@ public class AdminController {
         }
 
         return "redirect:/admin/rentals";
+    }
+
+    @RequestMapping("/cancel/{id}")
+    public String cancelReservation(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        reservationService.cancelReservation(id, redirectAttributes);
+        return "redirect:/admin/reservations";
     }
 }

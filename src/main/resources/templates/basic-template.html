@@ -86,11 +86,6 @@
                         </a>
                     </li>
                     <li sec:authorize="hasAuthority('ADMIN')">
-                        <a th:href="@{/admin/recommendations}" th:classappend="${#request.getRequestURI() == '/admin/recommendations' ? 'active' : ''}">
-                            Zarekomenduj
-                        </a>
-                    </li>
-                    <li sec:authorize="hasAuthority('ADMIN')">
                         <a th:href="@{/admin/clients}" th:classappend="${#request.getRequestURI() == '/admin/clients' ? 'active' : ''}">
                             Użytkownicy
                         </a>
