@@ -34,7 +34,7 @@
                 <div class="reservation-status">
                     <p th:text="${reservation.status}"></p>
                     <p class="reservation-label">Reserved by:</p>
-                    <a class="reservation-client" th:href="@{|/admin/clients/${reservation.client.id}|}" th:text="${reservation.client.name + ' ' + reservation.client.surname}"></a>
+                    <a class="reservation-client" th:href="@{/admin/clients}" th:text="${reservation.client.name + ' ' + reservation.client.surname}"></a>
                 </div>
 
                 <div class="days">
