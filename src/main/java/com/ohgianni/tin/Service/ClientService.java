@@ -12,11 +12,11 @@ import org.springframework.validation.FieldError;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
-
+import java.util.List;
 import java.util.Optional;
 
 import static java.util.Collections.singletonList;
-import static java.util.Optional.*;
+import static java.util.Optional.ofNullable;
 
 
 @Service
@@ -108,4 +108,7 @@ public class ClientService {
         return client.getRoles().get(0).getRoleId() == 2L;
     }
 
+    public List<Client> findAll() {
+       return clientRepository.findAllByOrderBySurnameDesc();
+    }
 }

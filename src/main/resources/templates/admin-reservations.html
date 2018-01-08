@@ -11,6 +11,8 @@
     </aside>
 
     <main class="reservations">
+        <h1>Lista rezerwacji</h1>
+
         <i th:if="${message != null}" th:text="${message}" class="success-message" th:id="successMessage"></i>
         <i th:if="${error != null}" th:text="${message}" class="error-message" th:id="successMessage"></i>
 
@@ -29,8 +31,10 @@
                     </div>
                 </div>
 
-                <div class="reservation-status" th:text="${reservation.status}">
-                    <a href="" th:text="${reservation.client.name + ' ' + reservation.client.surname}"></a>
+                <div class="reservation-status">
+                    <p th:text="${reservation.status}"></p>
+                    <p class="reservation-label">Reserved by:</p>
+                    <a class="reservation-client" th:href="@{|/admin/clients/${reservation.client.id}|}" th:text="${reservation.client.name + ' ' + reservation.client.surname}"></a>
                 </div>
 
                 <div class="days">

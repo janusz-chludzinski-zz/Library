@@ -373,7 +373,7 @@ body {
           width: 200px;
           text-align: center;
           height: 100px;
-          padding-top: 40px;
+          padding-top: 25px;
           position: relative;
           bottom: 40px;
           font-size: 1.5rem;
@@ -381,6 +381,18 @@ body {
           color: #fff;
           font-weight: 600;
           border-bottom: 3px solid $color-deep-blue;
+
+          p.reservation-label {
+            font-size: 0.8rem;
+            font-weight: 100;
+            margin-top: 10px;
+          }
+
+          a.reservation-client {display: block;
+            margin-top: 5px;
+            font-weight: 100;
+            font-size: 1rem;
+          }
         }
 
         div.days {
@@ -595,6 +607,198 @@ body {
     }
   }
 
+  main.clients {
+    margin-left: 250px;
+    padding: 40px;
+
+    ul {
+      background: #fff;
+      padding: 40px;
+
+      li {
+        padding: 20px 0;
+        display: block;
+        border-top: 2px solid $color-light-blue;
+        margin-bottom: 20px;
+        clear: both;
+        overflow: hidden;
+
+        .client-info-wrapper {
+          width: 400px;
+          text-align: center;
+          overflow: hidden;
+          float: left;
+
+          img {
+            width: 75px;
+            background: #fff;
+            border-radius: 90px;
+            border: 2px solid rgba(133, 180, 208, 0.9);
+            float: left;
+            margin-right: 20px;
+          }
+
+          p {
+            text-align: left;
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+            span {
+              margin-right: 5px;
+            }
+          }
+
+          p.email {
+            font-size: 1rem;
+          }
+
+          p.fullName {
+            margin-top: 12px;
+            font-weight: 600;
+            color: $color-solid-green;
+          }
+        }
+
+        div.dob {
+          float: left;
+          margin-left: 150px;
+          padding-top: 5px;
+
+          i {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 5px;
+            text-align: center;
+            color: $color-light-green;
+          }
+
+          span {
+            font-size: 0.8rem;
+
+          }
+        }
+
+        div.history-btn {
+          float: right;
+          margin-top: 20px;
+
+          a {
+            border: 1px solid $color-light-blue;
+            padding: 10px 20px;
+            transition: $transition-common;
+          }
+
+          a:hover {
+            background: $color-deep-blue;
+            color: #fff;
+          }
+
+        }
+
+
+        .rent-history {
+          clear: both;
+          padding-top: 20px;
+
+          ul {
+            padding: 0 0 0 40px;
+            margin-left: 55px;
+
+            li {
+              border-left: 2px solid $color-light-blue;
+              border-top: 0;
+              overflow: hidden;
+              padding-left: 20px;
+              padding-right: 0;
+              margin-bottom: 10px;
+
+              div {
+                float: left;
+                margin-right: 40px;
+              }
+
+              div.reservation-id {
+                width: 5%;
+              }
+
+              div.book-info {
+                overflow: hidden;
+                width: 73%;
+
+                p {
+                  float: left;
+                  margin-right: 40px;
+                }
+
+                p.reservation-id {
+                  width: 5%;
+                }
+
+                p.book-title {
+                  width: 30%;
+                }
+
+                p.book-author {
+                  width: 25%;
+                }
+
+                p.book-isbn {
+                  width: 15%;
+                }
+
+                p.book-id {
+                  width: 7%;
+                }
+              }
+
+              div.book-status {
+                width: 10%;
+              }
+            }
+          }
+
+          div#rentals-header {
+            margin-left: 95px;
+            padding-left: 20px;
+            background-color: $color-deep-blue;
+            overflow: hidden;
+
+            p.header-element {
+              float: left;
+              background-color: $color-deep-blue;
+              padding: 5px;
+              color: #fff;
+            }
+
+            p:nth-child(1) {
+              width: 8%;
+            }
+
+            p:nth-child(2) {
+              width: 25%;
+            }
+
+            p:nth-child(3) {
+              width: 21%;
+            }
+
+            p:nth-child(4) {
+              width: 13%;
+            }
+
+            p:nth-child(5) {
+              width: 16%;
+            }
+
+            p:nth-child(6) {
+              width: 16%;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
   form.user-form {
     margin: 10vh auto;
     width: 600px;
@@ -714,6 +918,7 @@ body {
     }
   }
 }
+
 
 .login-bg {
   background-image: url("../img/login-bg.jpg");

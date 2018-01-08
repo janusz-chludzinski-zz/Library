@@ -8,6 +8,8 @@
     <header th:replace="basic-template :: header"></header>
     <aside th:replace="basic-template :: aside"></aside>
     <main class="reservations">
+        <h1>Lista wypożyczeń</h1>
+
         <ul>
             <li th:each="rental : ${rentals}">
                 <div class="book-info">

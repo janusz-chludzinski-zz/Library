@@ -78,4 +78,10 @@ public class AdminController {
         reservationService.cancelReservation(id, redirectAttributes);
         return "redirect:/admin/reservations";
     }
+
+    @RequestMapping("/clients")
+    public String displayClients(Model model) {
+        model.addAttribute("clients", clientService.findAll());
+        return "admin-clients";
+    }
 }

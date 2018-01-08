@@ -227,7 +227,7 @@ body {
         width: 200px;
         text-align: center;
         height: 100px;
-        padding-top: 40px;
+        padding-top: 25px;
         position: relative;
         bottom: 40px;
         font-size: 1.5rem;
@@ -235,6 +235,15 @@ body {
         color: #fff;
         font-weight: 600;
         border-bottom: 3px solid rgba(133, 180, 208, 0.9); }
+        body main.reservations ul li.reservation-element div.reservation-status p.reservation-label {
+          font-size: 0.8rem;
+          font-weight: 100;
+          margin-top: 10px; }
+        body main.reservations ul li.reservation-element div.reservation-status a.reservation-client {
+          display: block;
+          margin-top: 5px;
+          font-weight: 100;
+          font-size: 1rem; }
       body main.reservations ul li.reservation-element div.days {
         padding: 25px 20px;
         float: right;
@@ -371,6 +380,123 @@ body {
         padding: 20px;
         display: block;
         border: 1px solid red; }
+  body main.clients {
+    margin-left: 250px;
+    padding: 40px; }
+    body main.clients ul {
+      background: #fff;
+      padding: 40px; }
+      body main.clients ul li {
+        padding: 20px 0;
+        display: block;
+        border-top: 2px solid rgba(133, 180, 208, 0.5);
+        margin-bottom: 20px;
+        clear: both;
+        overflow: hidden; }
+        body main.clients ul li .client-info-wrapper {
+          width: 400px;
+          text-align: center;
+          overflow: hidden;
+          float: left; }
+          body main.clients ul li .client-info-wrapper img {
+            width: 75px;
+            background: #fff;
+            border-radius: 90px;
+            border: 2px solid rgba(133, 180, 208, 0.9);
+            float: left;
+            margin-right: 20px; }
+          body main.clients ul li .client-info-wrapper p {
+            text-align: left;
+            margin-bottom: 5px;
+            font-size: 1.2rem; }
+            body main.clients ul li .client-info-wrapper p span {
+              margin-right: 5px; }
+          body main.clients ul li .client-info-wrapper p.email {
+            font-size: 1rem; }
+          body main.clients ul li .client-info-wrapper p.fullName {
+            margin-top: 12px;
+            font-weight: 600;
+            color: #becfa6; }
+        body main.clients ul li div.dob {
+          float: left;
+          margin-left: 150px;
+          padding-top: 5px; }
+          body main.clients ul li div.dob i {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 5px;
+            text-align: center;
+            color: rgba(190, 207, 166, 0.8); }
+          body main.clients ul li div.dob span {
+            font-size: 0.8rem; }
+        body main.clients ul li div.history-btn {
+          float: right;
+          margin-top: 20px; }
+          body main.clients ul li div.history-btn a {
+            border: 1px solid rgba(133, 180, 208, 0.5);
+            padding: 10px 20px;
+            transition: all 0.3s ease-in-out; }
+          body main.clients ul li div.history-btn a:hover {
+            background: rgba(133, 180, 208, 0.9);
+            color: #fff; }
+        body main.clients ul li .rent-history {
+          clear: both;
+          padding-top: 20px; }
+          body main.clients ul li .rent-history ul {
+            padding: 0 0 0 40px;
+            margin-left: 55px; }
+            body main.clients ul li .rent-history ul li {
+              border-left: 2px solid rgba(133, 180, 208, 0.5);
+              border-top: 0;
+              overflow: hidden;
+              padding-left: 20px;
+              padding-right: 0;
+              margin-bottom: 10px; }
+              body main.clients ul li .rent-history ul li div {
+                float: left;
+                margin-right: 40px; }
+              body main.clients ul li .rent-history ul li div.reservation-id {
+                width: 5%; }
+              body main.clients ul li .rent-history ul li div.book-info {
+                overflow: hidden;
+                width: 73%; }
+                body main.clients ul li .rent-history ul li div.book-info p {
+                  float: left;
+                  margin-right: 40px; }
+                body main.clients ul li .rent-history ul li div.book-info p.reservation-id {
+                  width: 5%; }
+                body main.clients ul li .rent-history ul li div.book-info p.book-title {
+                  width: 30%; }
+                body main.clients ul li .rent-history ul li div.book-info p.book-author {
+                  width: 25%; }
+                body main.clients ul li .rent-history ul li div.book-info p.book-isbn {
+                  width: 15%; }
+                body main.clients ul li .rent-history ul li div.book-info p.book-id {
+                  width: 7%; }
+              body main.clients ul li .rent-history ul li div.book-status {
+                width: 10%; }
+          body main.clients ul li .rent-history div#rentals-header {
+            margin-left: 95px;
+            padding-left: 20px;
+            background-color: rgba(133, 180, 208, 0.9);
+            overflow: hidden; }
+            body main.clients ul li .rent-history div#rentals-header p.header-element {
+              float: left;
+              background-color: rgba(133, 180, 208, 0.9);
+              padding: 5px;
+              color: #fff; }
+            body main.clients ul li .rent-history div#rentals-header p:nth-child(1) {
+              width: 8%; }
+            body main.clients ul li .rent-history div#rentals-header p:nth-child(2) {
+              width: 25%; }
+            body main.clients ul li .rent-history div#rentals-header p:nth-child(3) {
+              width: 21%; }
+            body main.clients ul li .rent-history div#rentals-header p:nth-child(4) {
+              width: 13%; }
+            body main.clients ul li .rent-history div#rentals-header p:nth-child(5) {
+              width: 16%; }
+            body main.clients ul li .rent-history div#rentals-header p:nth-child(6) {
+              width: 16%; }
   body form.user-form {
     margin: 10vh auto;
     width: 600px;

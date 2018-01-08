@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="basic-template :: head"></head>
+    <body>
+        <header th:replace="basic-template :: header"></header>
+        <aside th:replace="basic-template :: aside"></aside>
+
+        <main class="clients">
+            <h1>List zarejestrowanych klientów</h1>
+
+            <div th:if="${error != null}" th:text="${error}" class="error-message"></div>
+            <ul>
+                <li th:each="client : ${clients}" th:id="${client.id}">
+
+                    <div class="client-info-wrapper">
+                        <img th:src="@{${client.avatarUrl}}">
+
+                        <p class="fullName">
+                            <span th:text="${client.name}"></span>
+                            <span th:text="${client.surname}"></span>
+                        </p>
+
+                        <p class="email" th:text="${client.email}"></p>
+                    </div>
+
+                    <div class="dob">
+                        <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+                        <span th:text="${client.dateOfBirth}"></span>
+                    </div>
+
+                    <div class="history-btn">
+                        <a href="" class="button history-button">Pokaż historię</a>
+                    </div>
+
+                    <div class="rent-history" th:if="${#lists.size(client.reservations) > 0}">
+
+                        <div th:id="rentals-header">
+                            <p class="header-element">ID</p>
+                            <p class="header-element">Tytuł</p>
+                            <p class="header-element">Autor</p>
+                            <p class="header-element">ISBN</p>
+                            <p class="header-element">ID Książki</p>
+                            <p class="header-element">Status</p>
+                        </div>
+
+                        <ul>
+                            <li th:each="reservation : ${client.reservations}">
+                                <div class="reservation-id">
+                                    <p th:text="${reservation.reservationId}"></p>
+                                </div>
+                                <div class="book-info">
+                                    <p class="book-title" th:text="${reservation.book.title}"></p>
+                                    <p class="book-author" th:each="author : ${reservation.book.authors}">
+                                        <span th:text="${author.name + ' ' + author.surname}"></span>
+                                    </p>
+                                    <p class="book-isbn" th:text="${reservation.book.isbn}"></p>
+                                    <p class="book-id" th:text="${reservation.book.bookId}"></p>
+                                </div>
+                                <div class="book-status">
+                                    <p th:text="${reservation.status}"></p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </main>
+        <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js}"></script>
+        <script th:src="@{/js/rental-history.js}"></script>
+    </body>
+</html>
