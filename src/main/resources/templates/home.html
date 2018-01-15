@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="basic-template :: head"></head>
     <body>
         <header th:replace="basic-template :: header"></header>
@@ -14,6 +14,11 @@
         </form>
         <ul>
             <li th:each="book : ${books}" th:title="${book.title}">
+                <div sec:authorize="hasAuthority('ADMIN')" class="book-edit">
+                    <a th:href="@{|/book/edit/${book.isbn}|}">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                </div>
                 <a th:href="@{|/book/${book.isbn}|}">
 
                     <img th:src="@{${book.imageUrl}}" />

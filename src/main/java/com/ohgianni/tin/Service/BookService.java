@@ -32,9 +32,6 @@ public class BookService {
 
     private ImageService imageService;
 
-    private static final String BASE64_PREFIX = "data:image/jpeg;base64,";
-
-
     @Autowired
     public BookService(BookRepository bookRepository, ReservationRepository reservationRepository, ClientRepository clientRepository, ImageService imageService) {
         this.bookRepository = bookRepository;
@@ -64,35 +61,8 @@ public class BookService {
         return booksDistinct;
     }
 
-    private List<Book> getBooksDistinct(List<Book> books) {
-        Map<Long, Book> booksDistinct = new HashMap<>();
-        books.forEach(book -> {
-            if (!booksDistinct.containsKey(book.getIsbn())) {
-                booksDistinct.put(book.getIsbn(), book);
-            }
-        });
-
-        return new ArrayList<>(booksDistinct.values());
-    }
-
-    public Book getBookByIsbn(Long isbn) {
-
-        return getAllBooksDistinct().stream()
-                .filter(book -> book.getIsbn().equals(isbn))
-                .findFirst()
-                .orElse(new Book());
-    }
-
-    private List<Book> setSpecimenInformation(List<Book> books, List<Book> booksDistinct) {
-        Map<Long, Integer> specimenAvailable = getSpecimenAvailable(books);
-        Map<Long, Integer> specimenTotal = getSpecimenTotal(books);
-
-        booksDistinct.forEach(book -> {
-            book.setAvailableSpecimen(specimenAvailable.get(book.getIsbn()));
-            book.setTotalSpecimen(specimenTotal.get(book.getIsbn()));
-        });
-
-        return books;
+    public List<Book> getAllBooksByIsbn(Long isbn) {
+        return bookRepository.findAllByIsbn(isbn);
     }
 
     @Transactional
@@ -112,6 +82,37 @@ public class BookService {
     public Book setStatusAndSave(Book book, BookStatus status) {
         book.setStatus(status);
         return bookRepository.save(book);
+    }
+
+    public Book getBookByIsbn(Long isbn) {
+
+        return getAllBooksDistinct().stream()
+                .filter(book -> book.getIsbn().equals(isbn))
+                .findFirst()
+                .orElse(new Book());
+    }
+
+    private List<Book> getBooksDistinct(List<Book> books) {
+        Map<Long, Book> booksDistinct = new HashMap<>();
+        books.forEach(book -> {
+            if (!booksDistinct.containsKey(book.getIsbn())) {
+                booksDistinct.put(book.getIsbn(), book);
+            }
+        });
+
+        return new ArrayList<>(booksDistinct.values());
+    }
+
+    private List<Book> setSpecimenInformation(List<Book> books, List<Book> booksDistinct) {
+        Map<Long, Integer> specimenAvailable = getSpecimenAvailable(books);
+        Map<Long, Integer> specimenTotal = getSpecimenTotal(books);
+
+        booksDistinct.forEach(book -> {
+            book.setAvailableSpecimen(specimenAvailable.get(book.getIsbn()));
+            book.setTotalSpecimen(specimenTotal.get(book.getIsbn()));
+        });
+
+        return books;
     }
 
     private Map<Long, Integer> getSpecimenTotal(List<Book> books) {

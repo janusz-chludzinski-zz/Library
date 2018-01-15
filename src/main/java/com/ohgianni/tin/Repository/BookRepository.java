@@ -14,6 +14,8 @@ public interface BookRepository extends CrudRepository<Book, Long> {
 
     List<Book> findByIsbnAndStatus(Long aLong, BookStatus status);
 
+    List<Book> findAllByIsbn(Long isbn);
+
     boolean existsByIsbn(Long isbn);
 
 

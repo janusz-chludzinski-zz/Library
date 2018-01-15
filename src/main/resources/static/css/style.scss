@@ -274,11 +274,32 @@ body {
 
     ul {
       li {
+
         display: inline-block;
         background-color: #fff;
         margin-right: 59px;
         margin-bottom: 40px;
         width: 22%;
+        position: relative;
+
+        div.book-edit {
+          position: absolute;
+          left: 275px;
+          top: 20px;
+
+          a {
+            display: block;
+            width: 60px;
+            border-radius: 50px;
+            padding: 10px;
+            height: 60px;
+            text-align: center;
+            line-height: 40px;
+            font-size: 1.5rem;
+            background-color: rgba(178, 9, 13, 1);
+            color: #fff;
+          }
+        }
 
         a {
           display: block;

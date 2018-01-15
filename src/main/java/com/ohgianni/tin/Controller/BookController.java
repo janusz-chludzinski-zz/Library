@@ -55,4 +55,11 @@ public class BookController {
 
     }
 
+    @RequestMapping("/edit/{isbn}")
+    public String edit(@PathVariable Long isbn,  Model model) {
+        model.addAttribute("books", bookService.getAllBooksByIsbn(isbn));
+
+        return "admin-book";
+    }
+
 }

@@ -5,10 +5,13 @@
         <header th:replace="basic-template :: header"></header>
         <aside th:replace="basic-template :: aside"></aside>
 
-        <img th:src="@{${book.imageUrl}}" alt="">
-        <h1 th:text="${book.title}"></h1>
-        <a sec:authorize="!hasAuthority('USER')" th:if="${book.availableSpecimen > 0}"  th:href="@{|/book/reservation/${book.isbn}|}">
-                Rezerwuj
-        </a>
+        <ul>
+            <li th:each="book : ${books}">
+                <p th:text="${book.bookId}"></p>
+                <p th:text="${book.title}"></p>
+                <p th:text="${book.status}"></p>
+                <a th:href="@{|/book/delete/${book.bookId}|}"></a>
+            </li>
+        </ul>
     </body>
 </html>

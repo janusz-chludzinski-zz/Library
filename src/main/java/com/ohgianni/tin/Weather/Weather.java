@@ -64,14 +64,14 @@ public class Weather {
 
 
 
-        if(humidity >= 100 && clouds >= 100) {
-
-        }
-        else if() {
-
-        }
-        else if() {
-
-        }
+//        if(humidity >= 100 && clouds >= 100) {
+//
+//        }
+//        else if() {
+//
+//        }
+//        else if() {
+//
+//        }
     }
 }
