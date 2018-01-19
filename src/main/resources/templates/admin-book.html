@@ -2,16 +2,65 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
     <head th:replace="basic-template :: head"></head>
     <body>
-        <header th:replace="basic-template :: header"></header>
-        <aside th:replace="basic-template :: aside"></aside>
 
-        <ul>
-            <li th:each="book : ${books}">
-                <p th:text="${book.bookId}"></p>
-                <p th:text="${book.title}"></p>
-                <p th:text="${book.status}"></p>
-                <a th:href="@{|/book/delete/${book.bookId}|}"></a>
+    <header th:replace="basic-template :: header"></header>
+    <aside th:replace="basic-template :: aside"></aside>
+    <main class="book-edit">
+        <h1>Edycja książki</h1>
+
+        <form th:action="post" th:object="${bookDto}">
+            <fieldset>
+                <label th:for="title">Tytuł</label>
+                <input th:field="*{book.title}" type="text">
+            </fieldset>
+            <fieldset>
+                <label th:for="edition">Edycja</label>
+                <input th:field="*{book.edition}" type="text">
+            </fieldset>
+            <fieldset>
+                <label th:for="isbn">ISBN</label>
+                <input th:field="*{book.isbn}" type="text">
+            </fieldset>
+            <fieldset>
+                <label th:for="pages">Stron</label>
+                <input th:field="*{book.pages}" type="text">
+            </fieldset>
+            <fieldset>
+                <label>Wydawnictwo</label>
+                <select name="" id="publishers">
+                    <option value="Dodaj nowy">Dodaj nowe wydawnictwo</option>
+                    <option th:each="publisher : ${bookDto.publishers}" th:value="${publisher.name}" th:text="${publisher.name}" selected></option>
+                </select>
+                <div id="new-publisher">
+                    <fieldset>
+                        <label th:for="publisher.name">Nazwa wydawnictwa</label>
+                        <input th:field="*{publisher.name}" type="text">
+                    </fieldset>
+                </div>
+            </fieldset>
+            <fieldset>
+                <label th:for="multipartImage" class="for-image">
+                    <span>Okładka</span>
+                    <p class="bookButton">Zmien okładkę</p>
+                    <img th:src="@{*{book.coverImage}}" alt="Book cover image" id="book-cover">
+                </label>
+
+                <input th:field="*{book.multipartImage}" th:type="file" th:id="multipartImage" th:name="multipartImage">
+
+            </fieldset>
+        </form>
+
+        <h2>Egzemplarze</h2>
+        <ul th:id="book-items">
+            <li th:each="book : ${bookDto.books}" class="book-item">
+                <p th:text="${book.bookId}" class="book-data"></p>
+                <p th:text="${book.title}" class="book-data"></p>
+                <p th:text="${book.status}" class="book-data"></p>
+                <a th:href="@{|/book/delete/${book.bookId}|}">Usuń książkę</a>
             </li>
         </ul>
+        </main>
+        <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js}"></script>
+        <script th:src="@{/js/add-publisher.js}"></script>
     </body>
 </html>

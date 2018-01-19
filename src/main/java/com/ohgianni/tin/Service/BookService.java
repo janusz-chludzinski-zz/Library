@@ -45,9 +45,9 @@ public class BookService {
     }
 
     @Transactional
-    public List<Book>   getAllBooks() {
+    public List<Book> getAllBooks() {
         List<Book> books = (List<Book>) bookRepository.findAll();
-        books.forEach(book -> book.setImageUrl(imageService.getBookCoverUrl(book)));
+//        books.forEach(book -> book.setImageUrl(imageService.getBookCoverUrl(book)));
 
         return books;
     }

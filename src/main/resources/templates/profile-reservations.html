@@ -14,7 +14,7 @@
         <h1>Wypożyczenia</h1>
         <ul>
             <li th:each="reservation : ${reservations}" class="reservation-element">
-                <img th:src="@{${reservation.book.imageUrl}}" />
+                <img th:src="@{${reservation.book.coverImage}}" />
 
                 <div class="book-info">
                     <h2 th:text="${reservation.book.title}"></h2>

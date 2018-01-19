@@ -4,7 +4,7 @@
     <body>
         <header th:replace="basic-template :: header"></header>
         <main class="reservation">
-            <img th:src="@{${book.imageUrl}}" alt="">
+            <img th:src="@{${book.coverImage}}" alt="">
             <h1 th:text="${book.title}"></h1>
 
             <p>Hej, <span th:text="${session.client.name}"></span></p>

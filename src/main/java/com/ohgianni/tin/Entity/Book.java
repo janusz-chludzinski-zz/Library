@@ -4,6 +4,7 @@ import com.ohgianni.tin.Enum.BookStatus;
 import com.ohgianni.tin.Enum.CoverType;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.List;
@@ -54,21 +55,16 @@ public class Book {
     private List<Reservation> reservations;
 
     @Transient
-    private String imageUrl;
-
-    @Transient
     private int availableSpecimen;
 
     @Transient
     private int totalSpecimen;
 
+    @Transient
+    private MultipartFile multipartImage;
+
     public Book() {
 
     }
-
-    public CoverType getCoverType() {
-        return coverType;
-    }
-
 }
 

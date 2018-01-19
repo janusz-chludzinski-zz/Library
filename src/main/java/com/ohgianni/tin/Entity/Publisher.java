@@ -21,20 +21,4 @@ public class Publisher {
     @OneToMany(mappedBy = "publisher")
     private List<Book> books;
 
-    public Long getPublisherId() {
-        return publisherId;
-    }
-
-    public void setPublisherId(Long publisherId) {
-        this.publisherId = publisherId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
 }

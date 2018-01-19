@@ -25,18 +25,18 @@ public class WeatherInterceptor extends HandlerInterceptorAdapter{
         this.restTemplate = new RestTemplate();
     }
 
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-                           @Nullable ModelAndView modelAndView) throws Exception {
-
-        ResponseEntity<Weather> responseEntity = restTemplate.getForEntity("http://api.openweathermap.org/data/2.5/weather?q=Pruszków&appid=197d15f3cc9590316822e7894a6f1e40&units=metric", Weather.class);
-        Weather weather = responseEntity.getBody();
-
-        if(isResponseOk(responseEntity) && nonNull(modelAndView) && nonNull(weather) ) {
-            System.out.println(weather);
-            modelAndView.addObject("weather", weather);
-        }
-    }
+//    @Override
+//    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+//                           @Nullable ModelAndView modelAndView) throws Exception {
+//
+//        ResponseEntity<Weather> responseEntity = restTemplate.getForEntity("http://api.openweathermap.org/data/2.5/weather?q=Pruszków&appid=197d15f3cc9590316822e7894a6f1e40&units=metric", Weather.class);
+//        Weather weather = responseEntity.getBody();
+//
+//        if(isResponseOk(responseEntity) && nonNull(modelAndView) && nonNull(weather) ) {
+//            System.out.println(weather);
+//            modelAndView.addObject("weather", weather);
+//        }
+//    }
 
     private boolean isResponseOk(ResponseEntity responseEntity) {
         HttpStatus responseCode = responseEntity.getStatusCode();

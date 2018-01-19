@@ -217,6 +217,83 @@ body {
         box-shadow: 0px 0px 70px -5px rgba(0, 0, 0, 0.58); }
     body main.books ul li:nth-child(4) {
       margin-right: 0; }
+  body main.book-edit {
+    margin-left: 250px;
+    padding: 40px; }
+    body main.book-edit form {
+      background-color: #fff;
+      padding: 40px; }
+      body main.book-edit form fieldset {
+        margin: 0 0 30px 0;
+        clear: both; }
+        body main.book-edit form fieldset label {
+          display: block;
+          float: left;
+          width: 30%;
+          line-height: 2.5rem;
+          font-size: 1rem;
+          color: #2b2b2b; }
+        body main.book-edit form fieldset label.for-image {
+          width: 100%; }
+          body main.book-edit form fieldset label.for-image span {
+            display: inline-block;
+            width: 30%; }
+          body main.book-edit form fieldset label.for-image p.bookButton {
+            background-color: #fff;
+            border: 1px solid rgba(190, 207, 166, 0.8);
+            color: rgba(190, 207, 166, 0.8);
+            padding: 0px 35px;
+            margin-right: 20px;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            display: inline-block; }
+          body main.book-edit form fieldset label.for-image p.bookButton:hover {
+            background-color: #becfa6;
+            color: #fff; }
+          body main.book-edit form fieldset label.for-image img {
+            display: inline-block;
+            width: 100px;
+            position: relative;
+            top: 15px; }
+        body main.book-edit form fieldset input {
+          font-size: 1rem;
+          padding: 0 10px;
+          width: 70%;
+          height: 2.5rem;
+          border: 1px solid rgba(203, 178, 174, 0.706);
+          transition: all 0.3s ease-in-out;
+          color: #b5a8b9; }
+        body main.book-edit form fieldset input#multipartImage {
+          display: none; }
+        body main.book-edit form fieldset select {
+          background: #fff;
+          width: 70%;
+          padding: 0 10px;
+          height: 40px;
+          border: 1px solid #b5a8b9;
+          font-size: 1rem;
+          color: #b5a8b9; }
+      body main.book-edit form #new-publisher {
+        display: none;
+        margin: 0px 0 0 30%;
+        padding: 20px;
+        background-color: rgba(133, 180, 208, 0.2); }
+        body main.book-edit form #new-publisher fieldset {
+          margin-bottom: 0; }
+    body main.book-edit #book-items li.book-item {
+      margin-bottom: 20px;
+      background: #fff;
+      overflow: hidden;
+      padding: 20px; }
+      body main.book-edit #book-items li.book-item p.book-data {
+        float: left;
+        width: 25%; }
+      body main.book-edit #book-items li.book-item a {
+        padding: 10px;
+        margin-left: 250px; }
+      body main.book-edit #book-items li.book-item a:hover {
+        color: #fff;
+        background-color: #b2090d; }
   body main.reservations {
     margin-left: 250px;
     padding: 40px; }

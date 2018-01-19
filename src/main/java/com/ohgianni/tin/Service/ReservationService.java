@@ -40,7 +40,6 @@ public class ReservationService {
     public List<Reservation> getAllReservationsForClient(Client client) {
         List<Reservation> reservations = reservationRepository.findAllByClientId(client.getId());
         setDaysLeft(reservations);
-        encodeCovers(reservations);
 
         return reservations;
     }
@@ -49,17 +48,9 @@ public class ReservationService {
         reservations.forEach(reservation ->  reservation.setDaysLeft(ChronoUnit.DAYS.between(LocalDateTime.now(), reservation.getReturnTime())));
     }
 
-    private void encodeCovers(List<Reservation> reservations) {
-        reservations.forEach(reservation ->  {
-            Book book = reservation.getBook();
-            book.setImageUrl(imageService.getBookCoverUrl(book));
-        });
-    }
-
     @Transactional
     public List<Reservation> findAllReservations() {
         List<Reservation> reservations = reservationRepository.findReservationsByStatus(RESERVED);
-        encodeCovers(reservations);
         setDaysLeft(reservations);
 
         return reservations;

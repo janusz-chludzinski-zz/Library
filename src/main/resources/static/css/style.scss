@@ -359,6 +359,121 @@ body {
     }
   }
 
+
+  main.book-edit {
+    margin-left: 250px;
+    padding: 40px;
+
+    form {
+      background-color: #fff;
+      padding: 40px;
+
+      fieldset {
+        margin: 0 0 30px 0;
+        clear: both;
+
+        label {
+          display: block;
+          float: left;
+          width: 30%;
+          line-height: 2.5rem;
+          font-size: 1rem;
+          color: #2b2b2b;
+        }
+
+        label.for-image {
+          width: 100%;
+
+          span {
+            display: inline-block;
+            width: 30%;
+          }
+
+          p.bookButton {
+            background-color: #fff;
+            border: 1px solid $color-light-green;
+            color: $color-light-green;
+            padding: 0px 35px;
+            margin-right: 20px;
+            transition: $transition-common;
+            cursor: pointer;
+            display: inline-block;
+          }
+
+          p.bookButton:hover {
+            background-color: $color-solid-green;
+            color: #fff;
+          }
+
+          img {
+            display: inline-block;
+            width: 100px;
+            position: relative;
+            top: 15px;
+          }
+        }
+
+        input {
+          font-size: 1rem;
+          padding: 0 10px;
+          width: 70%;
+          height: 2.5rem;
+          border: 1px solid rgba(203, 178, 174, 0.706);
+          transition: all 0.3s ease-in-out;
+          color: #b5a8b9;
+        }
+
+        input#multipartImage {
+          display: none;
+        }
+
+        select {
+          background: #fff;
+          width: 70%;
+          padding: 0 10px;
+          height: 40px;
+          border: 1px solid $color-light-grey;
+          font-size: 1rem;
+          color: #b5a8b9;
+        }
+      }
+
+      #new-publisher {
+        display: none;
+        margin: 0px 0 0 30%;
+        padding: 20px;
+        background-color: rgba(133, 180, 208, 0.2);
+
+        fieldset {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    #book-items {
+      
+      li.book-item {
+        margin-bottom: 20px;
+        background: #fff;
+        overflow: hidden;
+        padding: 20px;
+
+        p.book-data {
+          float: left;
+          width: 25%;
+        }
+
+        a {
+          padding: 10px;
+          margin-left: 250px;
+        }
+        a:hover {
+          color: #fff;
+          background-color: $color-deep-red;
+        }
+      }
+    }
+  }
   main.reservations {
     margin-left: 250px;
     padding: 40px;

@@ -5,7 +5,7 @@
         <header th:replace="basic-template :: header"></header>
         <aside th:replace="basic-template :: aside"></aside>
 
-        <img th:src="@{${book.imageUrl}}" alt="">
+        <img th:src="@{${book.coverImage}}" alt="">
         <h1 th:text="${book.title}"></h1>
         <a sec:authorize="!hasAuthority('USER')" th:if="${book.availableSpecimen > 0}"  th:href="@{|/book/reservation/${book.isbn}|}">
                 Rezerwuj

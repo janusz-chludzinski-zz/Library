@@ -62,8 +62,7 @@ public class ImageService {
     }
 
     public String getBookCoverUrl(Book book) {
-        String result = book.getCoverImage();
-        return result;
+        return book.getCoverImage();
     }
 
     private boolean isAvatarPresent(Path path) {

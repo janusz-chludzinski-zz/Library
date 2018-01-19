@@ -1,8 +1,11 @@
 package com.ohgianni.tin.Controller;
 
+import com.ohgianni.tin.DTO.BookDTO;
+import com.ohgianni.tin.Entity.Publisher;
 import com.ohgianni.tin.Entity.Reservation;
 import com.ohgianni.tin.Exception.BookNotFoundException;
 import com.ohgianni.tin.Service.BookService;
+import com.ohgianni.tin.Service.PublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -17,9 +20,12 @@ public class BookController {
 
     private BookService bookService;
 
+    private PublisherService publisherService;
+
     @Autowired
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, PublisherService publisherService) {
         this.bookService = bookService;
+        this.publisherService = publisherService;
     }
 
     @RequestMapping("/{isbn}")
@@ -57,8 +63,16 @@ public class BookController {
 
     @RequestMapping("/edit/{isbn}")
     public String edit(@PathVariable Long isbn,  Model model) {
-        model.addAttribute("books", bookService.getAllBooksByIsbn(isbn));
+        Publisher publisher = new Publisher();
 
+        BookDTO bookDto = new BookDTO(
+                bookService.getBookByIsbn(isbn),
+                bookService.getAllBooksByIsbn(isbn),
+                publisher,
+                publisherService.findAll()
+        );
+
+        model.addAttribute("bookDto", bookDto);
         return "admin-book";
     }
 
