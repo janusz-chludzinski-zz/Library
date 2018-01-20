@@ -1,14 +1,23 @@
 package com.ohgianni.tin.Controller;
 
+import com.ohgianni.tin.Entity.Author;
+import com.ohgianni.tin.Entity.Publisher;
 import com.ohgianni.tin.Exception.ReservationNotFoundException;
+import com.ohgianni.tin.Service.AdminService;
 import com.ohgianni.tin.Service.ClientService;
 import com.ohgianni.tin.Service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
+
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -18,10 +27,13 @@ public class AdminController {
 
     private ClientService clientService;
 
+    private AdminService adminService;
+
     @Autowired
-    public AdminController(ReservationService reservationService, ClientService clientService) {
+    public AdminController(ReservationService reservationService, ClientService clientService, AdminService adminService) {
         this.reservationService = reservationService;
         this.clientService = clientService;
+        this.adminService = adminService;
     }
 
 
@@ -83,5 +95,50 @@ public class AdminController {
     public String displayClients(Model model) {
         model.addAttribute("clients", clientService.findAll());
         return "admin-clients";
+    }
+
+    @RequestMapping("/add/author")
+    public String addAuthor(Model model) {
+        model.addAttribute("author", new Author());
+        return "admin-add-author";
+    }
+
+    @RequestMapping(value = "/add/author", method = POST)
+    public String addAuthor(@ModelAttribute("author") @Valid Author author,
+                            BindingResult result,
+                            RedirectAttributes redirectAttributes,
+                            Model model) {
+        adminService.validateAuthor(author, result);
+
+        if(result.hasErrors()) {
+            model.addAttribute("errors", result);
+            return "admin-add-author";
+        }
+        adminService.addAuthor(author);
+        redirectAttributes.addFlashAttribute("success", "Autor " + author.getName() + " " + author.getSurname() + " został pomyślnie dodany!");
+
+        return "redirect:/admin/add/author";
+    }
+
+    @RequestMapping(value = "/add/publisher")
+    public String addPublisher(Model model) {
+        model.addAttribute("publisher", new Publisher());
+        return "admin-add-publisher";
+    }
+
+    @RequestMapping(value = "/add/publisher", method = POST)
+    public String addPublisher(@ModelAttribute("author") @Valid Publisher publisher,
+                               BindingResult result,
+                               RedirectAttributes redirectAttributes) {
+
+        adminService.validatePublisher(publisher, redirectAttributes);
+
+        if(redirectAttributes.getFlashAttributes().containsKey("error")) {
+            return "redirect:/admin/add/publisher";
+        }
+        adminService.addPublisher(publisher);
+        redirectAttributes.addFlashAttribute("success", "Wydawnictwo " + publisher.getName() + " zostało pomyślnie dodane!");
+
+        return "redirect:/admin/add/publisher";
     }
 }

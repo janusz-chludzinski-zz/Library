@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="basic-template :: head"></head>
+    <body>
+        <header th:replace="basic-template :: header"></header>
+        <aside th:replace="basic-template :: aside"></aside>
+
+        <main class="author-add">
+            <h1>Dodaj autora</h1>
+            <form th:method="post" th:object="${author}">
+                <div th:if="${error != null}" th:text="${error}" class="error-message"></div>
+                <div th:if="${success != null}" th:text="${success}" class="success-message"></div>
+
+                <fieldset>
+                    <label th:for="title">Imie</label>
+                    <input th:field="*{name}" type="text">
+                    <i th:if="${#fields.hasErrors('name')}" th:text="${#fields.errors('name')}" class="error-message"></i>
+                </fieldset>
+                <fieldset>
+                    <label th:for="title">Nazwisko</label>
+                    <input th:field="*{surname}" type="text">
+                    <i th:if="${#fields.hasErrors('surname')}" th:text="${#fields.errors('surname')}" class="error-message"></i>
+                </fieldset>
+                <fieldset>
+                    <label>Płeć</label>
+                    <section class="radio">
+                        <label th:for="male">Mężczyzna</label>
+                        <input th:field="*{gender}" type="radio" th:value="MALE">
+                    </section>
+                    <section class="radio">
+                        <label th:for="female">Kobieta</label>
+                        <input th:field="*{gender}" th:type="radio" th:value="FEMALE">
+                    </section>
+                    <i th:if="${#fields.hasErrors('gender')}" th:text="${#fields.errors('gender')}" class="error-message gender"></i>
+                </fieldset>
+                <fieldset>
+                    <label th:for="birthday">Data urodzenia</label>
+                    <input th:field="*{dateOfBirthString}" th:type="date">
+                    <i th:if="${#fields.hasErrors('dateOfBirth')}" th:text="${#fields.errors('dateOfBirth')}" class="error-message"></i>
+                </fieldset>
+                <fieldset th:id="submit-form">
+                    <button th:type="submit" th:formaction="@{/admin/add/author}">Dodaj autora</button>
+                </fieldset>
+            </form>
+        </main>
+    </body>
+</html>

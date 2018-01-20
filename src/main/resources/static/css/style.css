@@ -280,20 +280,68 @@ body {
         background-color: rgba(133, 180, 208, 0.2); }
         body main.book-edit form #new-publisher fieldset {
           margin-bottom: 0; }
-    body main.book-edit #book-items li.book-item {
-      margin-bottom: 20px;
-      background: #fff;
-      overflow: hidden;
-      padding: 20px; }
-      body main.book-edit #book-items li.book-item p.book-data {
-        float: left;
-        width: 25%; }
-      body main.book-edit #book-items li.book-item a {
-        padding: 10px;
-        margin-left: 250px; }
-      body main.book-edit #book-items li.book-item a:hover {
-        color: #fff;
-        background-color: #b2090d; }
+    body main.book-edit #book-items {
+      margin-top: 20px; }
+      body main.book-edit #book-items li.book-item {
+        margin-bottom: 20px;
+        background: #fff;
+        overflow: hidden;
+        padding: 20px; }
+        body main.book-edit #book-items li.book-item p.book-data {
+          float: left;
+          width: 25%; }
+        body main.book-edit #book-items li.book-item a {
+          padding: 10px;
+          margin-left: 250px; }
+        body main.book-edit #book-items li.book-item a:hover {
+          color: #fff;
+          background-color: #b2090d;
+          border-bottom: transparent; }
+    body main.book-edit #submit-form button {
+      margin-left: 30%;
+      width: 70%;
+      background-color: rgba(190, 207, 166, 0.8); }
+    body main.book-edit #submit-form button:hover {
+      background-color: #becfa6; }
+  body main.author-add {
+    margin-left: 250px;
+    padding: 40px; }
+    body main.author-add form {
+      background-color: #fff;
+      padding: 40px; }
+      body main.author-add form div {
+        margin-bottom: 20px; }
+      body main.author-add form fieldset {
+        margin: 0 0 30px 0;
+        clear: both; }
+        body main.author-add form fieldset label {
+          display: block;
+          float: left;
+          width: 30%;
+          line-height: 2.5rem;
+          font-size: 1rem;
+          color: #2b2b2b; }
+        body main.author-add form fieldset input {
+          font-size: 1rem;
+          padding: 0 10px;
+          width: 70%;
+          height: 2.5rem;
+          border: 1px solid rgba(203, 178, 174, 0.706);
+          transition: all 0.3s ease-in-out;
+          color: #b5a8b9; }
+        body main.author-add form fieldset input[type="radio"] {
+          width: 15px; }
+        body main.author-add form fieldset i {
+          margin: 20px 0 0 30%;
+          width: 70%;
+          display: block;
+          clear: both; }
+      body main.author-add form fieldset#submit-form button {
+        margin-left: 30%;
+        width: 70%;
+        background-color: rgba(190, 207, 166, 0.8); }
+      body main.author-add form fieldset#submit-form button:hover {
+        background-color: #becfa6; }
   body main.reservations {
     margin-left: 250px;
     padding: 40px; }

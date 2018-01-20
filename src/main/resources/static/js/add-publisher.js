@@ -2,10 +2,11 @@ $('#publishers').on('change', function(event) {
     event.preventDefault();
     var newPublisher = $(this).next();
 
-    if(this.value === "Dodaj nowy") {
+    if(this.value === "0") {
         newPublisher.slideDown("slow");
     } else {
         newPublisher.slideUp("slow");
+        $('#publisher-name').val("");
     }
 });
 

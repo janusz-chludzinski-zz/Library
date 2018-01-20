@@ -6,6 +6,8 @@ import lombok.Data;
 
 import java.util.List;
 
+import static com.ohgianni.tin.Enum.CoverType.getAllAsString;
+
 @Data
 public class BookDTO {
 
@@ -13,14 +15,24 @@ public class BookDTO {
 
     private List<Book> books;
 
-    private Publisher publisher;
+    private String coverType;
+
+    private List<String> coverTypes;
+
+    private String publisher;
+
+    private String newPublisher;
 
     private List<Publisher> publishers;
 
-    public BookDTO(Book book, List<Book> books, Publisher publisher, List<Publisher> publishers) {
+    private String Marta;
+
+    public BookDTO(Book book, List<Book> books, List<Publisher> publishers) {
         this.book = book;
         this.books = books;
-        this.publisher = publisher;
         this.publishers = publishers;
+        this.coverTypes = getAllAsString();
     }
+
+
 }

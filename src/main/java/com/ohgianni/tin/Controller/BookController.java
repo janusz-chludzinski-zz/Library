@@ -10,9 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
+
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
 @RequestMapping("/book")
@@ -63,17 +69,28 @@ public class BookController {
 
     @RequestMapping("/edit/{isbn}")
     public String edit(@PathVariable Long isbn,  Model model) {
-        Publisher publisher = new Publisher();
 
         BookDTO bookDto = new BookDTO(
                 bookService.getBookByIsbn(isbn),
                 bookService.getAllBooksByIsbn(isbn),
-                publisher,
                 publisherService.findAll()
         );
 
         model.addAttribute("bookDto", bookDto);
         return "admin-book";
+    }
+
+    @RequestMapping("/delete/{isbn}/{id}")
+    public String delete(@PathVariable Long id, @PathVariable Long isbn, RedirectAttributes redirectAttributes) {
+        bookService.deleteBook(id, redirectAttributes);
+
+        return "redirect:/book/edit/" + isbn;
+    }
+
+    @RequestMapping(value = "/update/{isbn}", method = POST)
+    public String update(@ModelAttribute("bookDto") @Valid BookDTO bookDto, BindingResult result, @PathVariable Long isbn, RedirectAttributes redirectAttributes) {
+        bookService.update(bookDto, isbn);
+        return null;
     }
 
 }

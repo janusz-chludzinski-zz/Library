@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="basic-template :: head"></head>
+    <body>
+        <header th:replace="basic-template :: header"></header>
+        <aside th:replace="basic-template :: aside"></aside>
+
+        <main class="author-add">
+            <h1>Dodaj wydawnictwo</h1>
+            <form th:method="post" th:object="${publisher}">
+                <div th:if="${error != null}" th:text="${error}" class="error-message"></div>
+                <div th:if="${success != null}" th:text="${success}" class="success-message"></div>
+
+                <fieldset>
+                    <label th:for="name">Nazwa wydawnictwa</label>
+                    <input th:field="*{name}" type="text">
+                    <i th:if="${#fields.hasErrors('name')}" th:text="${#fields.errors('name')}" class="error-message"></i>
+                </fieldset>
+
+                <fieldset th:id="submit-form">
+                    <button th:type="submit" th:formaction="@{/admin/add/publisher}">Dodaj wydawnictwo</button>
+                </fieldset>
+            </form>
+        </main>
+    </body>
+</html>

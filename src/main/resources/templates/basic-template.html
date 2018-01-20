@@ -90,6 +90,21 @@
                             Użytkownicy
                         </a>
                     </li>
+                    <li sec:authorize="hasAuthority('ADMIN')">
+                        <a th:href="@{/admin/addBook}" th:classappend="${#request.getRequestURI() == '/admin/addBook' ? 'active' : ''}">
+                            Dodaj książkę
+                        </a>
+                    </li>
+                    <li sec:authorize="hasAuthority('ADMIN')">
+                        <a th:href="@{/admin/add/author}" th:classappend="${#request.getRequestURI() == '/admin/add/author' ? 'active' : ''}">
+                            Dodaj autora
+                        </a>
+                    </li>
+                    <li sec:authorize="hasAuthority('ADMIN')">
+                        <a th:href="@{/admin/add/publisher}" th:classappend="${#request.getRequestURI() == '/admin/add/publisher' ? 'active' : ''}">
+                            Dodaj wydawnictwo
+                        </a>
+                    </li>
                     <li>
                         <a th:href="@{/home}" th:classappend="${#request.getRequestURI() == '/home' ? 'active' : ''}">
                             Książki
