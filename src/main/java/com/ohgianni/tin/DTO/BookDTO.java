@@ -21,11 +21,7 @@ public class BookDTO {
 
     private String publisher;
 
-    private String newPublisher;
-
     private List<Publisher> publishers;
-
-    private String Marta;
 
     public BookDTO(Book book, List<Book> books, List<Publisher> publishers) {
         this.book = book;

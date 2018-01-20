@@ -13,6 +13,10 @@ public enum CoverType {
         this.coverType = coverType;
     }
 
+    public String getCoverType() {
+        return coverType;
+    }
+
     public static List<String> getAllAsString() {
         return Arrays.stream(CoverType.values())
                 .map(Enum::toString)

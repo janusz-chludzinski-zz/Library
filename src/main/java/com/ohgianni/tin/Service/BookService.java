@@ -11,8 +11,10 @@ import com.ohgianni.tin.Repository.BookRepository;
 import com.ohgianni.tin.Repository.ClientRepository;
 import com.ohgianni.tin.Repository.PublisherRepository;
 import com.ohgianni.tin.Repository.ReservationRepository;
+import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.transaction.Transactional;
@@ -33,12 +35,19 @@ public class BookService {
 
     private PublisherRepository publisherRepository;
 
+    private ImageService imageService;
+
     @Autowired
-    public BookService(BookRepository bookRepository, ReservationRepository reservationRepository, ClientRepository clientRepository, PublisherRepository publisherRepository) {
+    public BookService(BookRepository bookRepository,
+                       ReservationRepository reservationRepository,
+                       ClientRepository clientRepository,
+                       PublisherRepository publisherRepository,
+                       ImageService imageService) {
         this.bookRepository = bookRepository;
         this.reservationRepository = reservationRepository;
         this.clientRepository = clientRepository;
         this.publisherRepository = publisherRepository;
+        this.imageService = imageService;
     }
 
     public Book saveBook(Book book) {
@@ -93,13 +102,6 @@ public class BookService {
     }
 
     @Transactional
-    public void update(BookDTO bookDto, Long isbn) {
-        List<Book> books = bookRepository.findAllByIsbn(isbn);
-        books.forEach(book -> update(book, bookDto));
-
-    }
-
-    @Transactional
     public void deleteBook(Long id, RedirectAttributes redirectAttributes) {
         try {
             Book book = bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
@@ -116,25 +118,46 @@ public class BookService {
         }
     }
 
-    private Book update(Book book, BookDTO bookDto) {
+    @Transactional
+    public void update(BookDTO bookDto, Long isbn) {
+        List<Book> books = bookRepository.findAllByIsbn(isbn);
+        books.forEach(book -> {
+            try {
+                update(book, bookDto);
+            } catch (NotFound notFound) {
+                notFound.printStackTrace();
+            }
+        });
+
+    }
+
+    private void update(Book book, BookDTO bookDto) throws NotFound {
         Book bookFromDto = bookDto.getBook();
 
         book.setTitle(bookFromDto.getTitle());
         book.setEdition(bookFromDto.getEdition());
         book.setIsbn(bookFromDto.getIsbn());
         book.setPages(bookFromDto.getPages());
-        book.setPublisher(checkAndSetPublisher(bookDto));
+        book.setPublisher(getPublisher(bookDto));
+        book.setCoverType((bookDto.getBook().getCoverType()));
+        book.setCoverImage(getCoverImage(bookDto));
 
-        return book;
+        bookRepository.save(book);
     }
 
-    private Publisher checkAndSetPublisher(BookDTO bookDTO) {
+    private String getCoverImage(BookDTO bookDto) {
+        MultipartFile file = bookDto.getBook().getMultipartImage();
 
-        return new Publisher();
+        if(file.getSize() == 0) {
+            return bookDto.getBook().getCoverImage();
+        } else {
+            return imageService.saveBookCover(file);
+        }
     }
 
-    private boolean isNotNewPublisher(BookDTO bookDTO) {
-        return bookDTO.getNewPublisher().isEmpty() && bookDTO.getPublisher().equals("0");
+    private Publisher getPublisher(BookDTO bookDTO) throws NotFound {
+        Long id = Long.parseLong(bookDTO.getPublisher());
+        return publisherRepository.findById(id).orElseThrow(NotFound::new);
     }
 
     private List<Book> getBooksDistinct(List<Book> books) {

@@ -9,12 +9,14 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.persistence.*;
 import java.util.List;
 
+import static javax.persistence.EnumType.*;
+
 @Entity
 @Getter @Setter
 public class Book {
 
     @Column
-    CoverType coverType;
+    private CoverType coverType;
 
     @ManyToOne
     @JoinColumn(name = "publisherId")
@@ -48,7 +50,7 @@ public class Book {
     private Long isbn;
 
     @Column
-    @Enumerated(EnumType.STRING)
+    @Enumerated(STRING)
     private BookStatus status;
 
     @OneToMany(mappedBy = "book")

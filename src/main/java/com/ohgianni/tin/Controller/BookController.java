@@ -90,7 +90,7 @@ public class BookController {
     @RequestMapping(value = "/update/{isbn}", method = POST)
     public String update(@ModelAttribute("bookDto") @Valid BookDTO bookDto, BindingResult result, @PathVariable Long isbn, RedirectAttributes redirectAttributes) {
         bookService.update(bookDto, isbn);
-        return null;
+        return "redirect:/book/edit/" + isbn;
     }
 
 }

@@ -4,6 +4,7 @@ import com.ohgianni.tin.DTO.ClientDTO;
 import com.ohgianni.tin.Entity.Book;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,7 +21,11 @@ public class ImageService {
 
     private static final String AVATAR_PATH = "/img/avatars/";
 
-    private static final String AVATAR_SUFFIX = ".jpg";
+    private static final String JPG_SUFFIX = ".jpg";
+
+    private static final String BOOKS_PATH = "/home/gianni/Downloads/tin/src/main/resources/static/img/books/";
+
+    private static final String BOOK_PATH = "/img/books/";
 
     private static final String FEMALE_AVATAR_URL = "/img/avatars/female.png";
 
@@ -36,7 +41,7 @@ public class ImageService {
         try {
             byte[] avatar = clientDTO.getAvatar().getBytes();
 
-            String fileName = generateAvatarName(clientDTO) + AVATAR_SUFFIX;
+            String fileName = generateAvatarName(clientDTO) + JPG_SUFFIX;
             createFile(get(AVATARS_PATH + fileName));
 
             if(avatar.length != 0) {
@@ -50,6 +55,24 @@ public class ImageService {
         }
         catch (Exception e) {
             return setDefaultAvatar(clientDTO);
+        }
+    }
+
+    public String saveBookCover(MultipartFile file) {
+        String result;
+        try {
+            byte[] cover = file.getBytes();
+
+            String fileName = file.getOriginalFilename();
+            createFile(get(BOOKS_PATH + fileName));
+
+            write(get(BOOKS_PATH + fileName), cover);
+            result = BOOK_PATH + fileName;
+
+            return result;
+        }
+        catch (Exception e) {
+            return e.getMessage();
         }
     }
 

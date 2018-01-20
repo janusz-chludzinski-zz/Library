@@ -13,36 +13,33 @@
                 <label th:for="title">Tytuł</label>
                 <input th:field="*{book.title}" type="text">
             </fieldset>
+
             <fieldset>
                 <label th:for="edition">Edycja</label>
                 <input th:field="*{book.edition}" type="text">
             </fieldset>
+
             <fieldset>
                 <label th:for="isbn">ISBN</label>
                 <input th:field="*{book.isbn}" type="text">
             </fieldset>
+
             <fieldset>
                 <label th:for="pages">Stron</label>
                 <input th:field="*{book.pages}" type="text">
             </fieldset>
+
             <fieldset>
                 <label>Wydawnictwo</label>
+                <p th:text="*{'Obecny wydawca: ' + book.publisher.name}"></p>
                 <select id="publishers" th:field="*{publisher}" th:value="*{publisher}">
-                    <option value="-1">Wybierz wydawnictwo</option>
-                    <option value="0">Dodaj nowe wydawnictwo</option>
-                    <option th:each="publisher : ${bookDto.publishers}" th:value="${publisher.publisherId}" th:text="${publisher.name}" th:selected="*{publishers.contains(book.publisher)}"></option>
+                    <option th:each="publisher : ${bookDto.publishers}" th:value="${publisher.publisherId}" th:text="${publisher.name}" selected></option>
                 </select>
-                <div id="new-publisher">
-                    <fieldset>
-                        <label th:for="publisherName">Nazwa wydawnictwa</label>
-                        <input th:field="*{newPublisher}" type="text" th:id="publisher-name">
-                    </fieldset>
-                </div>
             </fieldset>
 
             <fieldset>
                 <label>Typ okładki</label>
-                <select name="" id="covers" th:field="*{coverType}">
+                <select name="" id="covers" th:field="*{book.coverType}">
                     <option th:each="cover : ${bookDto.coverTypes}" th:value="${cover}" th:text="${cover}" selected></option>
                 </select>
             </fieldset>
@@ -56,6 +53,8 @@
 
                 <input th:field="*{book.multipartImage}" th:type="file" th:id="multipartImage" th:name="multipartImage">
             </fieldset>
+
+            <input type="hidden" th:field="*{book.coverImage}">
 
             <fieldset th:id="submit-form">
                 <button th:type="submit" th:formaction="@{|/book/update/${isbn}|}">Aktualizuj dane</button>

@@ -10,9 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Objects;
-
-import static java.util.Objects.*;
+import static java.util.Objects.isNull;
 
 
 @Service
