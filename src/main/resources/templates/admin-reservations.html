@@ -18,7 +18,7 @@
 
         <ul>
             <li th:each="reservation : ${reservations}" class="reservation-element">
-                <img th:src="@{${reservation.book.imageUrl}}" />
+                <img th:src="@{${reservation.book.coverImage}}" />
 
                 <div class="book-info">
                     <h2 th:text="${reservation.book.title}"></h2>
@@ -33,14 +33,14 @@
 
                 <div class="reservation-status">
                     <p th:text="${reservation.status}"></p>
-                    <p class="reservation-label">Reserved by:</p>
+                    <p class="reservation-label">by:</p>
                     <a class="reservation-client" th:href="@{/admin/clients}" th:text="${reservation.client.name + ' ' + reservation.client.surname}"></a>
                 </div>
 
-                <div class="days">
+                <div class="days" th:classappend="${reservation.daysLeft < 0 ? 'red' : 'green'}">
                     Do zwrotu pozostało
                     <p class="days-left" th:text="${reservation.daysLeft}"></p>
-                    <p class="return-time" th:text="${#strings.substring(reservation.returnTime, 0, 9)}"></p>
+                    <p class="return-time" th:text="${#strings.substring(reservation.returnTime, 0, 10)}"></p>
                 </div>
             </li>
         </ul>

@@ -577,11 +577,10 @@ body {
 
         div.book-info {
           float: left;
-          width: 30%;
+          width: 40%;
         }
 
         div.reservation-status {
-          margin-left: 150px;
           float: left;
           width: 200px;
           text-align: center;
@@ -609,14 +608,12 @@ body {
         }
 
         div.days {
-          padding: 25px 20px;
+          padding: 25px 50px;
           float: right;
           text-align: center;
-          border: 1px solid $color-solid-green;
           height: 215px;
 
           p.days-left {
-            color: $color-solid-green;
             font-size: 5rem;
             margin: 20px 0;
           }
@@ -657,7 +654,12 @@ body {
             background-color: $color-deep-blue;
           }
 
-
+          a.rental-action {
+            display: inline-block;
+            margin-right: 50px;
+            position: relative;
+            top: 41px;
+          }
 
           button.confirm:hover {
             background-color: $color-deep-blue;
@@ -1299,4 +1301,14 @@ body {
   width: 66%;
   margin-bottom: 40px;
   float: left;
+}
+
+.red {
+  border: 1px solid $color-deep-red;
+  color: $color-deep-red;
+}
+
+.green {
+  border: 1px solid $color-solid-green;
+  color: $color-solid-green;
 }

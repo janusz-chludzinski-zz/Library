@@ -11,17 +11,34 @@
         <h1>Lista wypożyczeń</h1>
 
         <ul>
-            <li th:each="rental : ${rentals}">
+            <li th:each="rental : ${rentals}" class="reservation-element">
+                <img th:src="@{${rental.book.coverImage}}" />
+
                 <div class="book-info">
                     <h2 th:text="${rental.book.title}"></h2>
                     <p>
                         <span th:each="author : ${rental.book.authors}" th:text="${author.name} + ' ' + ${author.surname}"></span>
                     </p>
+
+                    <div class="actions">
+                        <a th:href="@{|/admin/return/${rental.reservationId}|}" class="rental-action">Przyjmij zwrot</a>
+                        <a th:href="@{/admin/extend}" class="rental-action">Przedłuż wypożyczenie</a>
+                        <a th:href="@{/admin/remind}" class="rental-action">Wyślij przypomnienie</a>
+                    </div>
                 </div>
-                <div>
-                    <a th:href="@{|/admin/return/${rental.reservationId}|}">Przyjmij zwrot</a>
-                    <a th:href="@{/admin/extend}">Przedłuż wypożyczenie</a>
-                    <a th:href="@{/admin/remind}">Wyślij przypomnienie</a>
+
+                <div class="reservation-status">
+                    <p th:text="${rental.status}"></p>
+                    <p class="reservation-label">by:</p>
+                    <a class="reservation-client" th:href="@{/admin/clients}" th:text="${rental.client.name + ' ' + rental.client.surname}"></a>
+                </div>
+
+
+
+                <div class="days" th:classappend="${rental.daysLeft < 0 ? 'red' : 'green'}">
+                    Do zwrotu pozostało
+                    <p class="days-left" th:text="${rental.daysLeft}"></p>
+                    <p class="return-time" th:text="${#strings.substring(rental.returnTime, 0, 10)}"></p>
                 </div>
             </li>
         </ul>

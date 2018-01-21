@@ -67,7 +67,10 @@ public class ReservationService {
     }
 
     public List<Reservation> findAllRentals() {
-        return reservationRepository.findReservationsByStatus(RENTED);
+        List<Reservation> rentals = reservationRepository.findReservationsByStatus(RENTED);
+        setDaysLeft(rentals);
+
+        return rentals;
     }
 
     @Transactional

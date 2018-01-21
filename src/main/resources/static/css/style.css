@@ -361,9 +361,8 @@ body {
         margin-right: 40px; }
       body main.reservations ul li.reservation-element div.book-info {
         float: left;
-        width: 30%; }
+        width: 40%; }
       body main.reservations ul li.reservation-element div.reservation-status {
-        margin-left: 150px;
         float: left;
         width: 200px;
         text-align: center;
@@ -386,13 +385,11 @@ body {
           font-weight: 100;
           font-size: 1rem; }
       body main.reservations ul li.reservation-element div.days {
-        padding: 25px 20px;
+        padding: 25px 50px;
         float: right;
         text-align: center;
-        border: 1px solid #becfa6;
         height: 215px; }
         body main.reservations ul li.reservation-element div.days p.days-left {
-          color: #becfa6;
           font-size: 5rem;
           margin: 20px 0; }
       body main.reservations ul li.reservation-element .actions {
@@ -421,6 +418,11 @@ body {
           top: 22px; }
         body main.reservations ul li.reservation-element .actions a.confirm:hover {
           background-color: rgba(133, 180, 208, 0.9); }
+        body main.reservations ul li.reservation-element .actions a.rental-action {
+          display: inline-block;
+          margin-right: 50px;
+          position: relative;
+          top: 41px; }
         body main.reservations ul li.reservation-element .actions button.confirm:hover {
           background-color: rgba(133, 180, 208, 0.9);
           color: #fff; }
@@ -829,5 +831,13 @@ body {
   width: 66%;
   margin-bottom: 40px;
   float: left; }
+
+.red {
+  border: 1px solid #b2090d;
+  color: #b2090d; }
+
+.green {
+  border: 1px solid #becfa6;
+  color: #becfa6; }
 
 /*# sourceMappingURL=style.css.map */
