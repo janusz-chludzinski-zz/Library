@@ -1,7 +1,6 @@
 package com.ohgianni.tin.Controller;
 
 import com.ohgianni.tin.DTO.BookDTO;
-import com.ohgianni.tin.Entity.Publisher;
 import com.ohgianni.tin.Entity.Reservation;
 import com.ohgianni.tin.Exception.BookNotFoundException;
 import com.ohgianni.tin.Service.BookService;

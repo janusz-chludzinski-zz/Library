@@ -673,6 +673,56 @@ body {
     }
   }
 
+  main.book {
+    margin-left: 250px;
+    padding: 40px;
+
+    div.reservation-img-wrap {
+      float: left;
+      margin-right: 40px;
+    }
+
+    div.book-info {
+      padding: 40px;
+      float: left;
+      width: 76.6%;
+      background-color: #fff;
+      margin-top: 20px;
+
+      div {
+        padding-bottom: 20px;
+
+        span {
+
+        }
+
+        span.label {
+          width: 300px;
+          display: inline-block;
+          color: $font-color-regular;
+        }
+      }
+
+      p {
+        line-height: 1.5rem;
+      }
+
+      a {
+        display: block;
+        margin-top: 32px;
+        border: 1px solid $color-deep-blue;
+        padding: 15px;
+        transition: $transition-common;
+        text-align: center;
+      }
+
+      a:hover {
+        color: #fff;
+        background-color: $color-deep-blue;
+      }
+    }
+  }
+
   main.profile {
     margin-left: 250px;
     padding: 40px;
@@ -686,6 +736,7 @@ body {
         padding: 10px;
         border: 1px solid $color-light-blue;
         transition: $transition-common;
+        cursor: pointer;
       }
 
       a.recommendations-btn:hover {
@@ -808,14 +859,93 @@ body {
     margin-left: 250px;
     padding: 40px;
 
+    div.sub-info {
+      width: 80%;
+      float: left;
+      margin-bottom: 20px;
+
+      p {
+        line-height: 1.5rem;
+      }
+    }
+
+    div#error {
+      clear: both;
+      margin-bottom: 20px;
+    }
+
+    a.add-recommendation-btn {
+      transition: $transition-common;
+      float: right;
+      padding: 10px;
+      border: 1px solid $color-light-blue;
+    }
+
+    a.add-recommendation-btn:hover {
+      color: #fff;
+      background: $color-light-blue;
+      cursor: pointer;
+    }
+
+    div#votes-header {
+      clear: both;
+
+      ul {
+        padding-top: 40px;
+        padding-bottom: 10px;
+        overflow: hidden;
+
+        li {
+          float: left;
+          width: 20%;
+          padding: 20px;
+          font-family: $font-header;
+          background-color: $color-light-blue;
+          color: #fff;
+          font-size: 1.3rem;
+        }
+      }
+    }
+
     ul {
       background: #fff;
-      padding: 40px;
+      padding: 0 40px 40px 40px;
 
       li {
-        padding: 20px;
         display: block;
-        border: 1px solid red;
+        overflow: hidden;
+        transition: $transition-common;
+
+        p {
+          padding: 20px;
+          float: left;
+          width: 20%;
+        }
+
+        a {
+          display: inline-block;
+          height: 56px;
+          line-height: 56px;
+
+          i {
+            position: relative;
+            top: 40px;
+            margin-left: 10px;
+            transition: $transition-common;
+          }
+        }
+
+        a:hover {
+          border-bottom: transparent;
+        }
+      }
+
+      li:hover {
+        background-color: $color-very-light-green;
+      }
+
+      li:hover a i {
+        top: 0;
       }
     }
   }

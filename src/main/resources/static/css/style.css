@@ -427,6 +427,36 @@ body {
         body main.reservations ul li.reservation-element .actions button.cancel:hover {
           background-color: rgba(133, 180, 208, 0.9);
           color: #fff; }
+  body main.book {
+    margin-left: 250px;
+    padding: 40px; }
+    body main.book div.reservation-img-wrap {
+      float: left;
+      margin-right: 40px; }
+    body main.book div.book-info {
+      padding: 40px;
+      float: left;
+      width: 76.6%;
+      background-color: #fff;
+      margin-top: 20px; }
+      body main.book div.book-info div {
+        padding-bottom: 20px; }
+        body main.book div.book-info div span.label {
+          width: 300px;
+          display: inline-block;
+          color: #2b2b2b; }
+      body main.book div.book-info p {
+        line-height: 1.5rem; }
+      body main.book div.book-info a {
+        display: block;
+        margin-top: 32px;
+        border: 1px solid rgba(133, 180, 208, 0.9);
+        padding: 15px;
+        transition: all 0.3s ease-in-out;
+        text-align: center; }
+      body main.book div.book-info a:hover {
+        color: #fff;
+        background-color: rgba(133, 180, 208, 0.9); }
   body main.profile {
     margin-left: 250px;
     padding: 40px; }
@@ -437,7 +467,8 @@ body {
         float: right;
         padding: 10px;
         border: 1px solid rgba(133, 180, 208, 0.5);
-        transition: all 0.3s ease-in-out; }
+        transition: all 0.3s ease-in-out;
+        cursor: pointer; }
       body main.profile form a.recommendations-btn:hover {
         color: #fff;
         background: rgba(133, 180, 208, 0.5); }
@@ -514,13 +545,64 @@ body {
   body main.recommendations {
     margin-left: 250px;
     padding: 40px; }
+    body main.recommendations div.sub-info {
+      width: 80%;
+      float: left;
+      margin-bottom: 20px; }
+      body main.recommendations div.sub-info p {
+        line-height: 1.5rem; }
+    body main.recommendations div#error {
+      clear: both;
+      margin-bottom: 20px; }
+    body main.recommendations a.add-recommendation-btn {
+      transition: all 0.3s ease-in-out;
+      float: right;
+      padding: 10px;
+      border: 1px solid rgba(133, 180, 208, 0.5); }
+    body main.recommendations a.add-recommendation-btn:hover {
+      color: #fff;
+      background: rgba(133, 180, 208, 0.5);
+      cursor: pointer; }
+    body main.recommendations div#votes-header {
+      clear: both; }
+      body main.recommendations div#votes-header ul {
+        padding-top: 40px;
+        padding-bottom: 10px;
+        overflow: hidden; }
+        body main.recommendations div#votes-header ul li {
+          float: left;
+          width: 20%;
+          padding: 20px;
+          font-family: "Slabo 27px", serif;
+          background-color: rgba(133, 180, 208, 0.5);
+          color: #fff;
+          font-size: 1.3rem; }
     body main.recommendations ul {
       background: #fff;
-      padding: 40px; }
+      padding: 0 40px 40px 40px; }
       body main.recommendations ul li {
-        padding: 20px;
         display: block;
-        border: 1px solid red; }
+        overflow: hidden;
+        transition: all 0.3s ease-in-out; }
+        body main.recommendations ul li p {
+          padding: 20px;
+          float: left;
+          width: 20%; }
+        body main.recommendations ul li a {
+          display: inline-block;
+          height: 56px;
+          line-height: 56px; }
+          body main.recommendations ul li a i {
+            position: relative;
+            top: 40px;
+            margin-left: 10px;
+            transition: all 0.3s ease-in-out; }
+        body main.recommendations ul li a:hover {
+          border-bottom: transparent; }
+      body main.recommendations ul li:hover {
+        background-color: rgba(190, 207, 166, 0.2); }
+      body main.recommendations ul li:hover a i {
+        top: 0; }
   body main.clients {
     margin-left: 250px;
     padding: 40px; }

@@ -5,10 +5,64 @@
         <header th:replace="basic-template :: header"></header>
         <aside th:replace="basic-template :: aside"></aside>
 
-        <img th:src="@{${book.coverImage}}" alt="">
-        <h1 th:text="${book.title}"></h1>
-        <a sec:authorize="!hasAuthority('USER')" th:if="${book.availableSpecimen > 0}"  th:href="@{|/book/reservation/${book.isbn}|}">
-                Rezerwuj
-        </a>
+        <main class="book">
+            <h1 th:text="${book.title}"></h1>
+
+            <div class="reservation-img-wrap">
+                <img th:src="@{${book.coverImage}}" alt="">
+            </div>
+
+            <h2>Informacje o książce</h2>
+            <div class="book-info">
+                <div>
+                    <p>
+                        <span class="label">Tytuł</span>
+                        <span th:text="${book.title}"></span>
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        <span class="label">Autor</span>
+                        <span th:each="author : ${book.authors}" th:text="${author.name + ' ' + author.surname}"></span>
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        <span class="label">Edycja</span>
+                        <span th:text="${book.edition}"></span>
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        <span class="label">Stron</span>
+                        <span th:text="${book.pages}"></span>
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        <span class="label">Wydawnictwo</span>
+                        <span th:text="${book.publisher.name}"></span>
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        <span class="label">Okładka</span>
+                        <span th:text="${book.coverType}"></span>
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        <span class="label">Egzemplarzy</span>
+                        <span th:text="${book.availableSpecimen + ' / ' + book.totalSpecimen}"></span>
+                    </p>
+                </div>
+
+
+                <a sec:authorize="hasAuthority('CLIENT')" th:if="${book.availableSpecimen > 0}"  th:href="@{|/book/reservation/${book.isbn}|}">
+                    Rezerwuj
+                </a>
+            </div>
+
+        </main>
     </body>
 </html>

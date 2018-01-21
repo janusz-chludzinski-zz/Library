@@ -6,14 +6,32 @@
         <aside th:replace="basic-template :: aside"></aside>
 
         <main class="recommendations">
-            <div th:if="${error != null}" th:text="${error}" class="error-message"></div>
+            <h1>Rekomendacje użytkowników</h1>
+            <div class="sub-info">
+                <p>W tej sekcji prezentujemy książki zarekomendowane przez Was! Na koniec każdego kwartału książka z największą ilością głosów zostanie dodana do naszego zbioru.</p>
+                <p>Możesz zagłosować na maskymalnie 3 pozycje. Głosu nie można cofnąć. Oczywiście nie możesz też głosować na książkę, którę rekomendowałeś :)</p>
+            </div>
+
+            <a th:href="@{/user/profile/recommendation}" th:type="submit" class="add-recommendation-btn">Zarekomenduj książkę</a>
+
+            <div th:if="${error != null}" th:text="${error}" class="error-message" id="error"></div>
+
+            <div th:id="votes-header">
+                <ul>
+                    <li>ISBN</li>
+                    <li>Imię autora</li>
+                    <li>Nazwisko autora</li>
+                    <li>Głosów</li>
+                    <li>&nbsp</li>
+                </ul>
+            </div>
             <ul>
                 <li th:each="recommendation : ${recommendations}">
                     <p th:text="${recommendation.isbn}"></p>
                     <p th:text="${recommendation.authorFirstName}"></p>
                     <p th:text="${recommendation.authorLastName}"></p>
                     <p th:text="${recommendation.votes}"></p>
-                    <a th:href="@{|/recommendations/vote/${recommendation.recommendationId}|}">Głosuj</a>
+                    <a th:href="@{|/recommendations/vote/${recommendation.recommendationId}|}">Głosuj<i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
                 </li>
             </ul>
         </main>
