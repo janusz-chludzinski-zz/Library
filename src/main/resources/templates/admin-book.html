@@ -12,6 +12,7 @@
             <fieldset>
                 <label th:for="title">Tytuł</label>
                 <input th:field="*{book.title}" type="text">
+                <i th:if="${#fields.hasErrors('book.title')}" th:text="${#fields.errors('book.title')}" class="error-message"></i>
             </fieldset>
 
             <fieldset>

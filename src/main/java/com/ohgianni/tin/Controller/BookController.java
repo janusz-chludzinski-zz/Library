@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
+import static java.lang.Long.*;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
@@ -76,6 +77,7 @@ public class BookController {
         );
 
         model.addAttribute("bookDto", bookDto);
+
         return "admin-book";
     }
 
@@ -87,8 +89,17 @@ public class BookController {
     }
 
     @RequestMapping(value = "/update/{isbn}", method = POST)
-    public String update(@ModelAttribute("bookDto") @Valid BookDTO bookDto, BindingResult result, @PathVariable Long isbn, RedirectAttributes redirectAttributes) {
+    public String update(@ModelAttribute("bookDto") @Valid BookDTO bookDto, BindingResult errors, @PathVariable Long isbn, Model model, RedirectAttributes redirectAttributes) {
+        bookService.validateUpdate(bookDto, errors);
+
+        if(errors.hasErrors()) {
+            redirectAttributes.addFlashAttribute("errors", errors);
+
+            return "redirect:/book/edit/" + isbn;
+        }
+
         bookService.update(bookDto, isbn);
+
         return "redirect:/book/edit/" + isbn;
     }
 

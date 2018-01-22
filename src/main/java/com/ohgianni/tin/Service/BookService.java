@@ -14,14 +14,20 @@ import com.ohgianni.tin.Repository.ReservationRepository;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static com.ohgianni.tin.Enum.BookStatus.AVAILABLE;
 import static com.ohgianni.tin.Enum.BookStatus.RESERVED;
+import static java.lang.String.*;
 
 
 @Service
@@ -36,6 +42,8 @@ public class BookService {
     private PublisherRepository publisherRepository;
 
     private ImageService imageService;
+
+    private Book book;
 
     @Autowired
     public BookService(BookRepository bookRepository,
@@ -131,6 +139,35 @@ public class BookService {
 
     }
 
+    public void validateUpdate(BookDTO bookDto, BindingResult errors) {
+        book = bookDto.getBook();
+
+        checkIfFieldsAreEmpty(errors);
+    }
+
+    private void checkIfFieldsAreEmpty(BindingResult errors) {
+        String empty = "Pole nie może być puste";
+
+        if(book.getTitle().trim().isEmpty()){
+            errors.addError(new FieldError("title", "title", empty));
+        }
+
+        String edition = valueOf(book.getEdition()).trim();
+        if(edition.isEmpty()) {
+            errors.addError(new FieldError("edition", "edition", empty));
+        }
+
+        String isbn = valueOf(book.getIsbn()).trim();
+        if(isbn.isEmpty()) {
+            errors.addError(new FieldError("isbn", "isbn", empty));
+        }
+
+        String pages = valueOf(book.getPages()).trim();
+        if(pages.isEmpty()) {
+            errors.addError(new FieldError("pages", "pages", empty));
+        }
+    }
+
     private void update(Book book, BookDTO bookDto) throws NotFound {
         Book bookFromDto = bookDto.getBook();
 
@@ -220,5 +257,4 @@ public class BookService {
     private boolean canBeDeleted(Book book) {
         return (book.getStatus() == AVAILABLE);
     }
-
 }

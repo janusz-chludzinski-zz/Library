@@ -22,4 +22,7 @@ public class PublisherService {
         return publisherRepository.findAll();
     }
 
+    public Publisher findById(Long id){
+        return publisherRepository.findById(id).orElse(new Publisher());
+    }
 }
