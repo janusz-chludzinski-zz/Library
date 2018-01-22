@@ -91,7 +91,7 @@
                         </a>
                     </li>
                     <li sec:authorize="hasAuthority('ADMIN')">
-                        <a th:href="@{/admin/addBook}" th:classappend="${#request.getRequestURI() == '/admin/addBook' ? 'active' : ''}">
+                        <a th:href="@{/admin/add/book}" th:classappend="${#request.getRequestURI() == '/admin/add/book' ? 'active' : ''}">
                             Dodaj książkę
                         </a>
                     </li>

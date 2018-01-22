@@ -14,8 +14,6 @@ import com.ohgianni.tin.Repository.ReservationRepository;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -28,7 +26,7 @@ import java.util.Map;
 import static com.ohgianni.tin.Enum.BookStatus.AVAILABLE;
 import static com.ohgianni.tin.Enum.BookStatus.RESERVED;
 import static java.lang.String.*;
-
+import static java.util.Objects.isNull;
 
 @Service
 public class BookService {
@@ -139,33 +137,43 @@ public class BookService {
 
     }
 
-    public void validateUpdate(BookDTO bookDto, BindingResult errors) {
+    public boolean isUpdateValid(BookDTO bookDto, RedirectAttributes redirectAttributes) {
         book = bookDto.getBook();
+        areFieldsEmpty(redirectAttributes);
+        isIsbnPresent(book.getIsbn(), redirectAttributes);
 
-        checkIfFieldsAreEmpty(errors);
+        return redirectAttributes.getFlashAttributes().isEmpty();
     }
 
-    private void checkIfFieldsAreEmpty(BindingResult errors) {
+    private void isIsbnPresent(Long isbn, RedirectAttributes redirectAttributes) {
+        if(bookRepository.existsByIsbn(isbn)){
+            redirectAttributes.addFlashAttribute("isbnn", "W bazie znajduje sie już książka o ISBN " + isbn);
+        }
+    }
+
+    private boolean areFieldsEmpty(RedirectAttributes redirectAttributes) {
         String empty = "Pole nie może być puste";
 
         if(book.getTitle().trim().isEmpty()){
-            errors.addError(new FieldError("title", "title", empty));
+            redirectAttributes.addFlashAttribute("title", empty);
         }
 
         String edition = valueOf(book.getEdition()).trim();
-        if(edition.isEmpty()) {
-            errors.addError(new FieldError("edition", "edition", empty));
+        if(edition.isEmpty() || edition.equals("0")) {
+            redirectAttributes.addFlashAttribute("edition", empty);
         }
 
         String isbn = valueOf(book.getIsbn()).trim();
-        if(isbn.isEmpty()) {
-            errors.addError(new FieldError("isbn", "isbn", empty));
+        if(isbn.isEmpty() || isNull(isbn)) {
+            redirectAttributes.addFlashAttribute("isbnn", empty);
         }
 
         String pages = valueOf(book.getPages()).trim();
-        if(pages.isEmpty()) {
-            errors.addError(new FieldError("pages", "pages", empty));
+        if(pages.isEmpty() || pages.equals("0")) {
+            redirectAttributes.addFlashAttribute("pages", empty);
         }
+
+        return redirectAttributes.getFlashAttributes().isEmpty();
     }
 
     private void update(Book book, BookDTO bookDto) throws NotFound {

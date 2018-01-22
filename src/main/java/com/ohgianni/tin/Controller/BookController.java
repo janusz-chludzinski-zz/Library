@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
-import static java.lang.Long.*;
+import static com.ohgianni.tin.Service.PublisherService.*;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
@@ -73,7 +73,7 @@ public class BookController {
         BookDTO bookDto = new BookDTO(
                 bookService.getBookByIsbn(isbn),
                 bookService.getAllBooksByIsbn(isbn),
-                publisherService.findAll()
+                findAllPublishers()
         );
 
         model.addAttribute("bookDto", bookDto);
@@ -90,15 +90,12 @@ public class BookController {
 
     @RequestMapping(value = "/update/{isbn}", method = POST)
     public String update(@ModelAttribute("bookDto") @Valid BookDTO bookDto, BindingResult errors, @PathVariable Long isbn, Model model, RedirectAttributes redirectAttributes) {
-        bookService.validateUpdate(bookDto, errors);
 
-        if(errors.hasErrors()) {
-            redirectAttributes.addFlashAttribute("errors", errors);
-
-            return "redirect:/book/edit/" + isbn;
+        if(bookService.isUpdateValid(bookDto, redirectAttributes)) {
+            bookService.update(bookDto, isbn);
+            redirectAttributes.addFlashAttribute("success", "Nowe dane zostały zapisane");
+            return "redirect:/book/edit/" + bookDto.getBook().getIsbn();
         }
-
-        bookService.update(bookDto, isbn);
 
         return "redirect:/book/edit/" + isbn;
     }

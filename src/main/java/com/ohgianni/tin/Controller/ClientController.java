@@ -78,7 +78,6 @@ public class ClientController {
         if(errors.hasErrors()) {
             modelAndView.addObject("errors", errors);
 
-
             return modelAndView;
         }
 

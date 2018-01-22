@@ -6,7 +6,7 @@
     <header th:replace="basic-template :: header"></header>
     <aside th:replace="basic-template :: aside"></aside>
     <main class="book-edit">
-        <h1>Edycja książki</h1>
+        <h1>Dodaj książkę</h1>
 
         <form th:method="post" th:object="${bookDto}" enctype="multipart/form-data">
             <i th:if="${success != null}" th:text="${success}" class="success-message"></i>
@@ -52,7 +52,7 @@
             <fieldset>
                 <label th:for="multipartImage" class="for-image">
                     <span>Okładka</span>
-                    <p class="bookButton">Zmien okładkę</p>
+                    <p class="bookButton">Wybierz okładkę</p>
                     <img th:src="@{*{book.coverImage}}" alt="Book cover image" id="book-cover">
                 </label>
 
@@ -62,22 +62,10 @@
             <input type="hidden" th:field="*{book.coverImage}">
 
             <fieldset th:id="submit-form">
-                <button th:type="submit" th:formaction="@{|/book/update/${isbn}|}">Aktualizuj dane</button>
+                <button th:type="submit" th:formaction="@{|/book/update/${isbn}|}">Dodaj książkę</button>
             </fieldset>
         </form>
 
-        <h2>Egzemplarze</h2>
-        <div th:if="${error != null}" th:text="${error}" class="error-message"></div>
-        <div th:if="${success != null}" th:text="${success}" class="success-message"></div>
-
-        <ul th:id="book-items">
-            <li th:each="book : ${bookDto.books}" class="book-item">
-                <p th:text="${book.bookId}" class="book-data"></p>
-                <p th:text="${book.title}" class="book-data"></p>
-                <p th:text="${book.status}" class="book-data"></p>
-                <a th:href="@{|/book/delete/${book.isbn}/${book.bookId}|}">Usuń książkę</a>
-            </li>
-        </ul>
         </main>
         <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js}"></script>
         <script th:src="@{/js/add-publisher.js}"></script>

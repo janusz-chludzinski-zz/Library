@@ -11,18 +11,15 @@ import java.util.List;
 @Service
 public class PublisherService {
 
-    private PublisherRepository publisherRepository;
+    private static PublisherRepository publisherRepository;
 
     @Autowired
     public PublisherService(PublisherRepository publisherRepository) {
-        this.publisherRepository = publisherRepository;
+        PublisherService.publisherRepository = publisherRepository;
     }
 
-    public List<Publisher> findAll() {
+    public static List<Publisher> findAllPublishers() {
         return publisherRepository.findAll();
     }
 
-    public Publisher findById(Long id){
-        return publisherRepository.findById(id).orElse(new Publisher());
-    }
 }
