@@ -12,6 +12,9 @@
 
     <main class="reservations">
         <h1>Wypożyczenia</h1>
+
+        <h2 th:if="${#lists.isEmpty(reservations)}">W tej chwili nie ma żadnych wypożyczeń</h2>
+
         <ul>
             <li th:each="reservation : ${reservations}" class="reservation-element">
                 <img th:src="@{${reservation.book.coverImage}}" />
@@ -25,7 +28,9 @@
 
                 <div class="reservation-status" th:text="${reservation.status}"></div>
 
-                <div class="days" th:if="${not #strings.equals(reservation.status, 'RETURNED')}" th:classappend="${reservation.daysLeft < 0 ? 'red' : 'green'}">
+                <div class="days" th:if="${not #strings.equals(reservation.status, 'RETURNED') and not #strings.equals(reservation.status, 'CANCELED')}"
+                     th:classappend="${reservation.daysLeft < 0 ? 'red' : 'green'}">
+                    Do zwrotu pozostało
                     <p class="days-left" th:text="${reservation.daysLeft}" ></p>
                     <p class="return-time" th:text="${#strings.substring(reservation.returnTime, 0, 10)}"></p>
                 </div>

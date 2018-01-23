@@ -6,6 +6,7 @@ import com.ohgianni.tin.Entity.Client;
 import com.ohgianni.tin.Entity.Publisher;
 import com.ohgianni.tin.Entity.Reservation;
 import com.ohgianni.tin.Enum.BookStatus;
+import com.ohgianni.tin.Enum.CoverType;
 import com.ohgianni.tin.Exception.BookNotFoundException;
 import com.ohgianni.tin.Repository.BookRepository;
 import com.ohgianni.tin.Repository.ClientRepository;
@@ -18,15 +19,18 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static com.ohgianni.tin.Enum.BookStatus.AVAILABLE;
 import static com.ohgianni.tin.Enum.BookStatus.RESERVED;
 import static java.lang.String.*;
 import static java.util.Objects.isNull;
+import static java.util.Optional.*;
 
 @Service
 public class BookService {
@@ -54,10 +58,6 @@ public class BookService {
         this.clientRepository = clientRepository;
         this.publisherRepository = publisherRepository;
         this.imageService = imageService;
-    }
-
-    public Book saveBook(Book book) {
-        return bookRepository.save(book);
     }
 
     @Transactional
@@ -125,6 +125,46 @@ public class BookService {
     }
 
     @Transactional
+    public void addBook(BookDTO bookDTO) {
+        Book newBook = bookDTO.getBook();
+
+        String coverUrl = imageService.saveBookCover(newBook.getMultipartImage());
+        newBook.setCoverImage(coverUrl);
+
+        Long publisherId = Long.parseLong(bookDTO.getPublisher());
+        publisherRepository.findById(publisherId).ifPresent(newBook::setPublisher);
+
+        newBook.setStatus(AVAILABLE);
+
+        saveBook(newBook);
+    }
+
+    public void validateBook(@Valid BookDTO bookDTO, RedirectAttributes redirectAttributes) {
+        book = bookDTO.getBook();
+
+        validateIfFieldsAreEmpty(redirectAttributes);
+        validateIsbn(book.getIsbn(), redirectAttributes);
+        validateMultiparImage(book, redirectAttributes);
+        validatePublisher(bookDTO, redirectAttributes);
+        validateCoverType(book, redirectAttributes);
+
+    }
+
+    private void validateCoverType(Book book, RedirectAttributes redirectAttributes) {
+        String coverType = ofNullable(book.getCoverType().toString()).orElse("0");
+        if(coverType.equals("0") || coverType.isEmpty()) {
+            redirectAttributes.addFlashAttribute("cover", "Proszę wybrać typ okładki");
+        }
+    }
+
+    private void validatePublisher(BookDTO bookDTO, RedirectAttributes redirectAttributes) {
+        String publisher = ofNullable(bookDTO.getPublisher()).orElse("0");
+        if(publisher.equals("0") || publisher.isEmpty()) {
+            redirectAttributes.addFlashAttribute("publisher", "Proszę wybrać wydawcę");
+        }
+    }
+
+    @Transactional
     public void update(BookDTO bookDto, Long isbn) {
         List<Book> books = bookRepository.findAllByIsbn(isbn);
         books.forEach(book -> {
@@ -139,19 +179,25 @@ public class BookService {
 
     public boolean isUpdateValid(BookDTO bookDto, RedirectAttributes redirectAttributes) {
         book = bookDto.getBook();
-        areFieldsEmpty(redirectAttributes);
-        isIsbnPresent(book.getIsbn(), redirectAttributes);
+        validateIfFieldsAreEmpty(redirectAttributes);
+        validateIsbn(book.getIsbn(), redirectAttributes);
 
         return redirectAttributes.getFlashAttributes().isEmpty();
     }
 
-    private void isIsbnPresent(Long isbn, RedirectAttributes redirectAttributes) {
+    private void validateIsbn(Long isbn, RedirectAttributes redirectAttributes) {
         if(bookRepository.existsByIsbn(isbn)){
             redirectAttributes.addFlashAttribute("isbnn", "W bazie znajduje sie już książka o ISBN " + isbn);
         }
     }
 
-    private boolean areFieldsEmpty(RedirectAttributes redirectAttributes) {
+    private void validateMultiparImage(Book book, RedirectAttributes redirectAttributes) {
+        if(book.getMultipartImage().isEmpty()) {
+            redirectAttributes.addFlashAttribute("image", "Proszę wybrać okładkę dla książki");
+        }
+    }
+
+    private void validateIfFieldsAreEmpty(RedirectAttributes redirectAttributes) {
         String empty = "Pole nie może być puste";
 
         if(book.getTitle().trim().isEmpty()){
@@ -164,7 +210,7 @@ public class BookService {
         }
 
         String isbn = valueOf(book.getIsbn()).trim();
-        if(isbn.isEmpty() || isNull(isbn)) {
+        if(isbn.isEmpty() || isbn.equals("null")) {
             redirectAttributes.addFlashAttribute("isbnn", empty);
         }
 
@@ -172,8 +218,10 @@ public class BookService {
         if(pages.isEmpty() || pages.equals("0")) {
             redirectAttributes.addFlashAttribute("pages", empty);
         }
+    }
 
-        return redirectAttributes.getFlashAttributes().isEmpty();
+    private Book saveBook(Book book) {
+        return bookRepository.save(book);
     }
 
     private void update(Book book, BookDTO bookDto) throws NotFound {

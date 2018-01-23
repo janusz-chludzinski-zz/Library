@@ -13,6 +13,8 @@
     <main class="reservations">
         <h1>Lista rezerwacji</h1>
 
+        <h2 th:if="${#lists.isEmpty(reservations)}">W tej chwili nie ma żadnych rezerwacji</h2>
+
         <i th:if="${message != null}" th:text="${message}" class="success-message" th:id="successMessage"></i>
         <i th:if="${error != null}" th:text="${message}" class="error-message" th:id="successMessage"></i>
 

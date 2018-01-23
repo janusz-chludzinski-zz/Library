@@ -10,6 +10,8 @@
     <main class="reservations">
         <h1>Lista wypożyczeń</h1>
 
+        <h2 th:if="${#lists.isEmpty(rentals)}">W tej chwili nie ma żadnych wypożyczeń</h2>
+
         <ul>
             <li th:each="rental : ${rentals}" class="reservation-element">
                 <img th:src="@{${rental.book.coverImage}}" />

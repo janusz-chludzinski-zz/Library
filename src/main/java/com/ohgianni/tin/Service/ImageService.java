@@ -3,6 +3,7 @@ package com.ohgianni.tin.Service;
 import com.ohgianni.tin.DTO.ClientDTO;
 import com.ohgianni.tin.Entity.Book;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,6 +15,8 @@ import static java.nio.file.Files.exists;
 import static java.nio.file.Files.write;
 import static java.nio.file.Paths.get;
 
+import javax.servlet.ServletContext;
+
 @Service
 public class ImageService {
 
@@ -23,14 +26,15 @@ public class ImageService {
 
     private static final String JPG_SUFFIX = ".jpg";
 
-    private static final String BOOKS_PATH = "/home/gianni/Downloads/tin/src/main/resources/static/img/books/";
+//    private static final String BOOKS_PATH = "/home/gianni/Downloads/tin/src/main/resources/static/img/books/";
+    private static final String BOOKS_PATH = "/home/janusz/Documents/PJATK/TIN/project/Library/src/main/resources" +
+        "/static/img/books/";
 
     private static final String BOOK_PATH = "/img/books/";
 
     private static final String FEMALE_AVATAR_URL = "/img/avatars/female.png";
 
     private static final String MALE_AVATAR_URL = "/img/avatars/male.png";
-
 
     public String getAvatarUrl(ClientDTO clientDTO) {
         return saveAvatar(clientDTO);
@@ -39,6 +43,7 @@ public class ImageService {
     private String saveAvatar(ClientDTO clientDTO) {
         String result;
         try {
+
             byte[] avatar = clientDTO.getAvatar().getBytes();
 
             String fileName = generateAvatarName(clientDTO) + JPG_SUFFIX;

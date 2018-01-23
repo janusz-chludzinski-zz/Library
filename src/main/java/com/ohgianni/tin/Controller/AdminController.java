@@ -5,6 +5,7 @@ import com.ohgianni.tin.Entity.Author;
 import com.ohgianni.tin.Entity.Publisher;
 import com.ohgianni.tin.Exception.ReservationNotFoundException;
 import com.ohgianni.tin.Service.AdminService;
+import com.ohgianni.tin.Service.BookService;
 import com.ohgianni.tin.Service.ClientService;
 import com.ohgianni.tin.Service.PublisherService;
 import com.ohgianni.tin.Service.ReservationService;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
@@ -31,15 +33,15 @@ public class AdminController {
 
     private AdminService adminService;
 
-    private PublisherService publisherService;
+    private BookService bookService;
 
     @Autowired
     public AdminController(ReservationService reservationService, ClientService clientService,
-                           AdminService adminService, PublisherService publisherService) {
+                           AdminService adminService, BookService bookService) {
         this.reservationService = reservationService;
         this.clientService = clientService;
         this.adminService = adminService;
-        this.publisherService = publisherService;
+        this.bookService = bookService;
     }
 
 
@@ -109,14 +111,6 @@ public class AdminController {
         return "admin-add-author";
     }
 
-    @RequestMapping("/add/book")
-    public String addBook(Model model) {
-        BookDTO bookDto = new BookDTO();
-        model.addAttribute("bookDto", bookDto);
-
-        return "admin-add-book";
-    }
-
     @RequestMapping(value = "/add/author", method = POST)
     public String addAuthor(@ModelAttribute("author") @Valid Author author,
                             BindingResult result,
@@ -154,5 +148,29 @@ public class AdminController {
         redirectAttributes.addFlashAttribute("success", "Wydawnictwo " + publisher.getName() + " zostało pomyślnie dodane!");
 
         return "redirect:/admin/add/publisher";
+    }
+
+    @RequestMapping(value = "/add/book", method = GET)
+    public String addBook(Model model) {
+        BookDTO bookDto = new BookDTO();
+        model.addAttribute("bookDto", bookDto);
+
+        return "admin-add-book";
+    }
+
+    @RequestMapping(value = "/add/book", method = POST)
+    public String addBook(@ModelAttribute("bookDto") @Valid BookDTO bookDTO ,
+                      BindingResult errors,
+                      RedirectAttributes redirectAttributes) {
+        bookService.validateBook(bookDTO, redirectAttributes);
+
+        if(errors.hasErrors() || !redirectAttributes.getFlashAttributes().isEmpty()) {
+            return "redirect:/admin/add/book";
+        }
+
+        bookService.addBook(bookDTO);
+        redirectAttributes.addFlashAttribute("success", "Książka o ISBN " + bookDTO.getBook().getIsbn() + " została dodana");
+
+        return "redirect:/admin/add/book";
     }
 }

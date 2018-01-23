@@ -36,22 +36,20 @@ public class BookController {
 
     @RequestMapping("/{isbn}")
     public String getBook(@PathVariable(name = "isbn") Long isbn, Model model) {
-
         model.addAttribute("book", bookService.getBookByIsbn(isbn));
-
         return "book";
     }
 
     @RequestMapping("/reservation/{isbn}")
     public String reservationView(@PathVariable(name = "isbn") Long isbn, Model model) {
-
         model.addAttribute("book", bookService.getBookByIsbn(isbn));
-
         return "reservation";
     }
 
     @RequestMapping("/reserve/{isbn}")
-    public String reserve(@PathVariable(name = "isbn") Long isbn, Authentication authentication, RedirectAttributes redirectAttributes) {
+    public String reserve(@PathVariable(name = "isbn") Long isbn,
+                          Authentication authentication,
+                          RedirectAttributes redirectAttributes) {
 
         Reservation reservation = null;
                 try{
@@ -82,14 +80,19 @@ public class BookController {
     }
 
     @RequestMapping("/delete/{isbn}/{id}")
-    public String delete(@PathVariable Long id, @PathVariable Long isbn, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable Long id,
+                         @PathVariable Long isbn,
+                         RedirectAttributes redirectAttributes) {
         bookService.deleteBook(id, redirectAttributes);
 
         return "redirect:/book/edit/" + isbn;
     }
 
     @RequestMapping(value = "/update/{isbn}", method = POST)
-    public String update(@ModelAttribute("bookDto") @Valid BookDTO bookDto, BindingResult errors, @PathVariable Long isbn, Model model, RedirectAttributes redirectAttributes) {
+    public String update(@ModelAttribute("bookDto") @Valid BookDTO bookDto,
+                         BindingResult errors,
+                         @PathVariable Long isbn,
+                         RedirectAttributes redirectAttributes) {
 
         if(bookService.isUpdateValid(bookDto, redirectAttributes)) {
             bookService.update(bookDto, isbn);

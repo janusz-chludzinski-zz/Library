@@ -58,7 +58,7 @@
                 </div>
 
 
-                <a sec:authorize="hasAuthority('CLIENT')" th:if="${book.availableSpecimen > 0}"  th:href="@{|/book/reservation/${book.isbn}|}">
+                <a sec:authorize="hasAuthority('CLIENT') || isAnonymous()" th:if="${book.availableSpecimen > 0}"  th:href="@{|/book/reservation/${book.isbn}|}">
                     Rezerwuj
                 </a>
             </div>

@@ -12,7 +12,7 @@
             <i th:if="${success != null}" th:text="${success}" class="success-message"></i>
             <fieldset>
                 <label th:for="title">Tytuł</label>
-                <input th:field="*{book.title}" type="text">
+                <input th:field="*{book.title}" type="text" autofocus>
                 <i th:if="${title != null}" th:text="${title}" class="error-message"></i>
             </fieldset>
 
@@ -38,31 +38,36 @@
                 <label>Wydawnictwo</label>
                 <p th:if="*{book.publisher != null}" th:text="*{'Obecny wydawca: ' + book.publisher.name}"></p>
                 <select id="publishers" th:field="*{publisher}" th:value="*{publisher}">
+                    <option th:value="0">Wybierz wydawnictwo</option>
                     <option th:each="publisher : ${bookDto.publishers}" th:value="${publisher.publisherId}" th:text="${publisher.name}" selected></option>
                 </select>
+                <i th:if="${publisher != null}" th:text="${publisher}" class="error-message"></i>
             </fieldset>
 
             <fieldset>
                 <label>Typ okładki</label>
                 <select name="" id="covers" th:field="*{book.coverType}">
+                    <option th:value="-1">Wybierz typ okładki</option>
                     <option th:each="cover : ${bookDto.coverTypes}" th:value="${cover}" th:text="${cover}" selected></option>
                 </select>
+                <i th:if="${cover != null}" th:text="${cover}" class="error-message"></i>
             </fieldset>
 
             <fieldset>
                 <label th:for="multipartImage" class="for-image">
                     <span>Okładka</span>
                     <p class="bookButton">Wybierz okładkę</p>
-                    <img th:src="@{*{book.coverImage}}" alt="Book cover image" id="book-cover">
+                    <img th:src="@{*{book.coverImage}}" alt="" id="book-cover">
                 </label>
 
                 <input th:field="*{book.multipartImage}" th:type="file" th:id="multipartImage" th:name="multipartImage">
+                <i th:if="${image != null}" th:text="${image}" class="error-message"></i>
             </fieldset>
 
             <input type="hidden" th:field="*{book.coverImage}">
 
             <fieldset th:id="submit-form">
-                <button th:type="submit" th:formaction="@{|/book/update/${isbn}|}">Dodaj książkę</button>
+                <button th:type="submit" th:formaction="@{/admin/add/book}">Dodaj książkę</button>
             </fieldset>
         </form>
 
