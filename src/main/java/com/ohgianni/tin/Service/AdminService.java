@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import static java.util.Objects.isNull;
 
+import java.util.List;
 
 @Service
 public class AdminService {
@@ -57,5 +58,9 @@ public class AdminService {
         if(author.getDateOfBirthString().isEmpty()) {
             errors.addError(new FieldError("dateOfBirth", "dateOfBirth", "Proszę wybrać datę urodzenia"));
         }
+    }
+
+    public List<Author> findAllAuthors() {
+        return authorRepository.findAll();
     }
 }

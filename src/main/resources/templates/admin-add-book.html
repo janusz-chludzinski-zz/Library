@@ -17,6 +17,14 @@
             </fieldset>
 
             <fieldset>
+                <label>Autorzy</label>
+                <select id="authors" th:field="*{book.authors}" th:multiple="multiple">
+                    <option th:each="author : ${bookDto.authors}" th:value="${author.id}" th:text="${author.name + ' ' + author.surname}"></option>
+                </select>
+                <i th:if="${authors != null}" th:text="${authors}" class="error-message"></i>
+            </fieldset>
+
+            <fieldset>
                 <label th:for="edition">Edycja</label>
                 <input th:field="*{book.edition}" type="text">
                 <i th:if="${edition != null}" th:text="${edition}" class="error-message"></i>
@@ -39,7 +47,7 @@
                 <p th:if="*{book.publisher != null}" th:text="*{'Obecny wydawca: ' + book.publisher.name}"></p>
                 <select id="publishers" th:field="*{publisher}" th:value="*{publisher}">
                     <option th:value="0">Wybierz wydawnictwo</option>
-                    <option th:each="publisher : ${bookDto.publishers}" th:value="${publisher.publisherId}" th:text="${publisher.name}" selected></option>
+                    <option th:each="publisher : ${bookDto.publishers}" th:value="${publisher.publisherId}" th:text="${publisher.name}"></option>
                 </select>
                 <i th:if="${publisher != null}" th:text="${publisher}" class="error-message"></i>
             </fieldset>

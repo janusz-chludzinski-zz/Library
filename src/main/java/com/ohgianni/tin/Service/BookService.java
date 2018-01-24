@@ -142,6 +142,7 @@ public class BookService {
     public void validateBook(@Valid BookDTO bookDTO, RedirectAttributes redirectAttributes) {
         book = bookDTO.getBook();
 
+        validateAuthors(book, redirectAttributes);
         validateIfFieldsAreEmpty(redirectAttributes);
         validateIsbn(book.getIsbn(), redirectAttributes);
         validateMultiparImage(book, redirectAttributes);
@@ -150,9 +151,15 @@ public class BookService {
 
     }
 
+    private void validateAuthors(Book book, RedirectAttributes redirectAttributes) {
+        if(book.getAuthors().size() == 0) {
+            redirectAttributes.addFlashAttribute("authors", "Proszę wybrać przynajmniej jednego autora książki");
+        }
+    }
+
     private void validateCoverType(Book book, RedirectAttributes redirectAttributes) {
-        String coverType = ofNullable(book.getCoverType().toString()).orElse("0");
-        if(coverType.equals("0") || coverType.isEmpty()) {
+        String coverType = ofNullable(valueOf(book.getCoverType())).orElse("0");
+        if(coverType.equals("null") || coverType.isEmpty()) {
             redirectAttributes.addFlashAttribute("cover", "Proszę wybrać typ okładki");
         }
     }

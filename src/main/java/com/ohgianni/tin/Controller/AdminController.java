@@ -152,7 +152,7 @@ public class AdminController {
 
     @RequestMapping(value = "/add/book", method = GET)
     public String addBook(Model model) {
-        BookDTO bookDto = new BookDTO();
+        BookDTO bookDto = new BookDTO(adminService.findAllAuthors());
         model.addAttribute("bookDto", bookDto);
 
         return "admin-add-book";

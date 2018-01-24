@@ -70,8 +70,7 @@ public class BookController {
 
         BookDTO bookDto = new BookDTO(
                 bookService.getBookByIsbn(isbn),
-                bookService.getAllBooksByIsbn(isbn),
-                findAllPublishers()
+                bookService.getAllBooksByIsbn(isbn)
         );
 
         model.addAttribute("bookDto", bookDto);

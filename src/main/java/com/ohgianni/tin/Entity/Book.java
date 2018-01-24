@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.util.List;
 
 import static javax.persistence.EnumType.*;
+import static javax.persistence.FetchType.*;
 
 @Entity
 @Getter @Setter
