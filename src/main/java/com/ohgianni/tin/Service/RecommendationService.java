@@ -1,20 +1,21 @@
 package com.ohgianni.tin.Service;
 
-import com.ohgianni.tin.Entity.Client;
-import com.ohgianni.tin.Entity.Recommendation;
-import com.ohgianni.tin.Repository.BookRepository;
-import com.ohgianni.tin.Repository.RecommendationRepository;
+import static java.time.LocalDateTime.now;
+
+import java.util.List;
+import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
-import java.util.List;
-
-import static java.time.LocalDateTime.now;
+import com.ohgianni.tin.Entity.Client;
+import com.ohgianni.tin.Entity.Recommendation;
+import com.ohgianni.tin.Repository.BookRepository;
+import com.ohgianni.tin.Repository.RecommendationRepository;
 
 @Service
 public class RecommendationService {
@@ -43,6 +44,31 @@ public class RecommendationService {
 
     }
 
+    @Transactional
+    public void addVote(Long id, HttpSession session, RedirectAttributes redirectAttributes) {
+
+        Client client = (Client) session.getAttribute("client");
+
+        recommendationRepository.findById(id).ifPresent(recommendation -> {
+            validateVote(client, recommendation, redirectAttributes);
+
+            if(redirectAttributes.getFlashAttributes().containsKey("error")) {
+                return;
+            }
+
+            recommendation.setVotes(recommendation.getVotes() + 1);
+            recommendation.addVoter(client);
+            client.addVotedRecommendation(recommendation);
+
+            recommendationRepository.save(recommendation);
+
+        });
+    }
+
+    public List<Recommendation> findAll() {
+        return recommendationRepository.findAllByOrderByVotesDesc();
+    }
+
     public BindingResult validateRecommendation(Recommendation recommendation, BindingResult errors) {
 
         isReported(recommendation, errors);
@@ -63,27 +89,6 @@ public class RecommendationService {
 
     }
 
-    @Transactional
-    public void addVote(Long id, HttpSession session, RedirectAttributes redirectAttributes) {
-
-        Client client = (Client) session.getAttribute("client");
-
-            recommendationRepository.findById(id).ifPresent(recommendation -> {
-                validateVote(client, recommendation, redirectAttributes);
-
-                if(redirectAttributes.getFlashAttributes().containsKey("error")) {
-                    return;
-                }
-
-                recommendation.setVotes(recommendation.getVotes() + 1);
-                recommendation.addVoter(client);
-                client.addVotedRecommendation(recommendation);
-
-                recommendationRepository.save(recommendation);
-
-            });
-    }
-
     private void validateVote(Client client, Recommendation recommendation, RedirectAttributes redirectAttributes) {
         if(hasRecommendedThis(client, recommendation)) {
             redirectAttributes.addFlashAttribute("error", "Nie możesz głosować na książkę, którą rekomendowałeś");
@@ -102,10 +107,6 @@ public class RecommendationService {
 
     private boolean hasVotedAlready(Client client, Recommendation recommendation) {
         return client.getVotedRecommendations().contains(recommendation);
-    }
-
-    public List<Recommendation> findAll() {
-        return recommendationRepository.findAllByOrderByVotesDesc();
     }
 
     private boolean hasRecommendedThis(Client client, Recommendation recommendation) {

@@ -1,12 +1,11 @@
 package com.ohgianni.tin.Repository;
 
-import com.ohgianni.tin.Entity.Client;
-import com.ohgianni.tin.Entity.Role;
+import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.ohgianni.tin.Entity.Client;
 
 @Repository
 public interface ClientRepository extends CrudRepository<Client, Long>{

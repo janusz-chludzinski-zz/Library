@@ -58,14 +58,30 @@ public class ClientService {
         return client;
     }
 
-    private void updateSession(Client client, HttpSession session) {
-        session.setAttribute("client", client);
+    @Transactional
+    public Client findClientByEmail(String email) {
+        return clientRepository.findByEmail(email);
+    }
+
+    public boolean isAdmin(Client client) {
+        return client.getRoles().get(0).getRoleId() == 2L;
+    }
+
+    public List<Client> findAll() {
+        return clientRepository.findAllByOrderBySurnameDesc()
+                .stream()
+                .filter(Client::isClient)
+                .collect(toList());
     }
 
     public BindingResult validateData(ClientDTO clientDTO, HttpSession session, BindingResult errors) {
         checkIfEmailExists(clientDTO, session, errors);
         checkIfPasswordsMatch(clientDTO, errors);
         return errors;
+    }
+
+    private void updateSession(Client client, HttpSession session) {
+        session.setAttribute("client", client);
     }
 
     private void checkIfEmailExists(ClientDTO clientDTO, HttpSession session, BindingResult result) {
@@ -98,21 +114,5 @@ public class ClientService {
         } else {
             client.setRoles(roleRepository.findAllById(singletonList(1L)));
         }
-    }
-
-    @Transactional
-    public Client findClientByEmail(String email) {
-        return clientRepository.findByEmail(email);
-    }
-
-    public boolean isAdmin(Client client) {
-        return client.getRoles().get(0).getRoleId() == 2L;
-    }
-
-    public List<Client> findAll() {
-       return clientRepository.findAllByOrderBySurnameDesc()
-               .stream()
-               .filter(Client::isClient)
-               .collect(toList());
     }
 }

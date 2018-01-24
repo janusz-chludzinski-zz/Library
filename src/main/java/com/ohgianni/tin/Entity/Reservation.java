@@ -1,15 +1,21 @@
 package com.ohgianni.tin.Entity;
 
+import static com.ohgianni.tin.Enum.Status.RESERVED;
+
+import java.time.LocalDateTime;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
 import com.ohgianni.tin.Enum.Status;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.tomcat.jni.Local;
-
-import javax.persistence.*;
-import java.time.LocalDateTime;
-
-import static com.ohgianni.tin.Enum.Status.*;
 
 @Entity
 @Getter @Setter

@@ -1,21 +1,25 @@
 package com.ohgianni.tin.Entity;
 
+import static java.time.LocalDateTime.now;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.ohgianni.tin.DTO.ClientDTO;
 import com.ohgianni.tin.Service.ImageService;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
-import static java.time.LocalDateTime.now;
-import static org.hibernate.FetchMode.EAGER;
 
 
 @Entity

@@ -1,36 +1,34 @@
 package com.ohgianni.tin.Service;
 
-import com.ohgianni.tin.DTO.BookDTO;
-import com.ohgianni.tin.Entity.Book;
-import com.ohgianni.tin.Entity.Client;
-import com.ohgianni.tin.Entity.Publisher;
-import com.ohgianni.tin.Entity.Reservation;
-import com.ohgianni.tin.Enum.BookStatus;
-import com.ohgianni.tin.Enum.CoverType;
-import com.ohgianni.tin.Exception.BookNotFoundException;
-import com.ohgianni.tin.Repository.BookRepository;
-import com.ohgianni.tin.Repository.ClientRepository;
-import com.ohgianni.tin.Repository.PublisherRepository;
-import com.ohgianni.tin.Repository.ReservationRepository;
+import static com.ohgianni.tin.Enum.BookStatus.AVAILABLE;
+import static com.ohgianni.tin.Enum.BookStatus.RESERVED;
+import static java.lang.String.valueOf;
+import static java.util.Optional.ofNullable;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.transaction.Transactional;
+import javax.validation.Valid;
+
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.transaction.Transactional;
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
-import static com.ohgianni.tin.Enum.BookStatus.AVAILABLE;
-import static com.ohgianni.tin.Enum.BookStatus.RESERVED;
-import static java.lang.String.*;
-import static java.util.Objects.isNull;
-import static java.util.Optional.*;
+import com.ohgianni.tin.DTO.BookDTO;
+import com.ohgianni.tin.Entity.Book;
+import com.ohgianni.tin.Entity.Client;
+import com.ohgianni.tin.Entity.Publisher;
+import com.ohgianni.tin.Entity.Reservation;
+import com.ohgianni.tin.Enum.BookStatus;
+import com.ohgianni.tin.Exception.BookNotFoundException;
+import com.ohgianni.tin.Repository.BookRepository;
+import com.ohgianni.tin.Repository.ClientRepository;
+import com.ohgianni.tin.Repository.PublisherRepository;
+import com.ohgianni.tin.Repository.ReservationRepository;
 
 @Service
 public class BookService {
@@ -151,26 +149,6 @@ public class BookService {
 
     }
 
-    private void validateAuthors(Book book, RedirectAttributes redirectAttributes) {
-        if(book.getAuthors().size() == 0) {
-            redirectAttributes.addFlashAttribute("authors", "Proszę wybrać przynajmniej jednego autora książki");
-        }
-    }
-
-    private void validateCoverType(Book book, RedirectAttributes redirectAttributes) {
-        String coverType = ofNullable(valueOf(book.getCoverType())).orElse("0");
-        if(coverType.equals("null") || coverType.isEmpty()) {
-            redirectAttributes.addFlashAttribute("cover", "Proszę wybrać typ okładki");
-        }
-    }
-
-    private void validatePublisher(BookDTO bookDTO, RedirectAttributes redirectAttributes) {
-        String publisher = ofNullable(bookDTO.getPublisher()).orElse("0");
-        if(publisher.equals("0") || publisher.isEmpty()) {
-            redirectAttributes.addFlashAttribute("publisher", "Proszę wybrać wydawcę");
-        }
-    }
-
     @Transactional
     public void update(BookDTO bookDto, Long isbn) {
         List<Book> books = bookRepository.findAllByIsbn(isbn);
@@ -190,6 +168,26 @@ public class BookService {
         validateIsbn(book.getIsbn(), redirectAttributes);
 
         return redirectAttributes.getFlashAttributes().isEmpty();
+    }
+
+    private void validateAuthors(Book book, RedirectAttributes redirectAttributes) {
+        if(book.getAuthors().size() == 0) {
+            redirectAttributes.addFlashAttribute("authors", "Proszę wybrać przynajmniej jednego autora książki");
+        }
+    }
+
+    private void validateCoverType(Book book, RedirectAttributes redirectAttributes) {
+        String coverType = ofNullable(valueOf(book.getCoverType())).orElse("0");
+        if(coverType.equals("null") || coverType.isEmpty()) {
+            redirectAttributes.addFlashAttribute("cover", "Proszę wybrać typ okładki");
+        }
+    }
+
+    private void validatePublisher(BookDTO bookDTO, RedirectAttributes redirectAttributes) {
+        String publisher = ofNullable(bookDTO.getPublisher()).orElse("0");
+        if(publisher.equals("0") || publisher.isEmpty()) {
+            redirectAttributes.addFlashAttribute("publisher", "Proszę wybrać wydawcę");
+        }
     }
 
     private void validateIsbn(Long isbn, RedirectAttributes redirectAttributes) {

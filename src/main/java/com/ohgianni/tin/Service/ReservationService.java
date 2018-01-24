@@ -1,25 +1,24 @@
 package com.ohgianni.tin.Service;
 
-import com.ohgianni.tin.Entity.Book;
+import static com.ohgianni.tin.Enum.Status.RENTED;
+import static com.ohgianni.tin.Enum.Status.RESERVED;
+import static com.ohgianni.tin.Enum.Status.RETURNED;
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.ohgianni.tin.Entity.Client;
 import com.ohgianni.tin.Entity.Reservation;
 import com.ohgianni.tin.Enum.BookStatus;
 import com.ohgianni.tin.Enum.Status;
 import com.ohgianni.tin.Exception.ReservationNotFoundException;
 import com.ohgianni.tin.Repository.ReservationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.transaction.Transactional;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.Optional;
-
-import static com.ohgianni.tin.Enum.Status.RENTED;
-import static com.ohgianni.tin.Enum.Status.RESERVED;
-import static com.ohgianni.tin.Enum.Status.RETURNED;
 
 @Service
 public class ReservationService {
@@ -42,10 +41,6 @@ public class ReservationService {
         setDaysLeft(reservations);
 
         return reservations;
-    }
-
-    private void setDaysLeft(List<Reservation> reservations) {
-        reservations.forEach(reservation ->  reservation.setDaysLeft(ChronoUnit.DAYS.between(LocalDateTime.now(), reservation.getReturnTime())));
     }
 
     @Transactional
@@ -94,6 +89,10 @@ public class ReservationService {
         } catch (ReservationNotFoundException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
+    }
+
+    private void setDaysLeft(List<Reservation> reservations) {
+        reservations.forEach(reservation ->  reservation.setDaysLeft(ChronoUnit.DAYS.between(LocalDateTime.now(), reservation.getReturnTime())));
     }
 }
 

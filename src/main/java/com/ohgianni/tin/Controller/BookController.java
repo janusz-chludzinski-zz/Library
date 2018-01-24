@@ -1,10 +1,9 @@
 package com.ohgianni.tin.Controller;
 
-import com.ohgianni.tin.DTO.BookDTO;
-import com.ohgianni.tin.Entity.Reservation;
-import com.ohgianni.tin.Exception.BookNotFoundException;
-import com.ohgianni.tin.Service.BookService;
-import com.ohgianni.tin.Service.PublisherService;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -15,10 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
-
-import static com.ohgianni.tin.Service.PublisherService.*;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import com.ohgianni.tin.DTO.BookDTO;
+import com.ohgianni.tin.Entity.Reservation;
+import com.ohgianni.tin.Exception.BookNotFoundException;
+import com.ohgianni.tin.Service.BookService;
+import com.ohgianni.tin.Service.PublisherService;
 
 @Controller
 @RequestMapping("/book")
