@@ -64,4 +64,8 @@ public class Client extends User {
     public void addVotedRecommendation(Recommendation recommendation) {
         votedRecommendations.add(recommendation);
     }
+
+    public boolean isClient() {
+        return roles.stream().anyMatch(role -> role.getName().equals("CLIENT"));
+    }
 }

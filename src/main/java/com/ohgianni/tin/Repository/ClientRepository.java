@@ -1,6 +1,8 @@
 package com.ohgianni.tin.Repository;
 
 import com.ohgianni.tin.Entity.Client;
+import com.ohgianni.tin.Entity.Role;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +14,5 @@ public interface ClientRepository extends CrudRepository<Client, Long>{
     Client findByEmail(String username);
 
     List<Client> findAllByOrderBySurnameDesc();
+
 }

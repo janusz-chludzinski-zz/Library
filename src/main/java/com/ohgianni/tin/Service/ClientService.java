@@ -1,23 +1,24 @@
 package com.ohgianni.tin.Service;
 
-import com.ohgianni.tin.DTO.ClientDTO;
-import com.ohgianni.tin.Entity.Client;
-import com.ohgianni.tin.Repository.ClientRepository;
-import com.ohgianni.tin.Repository.RoleRepository;
+import static java.util.Collections.singletonList;
+import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.toList;
+
+import java.util.List;
+import java.util.Optional;
+import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
-import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Optional;
-
-import static java.util.Collections.singletonList;
-import static java.util.Optional.ofNullable;
-
+import com.ohgianni.tin.DTO.ClientDTO;
+import com.ohgianni.tin.Entity.Client;
+import com.ohgianni.tin.Repository.ClientRepository;
+import com.ohgianni.tin.Repository.RoleRepository;
 
 @Service
 public class ClientService {
@@ -109,6 +110,9 @@ public class ClientService {
     }
 
     public List<Client> findAll() {
-       return clientRepository.findAllByOrderBySurnameDesc();
+       return clientRepository.findAllByOrderBySurnameDesc()
+               .stream()
+               .filter(Client::isClient)
+               .collect(toList());
     }
 }

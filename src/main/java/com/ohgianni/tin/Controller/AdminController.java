@@ -86,6 +86,7 @@ public class AdminController {
     public String returnBook(@PathVariable(name = "rentId") Long rentId, RedirectAttributes redirectAttributes) {
         try {
             redirectAttributes.addFlashAttribute("reservation", reservationService.returnBook(rentId));
+            redirectAttributes.addFlashAttribute("success", "Zwrot został pomyślnie zrealizowany");
         } catch (ReservationNotFoundException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }
