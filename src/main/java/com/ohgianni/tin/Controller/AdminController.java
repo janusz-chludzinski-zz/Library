@@ -168,6 +168,12 @@ public class AdminController {
         return "admin-add-book";
     }
 
+    @RequestMapping("/add/book/{isbn}")
+    public String addBookItem(@PathVariable Long isbn, RedirectAttributes redirectAttributes) {
+        bookService.addBookItem(isbn, redirectAttributes);
+        return "redirect:/book/edit/" + isbn;
+    }
+
     @RequestMapping(value = "/add/book", method = POST)
     public String addBook(@ModelAttribute("bookDto") @Valid BookDTO bookDTO ,
                       BindingResult errors,

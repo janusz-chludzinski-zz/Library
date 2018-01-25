@@ -1,7 +1,9 @@
 package com.ohgianni.tin.Entity;
 
+import static com.ohgianni.tin.Enum.BookStatus.*;
 import static javax.persistence.EnumType.STRING;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -78,6 +80,18 @@ public class Book {
 
     public Book() {
 
+    }
+
+    public Book(Book book) {
+        this.coverType = book.getCoverType();
+        this.publisher = book.getPublisher();
+        this.title = book.getTitle();
+        this.authors = new ArrayList<>(book.getAuthors());
+        this.pages = book.getPages();
+        this.edition = book.getEdition();
+        this.coverImage = book.getCoverImage();
+        this.isbn = book.getIsbn();
+        this.status = AVAILABLE;
     }
 }
 

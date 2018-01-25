@@ -364,9 +364,21 @@ body {
     margin-left: 250px;
     padding: 40px;
 
+    i.success-message {
+      display: block;
+      margin-bottom: 20px;
+    }
+
     form {
       background-color: #fff;
       padding: 40px;
+      margin-bottom: 20px;
+
+      i {
+        margin-left: 30%;
+        display: inline-block;
+        margin-top: 10px;
+      }
 
       fieldset {
         margin: 0 0 30px 0;
@@ -437,21 +449,29 @@ body {
           color: #b5a8b9;
         }
       }
+    }
+    
+    h2 {
+      display: inline-block;
+    }
 
-      #new-publisher {
-        display: none;
-        margin: 0px 0 0 30%;
-        padding: 20px;
-        background-color: rgba(133, 180, 208, 0.2);
+    a.add-book-item {
+      position: relative;
+      float: right;
+      top: 11px;
+      padding: 10px;
+      border: 1px solid $color-deep-blue;
+      transition: $transition-common;
+    }
 
-        fieldset {
-          margin-bottom: 0;
-        }
-      }
+    a.add-book-item:hover {
+      background-color: $color-deep-blue;
+      color: #fff;
     }
 
     #book-items {
       margin-top: 20px;
+      clear: both;
 
       li.book-item {
         margin-bottom: 20px;
@@ -1043,6 +1063,7 @@ body {
         .rent-history {
           clear: both;
           padding-top: 20px;
+          display: none;
 
           ul {
             padding: 0 0 0 40px;

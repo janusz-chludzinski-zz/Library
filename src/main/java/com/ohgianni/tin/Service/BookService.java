@@ -143,12 +143,26 @@ public class BookService {
         saveBook(newBook);
     }
 
+    public void addBookItem(Long isbn, RedirectAttributes redirectAttributes) {
+        try {
+            Book book = bookRepository.findAllByIsbn(isbn).stream().findFirst().orElseThrow(BookNotFoundException::new);
+            Book newBook = new Book(book);
+
+            bookRepository.save(newBook);
+
+            redirectAttributes.addFlashAttribute("success", "Egzemplarz został pomyślnie dodany, ID: " + newBook.getBookId());
+
+        } catch (BookNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", "Nie znaleziono książki o ISBN " + isbn);
+        }
+    }
+
     public void validateBook(@Valid BookDTO bookDTO, RedirectAttributes redirectAttributes) {
         book = bookDTO.getBook();
 
         validateAuthors(book, redirectAttributes);
         validateIfFieldsAreEmpty(redirectAttributes);
-        validateIsbn(book.getIsbn(), redirectAttributes);
+        validateIsbn(book, redirectAttributes);
         validateMultiparImage(book, redirectAttributes);
         validatePublisher(bookDTO, redirectAttributes);
         validateCoverType(book, redirectAttributes);
@@ -171,7 +185,7 @@ public class BookService {
     public boolean isUpdateValid(BookDTO bookDto, RedirectAttributes redirectAttributes) {
         book = bookDto.getBook();
         validateIfFieldsAreEmpty(redirectAttributes);
-        validateIsbn(book.getIsbn(), redirectAttributes);
+        validateIsbn(book, redirectAttributes);
 
         return redirectAttributes.getFlashAttributes().isEmpty();
     }
@@ -196,9 +210,9 @@ public class BookService {
         }
     }
 
-    private void validateIsbn(Long isbn, RedirectAttributes redirectAttributes) {
-        if(bookRepository.existsByIsbn(isbn)){
-            redirectAttributes.addFlashAttribute("isbnn", "W bazie znajduje sie już książka o ISBN " + isbn);
+    private void validateIsbn(Book book, RedirectAttributes redirectAttributes) {
+        if(bookRepository.existsByIsbn(book.getIsbn())){
+            redirectAttributes.addFlashAttribute("isbnn", "W bazie znajduje sie już książka o ISBN " + book.getIsbn());
         }
     }
 

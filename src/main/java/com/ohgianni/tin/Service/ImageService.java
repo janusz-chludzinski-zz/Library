@@ -23,9 +23,9 @@ public class ImageService {
 
     private static final String JPG_SUFFIX = ".jpg";
 
-//    private static final String BOOKS_PATH = "/home/gianni/Downloads/tin/src/main/resources/static/img/books/";
-    private static final String BOOKS_PATH = "/home/janusz/Documents/PJATK/TIN/project/Library/src/main/resources" +
-        "/static/img/books/";
+    private static final String BOOKS_PATH = "/home/gianni/Downloads/tin/src/main/resources/static/img/books/";
+//private static final String BOOKS_PATH = "/home/janusz/Documents/PJATK/TIN/project/Library/src/main/resources" +
+//        "/static/img/books/";
 
     private static final String BOOK_PATH = "/img/books/";
 
