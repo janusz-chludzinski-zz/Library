@@ -215,7 +215,7 @@ body {
       body main.books ul li a:hover {
         border-bottom: transparent;
         box-shadow: 0px 0px 70px -5px rgba(0, 0, 0, 0.58); }
-    body main.books ul li:nth-child(4) {
+    body main.books ul li:nth-child(4n+0) {
       margin-right: 0; }
   body main.book-edit {
     margin-left: 250px;
