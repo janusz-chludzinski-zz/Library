@@ -1,6 +1,7 @@
 package com.ohgianni.tin.Service;
 
 import static com.ohgianni.tin.Enum.BookStatus.AVAILABLE;
+import static com.ohgianni.tin.Enum.BookStatus.DELETED;
 import static com.ohgianni.tin.Enum.BookStatus.RESERVED;
 import static java.lang.String.valueOf;
 import static java.util.Optional.ofNullable;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -75,7 +77,11 @@ public class BookService {
     }
 
     public List<Book> getAllBooksByIsbn(Long isbn) {
-        return bookRepository.findAllByIsbn(isbn);
+        List<Book> books = bookRepository.findAllByIsbn(isbn);
+
+        return books.stream()
+                .filter(book -> book.getStatus() != BookStatus.DELETED)
+                .collect(Collectors.toList());
     }
 
     @Transactional
@@ -111,7 +117,7 @@ public class BookService {
             Book book = bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
 
             if(canBeDeleted(book)){
-                bookRepository.delete(book);
+                setStatusAndSave(book, DELETED);
                 redirectAttributes.addFlashAttribute("success", "Książka o ID " + id + " została pomyślnie usunięta");
             } else {
                 redirectAttributes.addFlashAttribute("error", "Książka o ID " + id + " nie może zostać usunięta, ponieważ ma status " + book.getStatus());
@@ -285,13 +291,19 @@ public class BookService {
         Map<Long, Integer> result = new HashMap<>();
 
         books.forEach(book -> {
-            Long isbn = book.getIsbn();
+                    Long isbn = book.getIsbn();
 
-            if (!result.containsKey(isbn)) {
-                result.put(isbn, 1);
-            } else {
-                result.put(book.getIsbn(), result.get(isbn) + 1);
-            }
+                    if (!result.containsKey(isbn)) {
+                        if(book.getStatus().equals(DELETED)){
+                            result.put(isbn, 0);
+                        }
+                        else {
+                            result.put(isbn, 1);
+                        }
+                    }
+                    else if(!book.getStatus().equals(DELETED)){
+                        result.put(book.getIsbn(), result.get(isbn) + 1);
+                    }
         });
 
         return result;

@@ -78,15 +78,6 @@ public class BookController {
         return "admin-book";
     }
 
-    @RequestMapping("/delete/{isbn}/{id}")
-    public String delete(@PathVariable Long id,
-                         @PathVariable Long isbn,
-                         RedirectAttributes redirectAttributes) {
-        bookService.deleteBook(id, redirectAttributes);
-
-        return "redirect:/book/edit/" + isbn;
-    }
-
     @RequestMapping(value = "/update/{isbn}", method = POST)
     public String update(@ModelAttribute("bookDto") @Valid BookDTO bookDto,
                          BindingResult errors,

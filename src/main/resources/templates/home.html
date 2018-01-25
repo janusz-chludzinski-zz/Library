@@ -13,7 +13,7 @@
             </a>
         </form>
         <ul>
-            <li th:each="book : ${books}" th:title="${book.title}">
+            <li th:each="book : ${books}" th:title="${book.title}" th:if="${book.totalSpecimen > 0}">
                 <div sec:authorize="hasAuthority('ADMIN')" class="book-edit">
                     <a th:href="@{|/book/edit/${book.isbn}|}">
                         <i class="fa fa-pencil" aria-hidden="true"></i>

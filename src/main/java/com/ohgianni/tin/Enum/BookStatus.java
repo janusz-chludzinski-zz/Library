@@ -2,7 +2,7 @@ package com.ohgianni.tin.Enum;
 
 public enum BookStatus {
 
-    AVAILABLE("AVAILABLE"), RESERVED("RESERVED"), RENTED("RENTED");
+    AVAILABLE("AVAILABLE"), RESERVED("RESERVED"), RENTED("RENTED"), DELETED("DELETED");
 
     private final String status;
 

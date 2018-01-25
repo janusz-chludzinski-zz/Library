@@ -75,7 +75,7 @@
                 <p th:text="${book.bookId}" class="book-data"></p>
                 <p th:text="${book.title}" class="book-data"></p>
                 <p th:text="${book.status}" class="book-data"></p>
-                <a th:href="@{|/book/delete/${book.isbn}/${book.bookId}|}">Usuń książkę</a>
+                <a th:href="@{|/admin/delete/${book.isbn}/${book.bookId}|}">Usuń książkę</a>
             </li>
         </ul>
         </main>

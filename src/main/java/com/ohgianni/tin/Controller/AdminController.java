@@ -58,6 +58,15 @@ public class AdminController {
         return "admin-reservations";
     }
 
+    @RequestMapping("/delete/{isbn}/{id}")
+    public String delete(@PathVariable Long id,
+                         @PathVariable Long isbn,
+                         RedirectAttributes redirectAttributes) {
+        bookService.deleteBook(id, redirectAttributes);
+
+        return "redirect:/book/edit/" + isbn;
+    }
+
     @RequestMapping("/rent/{id}")
     public String rentBook(@PathVariable(name = "id") Long id, RedirectAttributes redirectAttributes) {
 
