@@ -60,6 +60,7 @@
             </fieldset>
 
             <input type="hidden" th:field="*{book.coverImage}">
+            <input type="hidden" th:field="*{currentIsbn}">
 
             <fieldset th:id="submit-form">
                 <button th:type="submit" th:formaction="@{|/book/update/${isbn}|}">Aktualizuj dane</button>

@@ -27,6 +27,8 @@ public class BookDTO {
 
     private List<Publisher> publishers;
 
+    private Long currentIsbn;
+
     public BookDTO() {
 
     }
@@ -40,6 +42,7 @@ public class BookDTO {
     public BookDTO(Book book, List<Book> books) {
         this.book = book;
         this.books = books;
+        this.currentIsbn = book.getIsbn();
         this.publishers = findAllPublishers();
         this.coverTypes = getAllAsString();
     }

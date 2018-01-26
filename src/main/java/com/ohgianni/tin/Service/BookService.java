@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -162,7 +163,7 @@ public class BookService {
 
         validateAuthors(book, redirectAttributes);
         validateIfFieldsAreEmpty(redirectAttributes);
-        validateIsbn(book, redirectAttributes);
+        validateIsbn(bookDTO, redirectAttributes);
         validateMultiparImage(book, redirectAttributes);
         validatePublisher(bookDTO, redirectAttributes);
         validateCoverType(book, redirectAttributes);
@@ -185,7 +186,7 @@ public class BookService {
     public boolean isUpdateValid(BookDTO bookDto, RedirectAttributes redirectAttributes) {
         book = bookDto.getBook();
         validateIfFieldsAreEmpty(redirectAttributes);
-        validateIsbn(book, redirectAttributes);
+        validateIsbn(bookDto, redirectAttributes);
 
         return redirectAttributes.getFlashAttributes().isEmpty();
     }
@@ -210,10 +211,22 @@ public class BookService {
         }
     }
 
-    private void validateIsbn(Book book, RedirectAttributes redirectAttributes) {
-        if(bookRepository.existsByIsbn(book.getIsbn())){
-            redirectAttributes.addFlashAttribute("isbnn", "W bazie znajduje sie już książka o ISBN " + book.getIsbn());
+    private void validateIsbn(BookDTO bookDTO, RedirectAttributes redirectAttributes) {
+        if(isNotSameIsbn(bookDTO)) {
+            if(bookRepository.existsByIsbn(book.getIsbn())){
+                redirectAttributes.addFlashAttribute("isbnn", "W bazie znajduje sie już książka o ISBN " + book.getIsbn());
+            }
         }
+    }
+
+    private boolean isNotSameIsbn(BookDTO bookDTO) {
+        Optional<Long> currentIsbn = ofNullable(bookDTO.getCurrentIsbn());
+
+        if(currentIsbn.isPresent()) {
+            return !currentIsbn.get().equals(bookDTO.getBook().getIsbn());
+        }
+
+        return true;
     }
 
     private void validateMultiparImage(Book book, RedirectAttributes redirectAttributes) {
