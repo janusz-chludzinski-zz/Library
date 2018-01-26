@@ -7,12 +7,13 @@
 
             <i th:if="${message != null}" th:text="${message}" class="success-message"></i>
 
-            <fieldset>
+            <fieldset id="email-fieldset">
                 <label for="email" >Email</label>
-                <input type="email" name="email" id="email" autofocus>
+                <input type="email" name="email" id="email" onblur="validateEmail()" autofocus>
+                <i class="error-message" style="display: none"></i>
             </fieldset>
 
-            <fieldset>
+            <fieldset id="password-fieldset">
                 <label for="password">Hasło</label>
                 <input type="password" name="password" id="password">
             </fieldset>
@@ -38,5 +39,7 @@
 
             <div class="modal-footer">Nie masz jeszcze konta? <a th:href="@{/user/register}">Zarejestruj się</a></div>
         </form>
+        <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js}"></script>
+        <script th:src="@{/js/validation.js}"></script>
     </body>
 </html>
