@@ -448,6 +448,10 @@ body {
           font-size: 1rem;
           color: #b5a8b9;
         }
+
+        #authors {
+          height: 100px;
+        }
       }
     }
     
@@ -825,8 +829,10 @@ body {
             color: #fff;
           }
 
-          p.path {
-            color: $color-deep-blue;
+          img {
+            width: 60px;
+            position: relative;
+            top: 15px;
           }
 
         }
@@ -1237,6 +1243,37 @@ body {
       margin-top: 40px;
     }
 
+    fieldset#avatar-fieldset {
+      label {
+        width: 100%;
+
+        span {
+          float: left;
+          display: inline-block;
+          width: 30%;
+        }
+
+        p {
+          float: left;
+          border: 1px solid $color-deep-blue;
+          padding: 0 10px;
+          cursor: pointer;
+          transition: $transition-common;
+          color: $color-deep-blue;
+        }
+
+        p:hover {
+          background-color: $color-deep-blue;
+          color: #fff;
+        }
+
+        img {
+          width: 80px;
+          margin-left: 20px;
+        }
+      }
+    }
+
     div.error-message {
       p {
         display: inline-block;
@@ -1332,4 +1369,34 @@ body {
 .green {
   border: 1px solid $color-solid-green;
   color: $color-solid-green;
+}
+
+.weather {
+  position: absolute;
+  bottom: 26px;
+  width: 135px;
+  background: $color-deep-blue;
+  color: #fff;
+  text-align: center;
+  height: 135px;
+  border-radius: 180px;
+  left: 57px;
+  padding-top: 35px;
+
+  p.degrees {
+    font-size: 3rem;
+    float: left;
+    position: relative;
+    left: 37px;
+  }
+
+  i {
+    font-size: 2rem;
+    position: relative;
+    top: 7px;
+  }
+
+  p.city {
+    clear: both;
+  }
 }

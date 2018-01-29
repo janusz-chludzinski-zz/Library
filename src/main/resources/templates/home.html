@@ -6,12 +6,8 @@
         <aside th:replace="basic-template :: aside"></aside>
 
     <main class="books">
-        <form action="">
-            <input th:type="text" th:id="search" th:name="search" placeholder="Wpisz tytuł szukanej książki...">
-            <a href="" th:action="@{/user/login}">
-                <i class="fa fa-search" aria-hidden="true"></i>
-            </a>
-        </form>
+        <h1>Lista książek</h1>
+
         <ul>
             <li th:each="book : ${books}" th:title="${book.title}" th:if="${book.totalSpecimen > 0}">
                 <div sec:authorize="hasAuthority('ADMIN')" class="book-edit">

@@ -24,8 +24,6 @@ public class ImageService {
     private static final String JPG_SUFFIX = ".jpg";
 
     private static final String BOOKS_PATH = "/home/gianni/Downloads/tin/src/main/resources/static/img/books/";
-//private static final String BOOKS_PATH = "/home/janusz/Documents/PJATK/TIN/project/Library/src/main/resources" +
-//        "/static/img/books/";
 
     private static final String BOOK_PATH = "/img/books/";
 
@@ -61,7 +59,7 @@ public class ImageService {
 
             byte[] avatar = clientDTO.getAvatar().getBytes();
 
-            String fileName = generateAvatarName(clientDTO) + JPG_SUFFIX;
+            String fileName = clientDTO.getAvatar().getOriginalFilename();
             createFile(get(AVATARS_PATH + fileName));
 
             if(avatar.length != 0) {
@@ -76,10 +74,6 @@ public class ImageService {
         catch (Exception e) {
             return setDefaultAvatar(clientDTO);
         }
-    }
-
-    private String generateAvatarName(ClientDTO clientDTO) {
-        return Base64.encodeBase64String(clientDTO.getEmail().getBytes());
     }
 
     private String setDefaultAvatar(ClientDTO clientDTO) {

@@ -54,7 +54,7 @@
                 <label th:for="avatar" th:id="avatarLabel">
                     <span>Awatar</span>
                     <p class="awatarButton">Zmien awatar</p>
-                    <p class="path" th:id="newAvatar"></p>
+                    <img src="" alt="" id="avatar-image">
                 </label>
                 <input th:field="*{avatar}" th:type="file" th:id="avatar" th:name="avatar">
             </fieldset>
@@ -64,12 +64,7 @@
         </form>
     </main>
 
-    <script>
-        document.getElementById('avatar').onchange = function () {
-            var div = document.getElementById('newAvatar');
-            var path = this.value;
-            div.innerHTML =  "Nowy awatar: " + path.replace(/.*[\/\\]/, '');;
-        };
-    </script>
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js}"></script>
+    <script th:src="@{/js/add-publisher.js}"></script>
 </body>
 </html>

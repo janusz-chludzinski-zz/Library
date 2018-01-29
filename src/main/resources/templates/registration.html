@@ -6,24 +6,30 @@
     <title>Title</title>
 </head>
 <body class="login-bg">
-    <form action="/user/register" th:object="${client}" method="post" class="user-form" enctype="multipart/form-data">
+    <form action="/user/register" th:object="${client}" method="post" class="user-form" enctype="multipart/form-data" th:id="registration-form">
         <h1>Rejestracja</h1>
 
         <fieldset>
             <label  th:for="name">Imię</label>
-            <input  th:field="*{name}" autofocus>
+            <input  th:field="*{name}" id="name" onblur="isNamePresent()" autofocus>
+            <i class="error-message" style="display: none"></i>
             <i th:if="${#fields.hasErrors('name')}" th:text="${#fields.errors('name')}" class="error-message"></i>
         </fieldset>
+
         <fieldset>
             <label th:for="surname">Nazwisko</label>
-            <input th:field="*{surname}">
+            <input th:field="*{surname}" id="surname" onblur="isSurnamePresent()">
+            <i class="error-message" style="display: none"></i>
             <i th:if="${#fields.hasErrors('surname')}" th:text="${#fields.errors('surname')}" class="error-message"></i>
         </fieldset>
+
         <fieldset>
             <label th:for="birthday">Data urodzenia</label>
-            <input th:field="*{dateOfBirth}" th:type="date">
+            <input th:field="*{dateOfBirth}" th:type="date" id="dob" onblur="isDateOfBirthPresent()">
+            <i class="error-message" style="display: none"></i>
             <i th:if="${#fields.hasErrors('dateOfBirth')}" th:text="${#fields.errors('dateOfBirth')}" class="error-message"></i>
         </fieldset>
+
         <fieldset>
             <label>Płeć</label>
             <section class="radio">
@@ -34,31 +40,48 @@
                 <label th:for="female">Kobieta</label>
                 <input th:field="*{gender}" th:type="radio" th:value="FEMALE">
             </section>
+            <i class="error-message" style="display: none"></i>
             <i th:if="${#fields.hasErrors('gender')}" th:text="${#fields.errors('gender')}" class="error-message"></i>
         </fieldset>
+
         <fieldset>
             <label th:for="email">Email</label>
-            <input th:field="*{email}">
+            <input th:field="*{email}" id="email" onblur="isValidEmail()">
+            <i class="error-message" style="display: none"></i>
             <i th:if="${#fields.hasErrors('email')}" th:text="${#fields.errors('email')}" class="error-message"></i>
         </fieldset>
+
         <fieldset>
             <label th:for="password">Hasło</label>
-            <input th:field="*{password}" th:type="password">
+            <input th:field="*{password}" th:type="password" th:id="password">
+            <i class="error-message" style="display: none"></i>
             <i th:if="${#fields.hasErrors('password')}" th:text="${#fields.errors('password')}" class="error-message"></i>
         </fieldset>
+
         <fieldset>
             <label th:for="password-repeat">Powtórz hasło</label>
-            <input th:field="*{passwordRepeat}" th:type="password">
+            <input th:field="*{passwordRepeat}" th:type="password" th:id="password-repeat" onblur="doPasswordsMatch()">
             <i th:if="${#fields.hasErrors('passwordRepeat')}" th:text="${#fields.errors('password')}" class="error-message"></i>
         </fieldset>
-        <fieldset>
-            <label th:for="avatar">Awatar</label>
-            <input th:field="*{avatar}" th:type="file" th:id="avatar" th:name="avatar">
+
+        <fieldset th:id="avatar-fieldset">
+            <label th:for="avatar">
+                <span>Awatar</span>
+                <p class="bookButton">Wybierz awatar</p>
+                <img src="" alt="" id="avatar-image">
+            </label>
+            <input th:field="*{avatar}" th:type="file" th:id="avatar" th:name="avatar" onblur="">
+            <i class="error-message" style="display: none"></i>
         </fieldset>
+
         <fieldset id="submit-form">
             <a th:href="@{/login}">Przejdź do logowania</a>
-            <button th:type="submit" th:formaction="@{/user/register}">Zarejestruj</button>
+            <button th:type="submit" th:formaction="@{/user/register}" th:id="registration-submit">Zarejestruj</button>
         </fieldset>
+
     </form>
+    <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js}"></script>
+    <script th:src="@{/js/validation.js}"></script>
+    <script th:src="@{/js/add-publisher.js}"></script>
 </body>
 </html>

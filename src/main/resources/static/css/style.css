@@ -281,6 +281,8 @@ body {
           border: 1px solid #b5a8b9;
           font-size: 1rem;
           color: #b5a8b9; }
+        body main.book-edit form fieldset #authors {
+          height: 100px; }
     body main.book-edit h2 {
       display: inline-block; }
     body main.book-edit a.add-book-item {
@@ -529,8 +531,10 @@ body {
           body main.profile form fieldset label#avatarLabel p.awatarButton:hover {
             background-color: #becfa6;
             color: #fff; }
-          body main.profile form fieldset label#avatarLabel p.path {
-            color: rgba(133, 180, 208, 0.9); }
+          body main.profile form fieldset label#avatarLabel img {
+            width: 60px;
+            position: relative;
+            top: 15px; }
         body main.profile form fieldset input {
           font-size: 1rem;
           padding: 0 10px;
@@ -786,6 +790,25 @@ body {
     body form.user-form fieldset#submit-form {
       text-align: right;
       margin-top: 40px; }
+    body form.user-form fieldset#avatar-fieldset label {
+      width: 100%; }
+      body form.user-form fieldset#avatar-fieldset label span {
+        float: left;
+        display: inline-block;
+        width: 30%; }
+      body form.user-form fieldset#avatar-fieldset label p {
+        float: left;
+        border: 1px solid rgba(133, 180, 208, 0.9);
+        padding: 0 10px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        color: rgba(133, 180, 208, 0.9); }
+      body form.user-form fieldset#avatar-fieldset label p:hover {
+        background-color: rgba(133, 180, 208, 0.9);
+        color: #fff; }
+      body form.user-form fieldset#avatar-fieldset label img {
+        width: 80px;
+        margin-left: 20px; }
     body form.user-form div.error-message p {
       display: inline-block; }
     body form.user-form div.error-message i {
@@ -854,5 +877,28 @@ body {
 .green {
   border: 1px solid #becfa6;
   color: #becfa6; }
+
+.weather {
+  position: absolute;
+  bottom: 26px;
+  width: 135px;
+  background: rgba(133, 180, 208, 0.9);
+  color: #fff;
+  text-align: center;
+  height: 135px;
+  border-radius: 180px;
+  left: 57px;
+  padding-top: 35px; }
+  .weather p.degrees {
+    font-size: 3rem;
+    float: left;
+    position: relative;
+    left: 37px; }
+  .weather i {
+    font-size: 2rem;
+    position: relative;
+    top: 7px; }
+  .weather p.city {
+    clear: both; }
 
 /*# sourceMappingURL=style.css.map */

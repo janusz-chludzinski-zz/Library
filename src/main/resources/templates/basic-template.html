@@ -117,10 +117,12 @@
                             Rekomendacje
                         </a>
                     </li>
-                    <li th:text="${test}">
-
-                    </li>
                 </ul>
+                <div class="weather">
+                    <p th:text="${#strings.substring(weather.main.temp, 0, 1)}" class="degrees"></p>
+                    <i class="fa fa-thermometer-empty" aria-hidden="true"></i>
+                    <p th:text="${weather.name}" class="city"></p>
+                </div>
             </nav>
         </aside>
         <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js}"></script>

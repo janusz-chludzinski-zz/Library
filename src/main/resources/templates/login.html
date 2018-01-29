@@ -2,20 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="basic-template :: head"></head>
     <body class="login-bg">
-        <form action="" method="POST" class="user-form">
+        <form action="" method="POST" class="user-form" id="login-form">
             <h1>Logowanie</h1>
 
             <i th:if="${message != null}" th:text="${message}" class="success-message"></i>
 
             <fieldset id="email-fieldset">
                 <label for="email" >Email</label>
-                <input type="email" name="email" id="email" onblur="validateEmail()" autofocus>
+                <input type="email" name="email" id="email" onblur="isValidEmail()" autofocus>
                 <i class="error-message" style="display: none"></i>
             </fieldset>
 
             <fieldset id="password-fieldset">
                 <label for="password">Hasło</label>
-                <input type="password" name="password" id="password">
+                <input type="password" name="password" id="password" onblur="isValidPassword()">
+                <i class="error-message" style="display: none"></i>
             </fieldset>
 
             <div th:if="${param.error}" class="error-message">
@@ -33,8 +34,8 @@
             </div>
 
             <fieldset id="submit-form">
-                <a th:href="@{/user/reset-password}">Przypomnij hasło</a>
-                <button th:type="submit" th:formaction="@{/user/login }" th:method="POST">Zaloguj</button>
+                <!--<a th:href="@{/user/reset-password}">Przypomnij hasło</a>-->
+                <button th:type="submit" th:formaction="@{/user/login }" th:method="POST" id="submit">Zaloguj</button>
             </fieldset>
 
             <div class="modal-footer">Nie masz jeszcze konta? <a th:href="@{/user/register}">Zarejestruj się</a></div>
